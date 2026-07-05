@@ -66,6 +66,25 @@ async function clearData() {
 async function signOut() {
   await auth.signOut()
 }
+
+const updating = ref(false)
+/** 清空 Service Worker 缓存 + 注销 SW + 强制重载，用于移动端 PWA 卡旧版时手动更新 */
+async function checkUpdate() {
+  updating.value = true
+  try {
+    if ('caches' in window) {
+      const keys = await caches.keys()
+      await Promise.all(keys.map((k) => caches.delete(k)))
+    }
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations()
+      await Promise.all(regs.map((r) => r.unregister()))
+    }
+  } catch (e) {
+    console.error('checkUpdate failed', e)
+  }
+  location.reload()
+}
 </script>
 
 <template>
@@ -147,8 +166,23 @@ async function signOut() {
       </button>
     </section>
 
+    <!-- 应用更新 -->
+    <section class="rounded-2xl bg-white border border-slate-200 p-4 mb-3">
+      <h2 class="text-sm font-semibold text-slate-600 mb-2">🔄 应用更新</h2>
+      <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+        移动端 PWA 会缓存旧版资源。发现内容没更新（题库/标题没变）时，点这里强制清缓存刷新：
+      </p>
+      <button
+        @click="checkUpdate"
+        :disabled="updating"
+        class="w-full py-2.5 rounded-xl bg-brand-50 text-brand-700 font-medium active:scale-95 disabled:opacity-50"
+      >
+        {{ updating ? '更新中…' : '检查更新 · 清缓存刷新' }}
+      </button>
+    </section>
+
     <p class="text-center text-xs text-slate-400 mt-6">
-      面试刷题宝 · 题库随部署同步，记录随账号同步
+      个人刷题宝 · 题库随部署同步，记录随账号同步
     </p>
   </div>
 </template>
