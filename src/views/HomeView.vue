@@ -24,7 +24,7 @@ function go(mode: string, query?: Record<string, string | number>) {
 <template>
   <div class="px-4 pt-6">
     <div class="mb-5">
-      <h1 class="text-2xl font-bold">面试刷题宝</h1>
+      <h1 class="text-2xl font-bold">个人刷题宝</h1>
       <p class="text-sm text-slate-500 mt-1">题库 {{ quiz.questions.length }} 题 · 关联 Obsidian 每日练习</p>
     </div>
 
