@@ -58,5 +58,7 @@ VITE_SUPABASE_ANON_KEY=sb_publishable_xxx   # 用 publishable 公开密钥，别
 
 ## 自动推送
 
-`apps/` 目录配了 Stop hook：Claude 改完项目文件会自动 commit + push 到 GitHub。
+`apps/` 目录配了 Stop hook（脚本 `.claude/scripts/apps-auto-push.sh`，vault 根级）：Claude 改完项目文件会自动遍历 `apps/*/` 的 git 仓库，对有改动的执行 add → commit → push（走 7897 代理）。
 所以让我改完代码不用手动推（除非你自己已经在改同一份文件，怕冲突时喊我停）。
+
+> hook 首次启用需在 Claude Code 里打开一次 `/hooks`（或重启会话）让配置生效；之后每回合结束自动跑。
