@@ -11,6 +11,14 @@
 - **部署**：Vercel
 - **仓库**：https://github.com/Feyar/AI-lianxiti
 
+## 当前状态（2026-07-06）
+
+- **部署**：已上线 Vercel，连 GitHub 自动部署（push 即重建，1-2 分钟）
+- **Supabase**：5 张表已建（profiles / projects / app_settings / attempts / wrong_items），RLS 已修通（曾因坏 SQL 踩坑，见下）
+- **三端同步**：已通；`auth.ts` 的 signIn/signUp 后自动 `triggerSync()`，无需手动点按钮
+- **PWA 更新**：`SettingsView.vue` 有"检查更新 · 清缓存刷新"按钮，解决移动端 SW 缓存卡旧版
+- **应用名**：首页 H1 和页脚已改"个人刷题宝"；manifest / `<title>` / README 仍是"面试刷题宝"，待统一（见"待办"）
+
 ## 数据库（Supabase）
 
 - 表结构详见 `supabase/README.md`（备注）和 `supabase/schema.sql`（建表 SQL）
@@ -55,6 +63,19 @@ VITE_SUPABASE_ANON_KEY=sb_publishable_xxx   # 用 publishable 公开密钥，别
   - 本项目的两处有意例外：`at`/`last_wrong_at`/`next_review_at` 用 bigint ms（配合前端 Date.now()）；`attempts` 表无 updated_at（append-only 流水）
 - **git 推送走 7897 代理**（已写入本仓库 `.git/config` 的 http.proxy / https.proxy）；CWD 不在仓库时用 `git -C` 操作
 - `node_modules/` 和 `dist/` 已从仓库删除（节省 OneDrive 空间），二者都在 `.gitignore` 里，重建用 `npm install` / `npm run build`
+
+## 常见坑（今天踩过的，别再踩）
+
+- **Vercel 环境变量必须 `VITE_` 前缀**：Supabase Connect 弹窗默认给 `NEXT_PUBLIC_*`（Next.js 用的），Vite 项目读不到 → 部署后"我的"页显示"未配置"。正确名：`VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY`；加完必须 **redeploy**（Vite 构建时内联，不重建不生效）。
+- **RLS 403 "new row violates row-level security policy"**：表开了 RLS 但没建 INSERT 策略 = 全拦。曾因跑了 `docs/SUPABASE_SYNC.md` 里格式损坏的 SQL 踩过（建表语句报错、`enable row level security` 却跑成功了）。修复见知识库 `Supabase 项目初始化规范` 的"调试速查"。**只认 `supabase/schema.sql`，别跑别处的内联 SQL。**
+- **移动端 PWA 卡旧版**：SW 缓存旧资源，部署后手机看不到新内容。设置页"检查更新"按钮可清。但新版本第一次到达手机前，得手动清一次缓存（删 PWA 图标重装最稳）。
+- **bash 工具 CWD 漂移**：用 `cd` 后 CWD 会变，后续相对路径易错（曾因此把文件写进嵌套目录）。操作项目仓库**统一用 `git -C "<绝对路径>"`**；node 等二进制要用 Windows 盘符路径 `B:/...` 不是 `/b/...`。
+
+## 待办与不一致
+
+- [ ] **统一改名为"个人刷题宝"**：`index.html` 的 `<title>`、`vite.config.ts` 的 `manifest.name`、`README.md` 还写着"面试刷题宝"
+- [ ] **验证三端数据合并**：电脑 / 手机都"退出→重登"触发自动同步，确认 `select count(*) from attempts` 数据汇合
+- [ ] **激活自动推送 hook**：在 Claude Code 里打开一次 `/hooks`（或重启会话），以后改完代码自动推（当前 hook 已写进 `.claude/settings.json` 但本会话未确认激活）
 
 ## 数据更新两种方式（重要区分）
 
