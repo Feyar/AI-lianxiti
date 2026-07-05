@@ -55,45 +55,22 @@ Dexie 本地          Dexie 本地           Dexie 本地
 
 **核心原则：本地 Dexie 仍是主存储**（离线可用、快），Supabase 是同步层。断网时正常做题，联网后自动同步。
 
-## 数据库表结构（Supabase SQL 编辑器里执行）
+## 数据库表结构
 
-```sql
--- 答题记录表（append-only，每次作答一条）
-create table if not exists attempts (
-  id uuid primary key default gen_random_uuid(),
-null,  user_id uuid references auth.users not 
-  client_id uuid not null,            -- 本地生成的幂等键
-  device_id text,                     -- 区分是哪台设备答的
-  question_id text not null,
-  day int, category text, type text,
-  user_answer text, correct boolean, self_rating text,
-  at bigint not null,                 -- 作答时间戳(ms)
-  mode text,
-  created_at timestamptz default now(),
-  unique(user_id, client_id)          -- 同一条不会重复入库
-);
+> ⚠️ **直接运行 [`supabase/schema.sql`](../supabase/schema.sql)**——那是唯一权威的建表脚本（含 RLS 策略、唯一约束、索引、触发器）。
+> **不要再从本页复制 SQL 跑**——曾因本页 SQL 格式损坏，导致 RLS 开了但策略没建成、同步全被 403 拦的坑。
 
--- 错题本表（按题目维度，last-write-wins）
-create table if not exists wrong_items (
-  user_id uuid references auth.users,
-  question_id text,
-  wrong_count int,
-  last_wrong_at bigint,
-  next_review_at bigint,
-  resolved boolean default false,
-  updated_at timestamptz default now(),
-  primary key (user_id, question_id)
-);
+### 字段速览（权威定义见 `supabase/schema.sql`）
 
--- RLS：用户只能访问自己的数据
-alter table attempts enable row level security;
-create policy "own attempts" on attempts
-  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+**`attempts`（答题流水，append-only）**
+- `user_id`、`client_id`（幂等键）、`question_id`、`at`（ms 时间戳）、`correct`、`mode`
+- 约束 `UNIQUE(user_id, client_id)` → 同一条答题不重复入库
+- RLS：`auth.uid() = user_id`
 
-alter table wrong_items enable row level security;
-create policy "own wrong" on wrong_items
-  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
-```
+**`wrong_items`（错题本，每题一行，last-write-wins）**
+- `user_id`、`question_id`、`wrong_count`、`next_review_at`（ms）、`resolved`、`updated_at`
+- 约束 `UNIQUE(user_id, question_id)`
+- RLS：`auth.uid() = user_id`
 
 ## 登录方式
 

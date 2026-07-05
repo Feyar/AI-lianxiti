@@ -56,6 +56,17 @@ VITE_SUPABASE_ANON_KEY=sb_publishable_xxx   # 用 publishable 公开密钥，别
 - **git 推送走 7897 代理**（已写入本仓库 `.git/config` 的 http.proxy / https.proxy）；CWD 不在仓库时用 `git -C` 操作
 - `node_modules/` 和 `dist/` 已从仓库删除（节省 OneDrive 空间），二者都在 `.gitignore` 里，重建用 `npm install` / `npm run build`
 
+## 数据更新两种方式（重要区分）
+
+本项目有两条独立的数据通道，别混淆：
+
+| 通道 | 改什么 | 怎么生效 | 谁触发 |
+|------|--------|---------|--------|
+| **题库更新**（题目本身） | `source/questions-source.md` | push → Vercel 自动重新构建（`vercel.json` 的 buildCommand 含 `npm run parse`）→ 所有设备刷新 app 就看到新题 | Claude 改 markdown + push |
+| **答题数据同步**（attempts / wrong_items） | 用户答题产生的数据 | Supabase 同步（push/pull），跟部署无关 | app 启动 / 答完题 / 点"立即同步" / **登录后自动** |
+
+> ⚠️ 加新题 ≠ 同步数据。加题改 markdown + 推送即可（不用动 Supabase）；答题记录走 Supabase（不用重新部署）。
+
 ## 自动推送
 
 `apps/` 目录配了 Stop hook（脚本 `.claude/scripts/apps-auto-push.sh`，vault 根级）：Claude 改完项目文件会自动遍历 `apps/*/` 的 git 仓库，对有改动的执行 add → commit → push（走 7897 代理）。

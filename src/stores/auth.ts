@@ -26,7 +26,10 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = ''
     const { data, error: e } = await supabase.auth.signInWithPassword({ email, password })
     if (e) error.value = e.message
-    else user.value = data.user
+    else {
+      user.value = data.user
+      triggerSync()
+    }
     loading.value = false
     return !e
   }
@@ -37,7 +40,10 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = ''
     const { data, error: e } = await supabase.auth.signUp({ email, password })
     if (e) error.value = e.message
-    else if (data.user) user.value = data.user
+    else if (data.user) {
+      user.value = data.user
+      triggerSync()
+    }
     loading.value = false
     return !e
   }
@@ -46,6 +52,11 @@ export const useAuthStore = defineStore('auth', () => {
     if (!supabase) return
     await supabase.auth.signOut()
     user.value = null
+  }
+
+  /** 登录/注册成功后异步拉取云端最新（动态 import 避免与 sync.ts 的循环依赖） */
+  function triggerSync() {
+    void import('@/utils/sync').then(({ syncAll }) => syncAll()).catch(() => {})
   }
 
   return { user, loading, error, isLoggedIn, supabaseEnabled, init, signIn, signUp, signOut }
