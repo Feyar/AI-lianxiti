@@ -1,0 +1,779 @@
+---
+title: 面试复习每日练习
+type: guide
+tags: [面试, 练习题, 复习, 打卡]
+created: 2026-07-01
+updated: 2026-07-06
+status: ongoing
+---
+
+# 面试复习每日练习
+
+> 每天打卡完毕后更新题库（新增当天知识点题目），并生成一份新的今日练习。
+> 题目覆盖所有已复习过的 Day，每天随机抽取 15 题左右，确保每次做的不一样。
+> 做完后在每题后面标注 ✅全对 / ⚠️部分对 / ❌不会，方便追踪薄弱点。
+
+---
+
+## 今日练习（Day 16 — 2026-07-06）
+
+> 第十六章·面试实战经典题（8题）。做完后在括号里自评：✅ / ⚠️ / ❌
+
+### 一、选择题（每题只有一个正确答案）
+
+**D16-01** MySQL 一条 UPDATE 语句执行时，以下哪个日志是"物理日志"，记录"哪个数据页改了什么"？
+A. binlog
+B. redo log
+C. undo log
+D. slow log
+
+你的答案：( )
+
+---
+
+**D16-02** BIO、NIO、AIO 三种模型中，NIO 的核心机制是什么？
+A. 一连接一线程
+B. Selector 多路复用，一个线程管理多个连接
+C. 操作系统完成 IO 后回调
+D. 内核态线程直接处理
+
+你的答案：( )
+
+---
+
+**D16-03** Java 反射中，`Method.invoke()` 的性能优化机制叫什么？
+A. JIT 编译
+B. Inflation 机制（前15次native，之后ASM生成字节码）
+C. 内联缓存
+D. 方法句柄
+
+你的答案：( )
+
+---
+
+**D16-04** JDK 21 虚拟线程（Virtual Thread）的调度方式是什么？
+A. 1:1 映射 OS 线程
+B. N:1 映射，多个虚拟线程跑在一个 OS 线程上
+C. M:N 映射，多个虚拟线程跑在少量载体线程上，IO阻塞时自动卸载
+D. 完全由操作系统调度
+
+你的答案：( )
+
+---
+
+### 二、填空题
+
+**D16-05** MySQL UPDATE 执行流程中，redo log 先写 ______ 状态，binlog 写完后再改为 ______ 状态，这就是两阶段提交。
+
+你的答案：( )
+
+---
+
+**D16-06** BIO 是 ______ 阻塞，NIO 是 ______ 非阻塞 + IO 多路复用，AIO 是异步非阻塞。
+
+你的答案：( )
+
+---
+
+**D16-07** DDD 战略设计的核心是划分 ______，战术设计的核心概念包括实体、值对象、______、领域服务、仓储。
+
+你的答案：( )
+
+---
+
+**D16-08** AI Coding 适用业务的判断三要素：需求 ______、有 ______ 手段、单次改动上下文可控。
+
+你的答案：( )
+
+---
+
+### 三、简答题（写关键词即可）
+
+**D16-09** 一条 UPDATE 的 SQL 在 MySQL 中的完整执行流程是什么？（要求提到 server 层、引擎层、三本日志、两阶段提交）
+
+你的答案：( )
+
+---
+
+**D16-10** BIO、NIO、AIO 的区别是什么？为什么 NIO 能"一个线程管万连接"？AIO 在 Linux 为什么用得少？
+
+你的答案：( )
+
+---
+
+**D16-11** Java 反射的原理是什么？`Method.invoke()` 底层是怎么实现的？如何优化反射性能？
+
+你的答案：( )
+
+---
+
+**D16-12** 虚拟线程（JDK 21）的核心机制是什么？使用时有哪些注意事项（至少说3个）？
+
+你的答案：( )
+
+---
+
+## 今日练习（Day 11 — 2026-07-06）
+
+> 从 Day 3～11 的题库中抽取。做完后在括号里自评：✅ / ⚠️ / ❌
+
+### 一、选择题（每题只有一个正确答案）
+
+**D11-01** @SpringBootApplication 等价于以下哪三个注解的组合？
+A. @Configuration + @ComponentScan + @EnableAutoConfiguration
+B. @SpringBootConfiguration + @ComponentScan + @EnableAutoConfiguration
+C. @BootConfiguration + @BeanScan + @Autowired
+D. @SpringBootConfiguration + @EnableWebMvc + @ComponentScan
+
+你的答案：( )
+
+---
+
+**D11-05** 同一个 Service 类中，方法 A 调用方法 B，B 上有 @Transactional，B 的事务是否生效？
+A. 生效
+B. 不生效，因为是 this 调用绕过代理
+C. 取决于 A 是否有事务
+D. 取决于传播级别
+
+你的答案：( )
+
+---
+
+**D4-03** 类加载的"双亲委派"是指？
+A. 父类委托子类加载
+B. 子类先委托父类加载，父类加载不到才自己加载
+C. 每个类只能被加载一次
+D. 通过父类的 ClassLoader 加载
+
+你的答案：( )
+
+---
+
+**D7-02** 聚簇索引的叶子节点存的是什么？
+A. 主键 ID
+B. 整行数据
+C. 物理地址 ROWID
+D. 索引列值 + 主键
+
+你的答案：( )
+
+---
+
+**D8-03** next-key lock 等于？
+A. 只有记录锁
+B. 只有间隙锁
+C. 记录锁 + 间隙锁
+D. 表锁
+
+你的答案：( )
+
+---
+
+**D6-03** CAS 的 ABA 问题怎么解决？
+A. 加 synchronized
+B. 用 AtomicStampedReference 加版本号
+C. 增加自旋次数
+D. 用 volatile
+
+你的答案：( )
+
+---
+
+### 二、填空题
+
+**D11-06** @EnableAutoConfiguration 通过 @Import(\_\_\_\_\_) 去读取 spring.factories 中的候选自动配置类。
+
+你的答案：( )
+
+---
+
+**D11-09** @Transactional 底层通过 AOP 动态代理，事务拦截器叫 \_\_\_\_\_\_\_\_，方法前开启事务，正常结束 commit，异常 rollback。
+
+你的答案：( )
+
+---
+
+**D5-06** 排查死锁的命令：先用 \_\_查看 Java 进程 ID，再用 \_\_打印线程栈信息。
+
+你的答案：( )
+
+---
+
+**D7-07** 最左前缀原则：联合索引 (a, b, c)，查询条件必须从 \_\_列开始，跳过左边列则索引 \_\_。
+
+你的答案：( )
+
+---
+
+**D9-08** Redis 过期删除策略是\_\_删除（访问时检查）+\_\_删除（后台定时抽查）。
+
+你的答案：( )
+
+---
+
+**D3-06** HashMap 定位槽位的公式是 `index = (n - 1) & hash(key)`，这里用 \_\_运算代替取模，效率更高。
+
+你的答案：( )
+
+---
+
+### 三、简答题（写关键词即可，不用写完整话术）
+
+**D11-11** Spring Boot 自动配置的完整链路是什么？
+
+你的答案：( )
+
+---
+
+**D11-13** @Transactional 哪些情况下会失效？至少说 4 个。
+
+你的答案：( )
+
+---
+
+**D5-09** synchronized 和 ReentrantLock 有什么区别？生产环境怎么选？
+
+你的答案：( )
+
+---
+
+**D8-12** 慢 SQL 排查流程是什么？
+
+你的答案：( )
+
+---
+
+## 今日练习（Day 10 — 2026-07-02）
+
+> 从 Day 3～9 的题库中抽取。做完后在括号里自评：✅ / ⚠️ / ❌
+
+### 一、选择题（每题只有一个正确答案）
+
+**D5-02** CallerRunsPolicy 拒绝策略的行为是？
+A. 抛异常
+B. 丢弃任务
+C. 由提交任务的线程自己执行
+D. 丢弃最老的任务
+
+你的答案：( )
+
+---
+
+**D6-02** AQS 中 state 的含义由谁定义？
+A. AQS 框架固定
+B. 子类自定义
+C. 操作系统
+D. JVM
+
+你的答案：( )
+
+---
+
+**D7-03** 以下哪种情况会触发回表？
+A. 通过主键查整行
+B. 通过普通索引查 SELECT *
+C. 查询字段全部在索引中
+D. 通过主键查部分字段
+
+你的答案：( )
+
+---
+
+**D9-01** Redis 的 IO 多路复用在 Linux 下底层用的是哪个系统调用？
+A. select
+B. poll
+C. epoll
+D. read
+
+你的答案：( )
+
+---
+
+**D9-02** Redis 6+ 引入了多线程，以下哪个操作仍然在主线程单线程执行？
+A. 网络 Socket 数据的读写
+B. 大 Key 的异步删除
+C. 命令的解析和执行
+D. AOF 文件的 fsync
+
+你的答案：( )
+
+---
+
+**D9-03** Redis 混合持久化（RDB + AOF）是什么时候引入的？
+A. Redis 3.0
+B. Redis 4.0
+C. Redis 5.0
+D. Redis 6.0
+
+你的答案：( )
+
+---
+
+**D9-04** 纯缓存场景（所有 key 都可以丢），最推荐用哪个内存淘汰策略？
+A. noeviction
+B. volatile-lru
+C. allkeys-lru
+D. volatile-ttl
+
+你的答案：( )
+
+---
+
+### 二、填空题
+
+**D3-07** HashMap 扩容时，阈值 = 数组容量 × \_\_\_。JDK8 采用 \_\_\_插法避免多线程环形链表。
+
+你的答案：( )
+
+---
+
+**D4-05** JVM 运行时数据区中，线程共享的是 \_\_\_和 \_\_\_，线程私有的是程序计数器、虚拟机栈和本地方法栈。
+
+你的答案：( )
+
+---
+
+**D6-05** AQS 的核心公式：AQS = \_\_\_ + \_\_\_队列。
+
+你的答案：( )
+
+---
+
+**D8-08** MVCC 的两个核心组件：\_\_\_log 保存历史版本，\_\_\_判断哪个版本对当前事务可见。
+
+你的答案：( )
+
+---
+
+**D9-05** Redis 快的三个核心原因：\_\_\_操作（纳秒级）、\_\_\_多路复用（一个线程监听万连接）、\_\_\_无锁设计（避免锁竞争）。
+
+你的答案：( )
+
+---
+
+**D9-06** AOF 的三种同步策略中，`everysec` 模式最多丢失 \_\_\_秒数据。RDB 是定期\_\_\_（全量快照），恢复速度快但可能丢数分钟数据。
+
+你的答案：( )
+
+---
+
+### 三、简答题（写关键词即可，不用写完整话术）
+
+**D5-09** synchronized 和 ReentrantLock 有什么区别？生产环境怎么选？
+
+你的答案：( )
+
+---
+
+**D7-09** 什么是覆盖索引？它为什么能提升查询性能？
+
+你的答案：( )
+
+---
+
+**D9-07** Redis 过期删除策略是什么？为什么用"惰性 + 定期"组合？
+
+你的答案：( )
+
+---
+
+**D9-08** LRU 和 LFU 的区别是什么？什么时候选 LFU？
+
+你的答案：( )
+
+---
+
+**D9-09** Redis 有哪 5 种基本数据结构？分别举一个使用场景。
+
+你的答案：( )
+
+---
+
+---
+
+## 题库（Day 3～8）
+
+> 每个知识点用 `[D3-01]` 这样的编号追踪。做完练习后标注状态：⬜未做 / ✅做对 / ⚠️部分对 / ❌不会
+> 每次更新"今日练习"时从这里抽取，尽量不重复上次抽过的题。
+
+### Day 3 — Java 基础与集合
+
+#### 选择题
+
+- `[D3-01]` HashMap 链表转红黑树需要同时满足哪两个条件？ → A（链表≥8 且 数组≥64）
+- `[D3-02]` HashMap 默认初始容量和负载因子分别是？
+  A. 8 和 0.5 / B. 16 和 0.75 / C. 32 和 0.75 / D. 16 和 0.5 → B
+- `[D3-03]` 重写 equals 但不重写 hashCode，把对象放入 HashMap 会怎样？
+  A. 编译报错 / B. 能放入但 get 可能找不到 / C. 完全没问题 / D. 抛 ClassCastException → B
+- `[D3-04]` volatile 能保证以下哪个特性？
+  A. 原子性 / B. 可见性 / C. 有序性 / D. 可见性和原子性 → B
+- `[D3-05]` 以下哪个场景优先选择 ArrayList 而不是 LinkedList？
+  A. 频繁在头部插入 / B. 频繁按索引随机访问 / C. 频繁在中间删除 / D. 频繁在尾部插入且需迭代器 → B
+
+#### 填空题
+
+- `[D3-06]` HashMap 定位槽位的公式是 `index = (n - 1) & hash(key)`，这里用 \_\_运算代替取模，效率更高。→ 位与
+- `[D3-07]` HashMap 扩容时，阈值 = 数组容量 × \_\_。JDK8 采用 \_\_插法避免多线程环形链表。→ 负载因子（0.75）/ 尾
+- `[D3-08]` volatile 通过 \_\_屏障实现：写操作刷回主存，读操作不走 CPU 缓存。→ 内存
+- `[D3-09]` volatile 解决的是变量在多线程间的 \_\_问题，ThreadLocal 解决的是每个线程拥有 \_\_的问题。→ 可见 / 自己独立的副本（隔离）
+
+#### 简答题
+
+- `[D3-10]` HashMap put 方法的完整流程是什么？
+  > 计算 hash → 定位槽位 → 空则直接放入 → 有链表则遍历（hash+equals）→ 找到则覆盖 → 没找到则尾插 → 链表≥8且数组≥64则树化 → 超过阈值则扩容
+- `[D3-11]` ConcurrentHashMap JDK8 的线程安全是怎么实现的？
+  > 空槽位用 CAS 插入；CAS 失败说明有竞争，锁住头节点（synchronized）后操作；扩容时多线程协助迁移数据。
+- `[D3-12]` 为什么重写 equals 必须同时重写 hashCode？
+  > HashMap 先用 hashCode 定位槽位，再用 equals 精确匹配。如果两个 equals 相等的对象 hashCode 不同，会被放到不同槽位，导致 get 找不到。约定：equals 相等 → hashCode 必须相等。
+
+---
+
+### Day 4 — JVM
+
+#### 选择题
+
+- `[D4-01]` 对象优先分配在 JVM 堆的哪个区域？ → B（Eden 区）
+- `[D4-02]` Full GC 的触发条件不包括以下哪个？
+  A. 老年代满 / B. Eden 区满 / C. 元空间满 / D. System.gc() → B（Eden 满触发 Minor GC）
+- `[D4-03]` 类加载的"双亲委派"是指？
+  A. 父类委托子类加载 / B. 子类先委托父类加载，父类加载不到才自己加载 / C. 每个类只能被加载一次 / D. 通过父类的 ClassLoader 加载 → B
+- `[D4-04]` 以下哪个不属于 GC Roots？
+  A. 栈帧中的局部变量 / B. 静态变量 / C. 常量池中的引用 / D. 堆中的实例变量 → D
+
+#### 填空题
+
+- `[D4-05]` JVM 运行时数据区中，线程共享的是 \_\_和 \_\_，线程私有的是 \_\_、\_\_和 \_\_。→ 堆、方法区 / 程序计数器、虚拟机栈、本地方法栈
+- `[D4-06]` 对象创建的 5 步：类加载检查 → \_\_ → \_\_ → 设置对象头 → \_\_方法。→ 分配内存 / 零值初始化 / init
+- `[D4-07]` Eden 区满了触发 \_\_GC（毫秒级），老年代满了触发 \_\_GC（秒级甚至更长，会导致 STW）。→ Minor / Full
+
+#### 简答题
+
+- `[D4-08]` 对象从创建到被 GC 回收的完整过程？
+  > new 对象 → 分配在 Eden → Eden 满 Minor GC → 存活的移到 S0（年龄 1）→ 反复在 S0/S1 倒腾 → 年龄达 15（或动态年龄判定）→ 晋升老年代 → GC Roots 不可达 → 回收
+- `[D4-09]` 什么是 GC Roots？列举常见的 GC Roots。
+  > GC Roots 是可达性分析的起点。JVM 从它们出发，能到达的对象是存活的。常见 Roots：栈帧中的局部变量引用、静态变量引用、常量引用、活跃线程。
+- `[D4-10]` Full GC 频繁怎么排查？
+  > 看监控老年代占用趋势 → 加 -XX:+HeapDumpOnOutOfMemoryError → OOM 时拿 hprof 文件 → 用 MAT 分析最大对象 → 顺着线程栈定位代码 → 常见原因：SQL 没分页、定时任务频率太高、内存泄漏
+
+---
+
+### Day 5 — 线程池与锁
+
+#### 选择题
+
+- `[D5-01]` 以下哪个线程池快捷方法使用了无界队列，可能导致 OOM？ → D（newFixedThreadPool 和 newSingleThreadExecutor）
+- `[D5-02]` CallerRunsPolicy 拒绝策略的行为是？
+  A. 抛异常 / B. 丢弃任务 / C. 由提交任务的线程自己执行 / D. 丢弃最老的任务 → C
+- `[D5-03]` synchronized 在 JDK6 之后引入了什么优化，使其性能大幅提升？
+  A. 自旋锁 / B. 锁升级（偏向锁→轻量级锁→重量级锁）/ C. 读写锁 / D. 公平锁 → B
+- `[D5-04]` CPU 密集型任务的核心线程数一般设为？
+  A. CPU 核心数 × 2 / B. CPU 核心数 + 1 / C. CPU 核心数 / D. 32 → B
+
+#### 填空题
+
+- `[D5-05]` 线程池执行顺序：核心线程 → \_\_ → 扩到最大线程数 → \_\_策略。→ 任务队列 / 拒绝
+- `[D5-06]` 排查死锁的命令：先用 \_\_查看 Java 进程 ID，再用 \_\_打印线程栈信息。→ jps / jstack
+- `[D5-07]` IO 密集型任务核心线程数建议设为 CPU 核心数的 \_\_倍（或更多），因为线程大部分时间在"等"而不是"算"。→ 2
+
+#### 简答题
+
+- `[D5-08]` 线程池七大参数分别是什么？生产环境为什么不用 Executors？
+  > corePoolSize、maximumPoolSize、keepAliveTime、unit、workQueue、threadFactory、handler。Executors 的快捷方法要么用无界队列（可能 OOM），要么最大线程数 Integer.MAX_VALUE（线程爆炸），生产环境不安全。
+- `[D5-09]` synchronized 和 ReentrantLock 的区别？怎么选？
+  > synchronized 自动释放锁、JDK6+有锁升级性能好，95%场景够用；ReentrantLock 支持 tryLock 超时、可中断、公平锁、多 Condition，5%高级场景使用。项目里多产线叫料并发用了 ReentrantLock。
+- `[D5-10]` 死锁产生的必要条件？怎么排查？
+  > 四个条件：互斥、持有并等待、不可抢占、循环等待。排查：jps 找进程 → jstack 打印线程栈 → 看是否有 "Found one Java-level deadlock"。预防：固定加锁顺序、设置超时（tryLock）。
+
+---
+
+### Day 6 — 并发工具与原理
+
+#### 选择题
+
+- `[D6-01]` CAS 的底层实现依赖什么？ → C（CPU 的 cmpxchg 指令）
+- `[D6-02]` AQS 中 state 的含义由谁定义？
+  A. AQS 框架固定 / B. 子类自定义 / C. 操作系统 / D. JVM → B
+- `[D6-03]` CAS 的 ABA 问题怎么解决？
+  A. 加 synchronized / B. 用 AtomicStampedReference 加版本号 / C. 增加自旋次数 / D. 用 volatile → B
+- `[D6-04]` CountDownLatch 和 Semaphore 的区别？
+  A. CountDownLatch 让 N 个线程等一个信号，Semaphore 限制同时执行的线程数
+  B. 没区别
+  C. CountDownLatch 可重入，Semaphore 不可重入
+  D. Semaphore 让 N 个线程等一个信号 → A
+
+#### 填空题
+
+- `[D6-05]` AQS 的核心公式：AQS = \_\_ + \_\_队列。→ CAS / CLH
+- `[D6-06]` CAS 的全称是 Compare And \_\_，Java 中 AtomicInteger 的 incrementAndGet 底层就是 \_\_。→ Swap / CAS 自旋
+- `[D6-07]` CountDownLatch 的 state 代表还需等待的 \_\_数，Semaphore 的 state 代表剩余的 \_\_数。→ 线程 / 许可证
+
+#### 简答题
+
+- `[D6-08]` AQS 的核心思想是什么？ReentrantLock、CountDownLatch、Semaphore 分别怎么用 AQS？
+  > AQS = CAS（修改 state）+ CLH 队列（排队）。ReentrantLock：state 0→1 表示加锁，>1 表示重入；CountDownLatch：state > 0 就等，= 0 放行；Semaphore：state > 0 就减 1 放行，= 0 排队。
+- `[D6-09]` CAS 的两个问题及解决方案？
+  > ABA 问题：值被别人改过又改回来，用 AtomicStampedReference 加版本号。自旋开销：高并发下频繁失败 CPU 空转，失败到一定次数退化成 synchronized（ConcurrentHashMap 的策略）。
+- `[D6-10]` volatile 能保证原子性吗？为什么 count++ 不安全？
+  > 不能。volatile 只保证可见性，不保证原子性。count++ 是读-改-写三步操作，不是原子的。两个线程可能同时读到同一个值，各加 1，结果只加了 1。要用 AtomicInteger（CAS）或加锁。
+
+---
+
+### Day 7 — MySQL 索引
+
+#### 选择题
+
+- `[D7-01]` MySQL 为什么选 B+ 树而不是红黑树做索引？ → B（树矮 I/O 少 + 叶子链表支持范围查询）
+- `[D7-02]` 聚簇索引的叶子节点存的是什么？
+  A. 主键 ID / B. 整行数据 / C. 物理地址 ROWID / D. 索引列值 + 主键 → B
+- `[D7-03]` 以下哪种情况会触发回表？
+  A. 通过主键查整行 / B. 通过普通索引查 SELECT * / C. 查询字段全部在索引中 / D. 通过主键查部分字段 → B
+- `[D7-04]` 联合索引 (a, b, c)，以下哪个查询能用到这个索引？
+  A. WHERE c = 1 / B. WHERE b = 1 AND c = 1 / C. WHERE a = 1 AND c = 1 / D. WHERE a = 1 AND b = 1 → D
+
+#### 填空题
+
+- `[D7-05]` B+ 树两层核心特征：只有 \_\_节点存数据，内部节点只存 key；叶子节点之间是 \_\_链表，适合范围查询。→ 叶子 / 双向
+- `[D7-06]` B+ 树 3 层能存约 \_\_万条数据（假设一行 1KB，页 16KB），每次查询最多 \_\_次磁盘 I/O。→ 2000 / 3
+- `[D7-07]` 最左前缀原则：联合索引 (a, b, c)，查询条件必须从 \_\_列开始，跳过左边列则索引 \_\_。→ 最左 / 失效（无法充分利用）
+- `[D7-08]` 索引失效常见场景：函数运算、\_\_类型转换、\_\_模糊匹配、违反最左前缀。→ 隐式 / 前导%（%开头）
+
+#### 简答题
+
+- `[D7-09]` 什么是回表？什么是覆盖索引？覆盖索引怎么避免回表？
+  > 普通索引叶子节点只存主键 ID，查到 ID 后再去聚簇索引查整行数据叫回表。覆盖索引是查询字段全部包含在索引的叶子节点中，不需要回表。例如联合索引 (age, name)，查询 SELECT age, name FROM ... WHERE age = 25 就可以直接从索引返回。
+- `[D7-10]` 为什么推荐用自增 ID 做主键，不推荐 UUID？
+  > 自增 ID 的 key 递增，新数据追加到 B+ 树最右边，不发生页分裂，性能好。UUID 是随机的，插入位置不固定，频繁导致页分裂，性能差。分布式场景可用雪花算法替代。
+- `[D7-11]` EXPLAIN 的 type 字段常见值有哪些？哪个最差？
+  > system > const > eq_ref > ref > range > index > ALL。ALL 最差，代表全表扫描。
+
+---
+
+### Day 8 — MySQL 事务与优化
+
+#### 选择题
+
+- `[D8-01]` MySQL InnoDB 默认的隔离级别是什么？ → C（可重复读）
+- `[D8-02]` 以下哪个操作属于"当前读"？ → B（SELECT ... FOR UPDATE）
+- `[D8-03]` next-key lock 等于？
+  A. 只有记录锁 / B. 只有间隙锁 / C. 记录锁 + 间隙锁 / D. 表锁 → C
+- `[D8-04]` 读已提交（RC）和可重复读（RR）下 ReadView 的区别是？
+  A. RC 不用 ReadView / B. RC 每次 SELECT 新建 ReadView，RR 复用第一次 / C. RR 不用 ReadView / D. 没区别 → B
+
+#### 填空题
+
+- `[D8-05]` ACID 四大特性：\_\_性、\_\_性、\_\_性、\_\_性。→ 原子 / 一致 / 隔离 / 持久
+- `[D8-06]` 脏读 = 读到别人 \_\_提交的数据；不可重复读 = 同一行前后读到的值 \_\_；幻读 = 同一条件前后结果集 \_\_。→ 还没 / 不同 / 不同
+- `[D8-07]` 快照读读的是 MVCC \_\_版本，当前读读的是 \_\_版本并加锁。→ 历史 / 最新
+- `[D8-08]` MVCC 的两个核心组件：\_\_log 保存历史版本，\_\_判断哪个版本对当前事务可见。→ undo / ReadView
+- `[D8-09]` EXPLAIN 中 type=ALL 代表 \_\_扫描，Extra 中出现 Using \_\_表示需要额外排序。→ 全表 / filesort
+
+#### 简答题
+
+- `[D8-10]` MVCC 在 RC 和 RR 下 ReadView 的生成时机有什么不同？导致什么结果？
+  > RC：每条普通 SELECT 都新建 ReadView → 能看到最新已提交数据 → 可能不可重复读。RR：同一事务内复用第一次 ReadView → 多次查询结果一致 → 普通快照读避免不可重复读。
+- `[D8-11]` 什么是 next-key lock？它解决什么问题？
+  > next-key lock = 记录锁 + 间隙锁。锁住已有记录 + 记录之间的间隙。用于可重复读下当前读范围查询，防止其他事务在范围内插入新数据，从而避免幻读。
+- `[D8-12]` 慢 SQL 排查流程是什么？
+  > 先通过接口日志/链路追踪确认是 SQL 慢 → 慢查询日志定位具体 SQL → EXPLAIN 看执行计划（type/key/rows/Extra）→ 针对原因优化（索引设计、覆盖索引、SQL 写法、缩小范围）→ 验证效果。不要上来就加索引。
+- `[D8-13]` 有索引为什么还可能慢？
+  > 命中范围太大、字段选择性差（如 status=已完成占 90%）、时间范围太大、SELECT * 回表多、深分页扫描丢弃大量数据、统计信息不准选错索引、SQL 写法导致索引失效。
+
+---
+
+### Day 9 — Redis 基础
+
+#### 选择题
+
+- `[D9-01]` Redis 的 IO 多路复用在 Linux 下底层用的是哪个系统调用？
+  A. select / B. poll / C. epoll / D. read → C
+- `[D9-02]` Redis 6+ 引入了多线程，以下哪个操作仍然在主线程单线程执行？
+  A. 网络 Socket 数据读写 / B. 大 Key 异步删除 / C. 命令解析和执行 / D. AOF 文件 fsync → C
+- `[D9-03]` Redis 混合持久化（RDB+AOF）是什么时候引入的？
+  A. Redis 3.0 / B. Redis 4.0 / C. Redis 5.0 / D. Redis 6.0 → B
+- `[D9-04]` 纯缓存场景（所有 key 都可以丢），最推荐用哪个内存淘汰策略？
+  A. noeviction / B. volatile-lru / C. allkeys-lru / D. volatile-ttl → C
+- `[D9-05]` 以下哪个 Redis 数据结构最适合做排行榜？
+  A. String / B. Hash / C. Set / D. ZSet → D
+- `[D9-06]` AOF 的 everysec 同步策略最多丢失多少数据？
+  A. 不丢失 / B. 最多 1 条命令 / C. 最多 1 秒 / D. 最多 5 秒 → C
+
+#### 填空题
+
+- `[D9-07]` Redis 快的三个核心原因：\_\_操作（纳秒级）、IO\_\_复用（一个线程监听万连接）、单线程\_\_设计（避免锁竞争）。→ 纯内存 / 多路 / 无锁
+- `[D9-08]` Redis 过期删除策略是\_\_删除（访问时检查）+\_\_删除（后台定时抽查）。→ 惰性 / 定期
+- `[D9-09]` Redis 定期删除每秒执行 \_\_次，每次随机抽查 \_\_个 key，过期比例超过 \_\_% 就继续抽查。→ 10 / 20 / 25
+- `[D9-10]` Redis 内存淘汰中 LRU 是淘汰最近\_\_使用的 key，LFU 是淘汰最不\_\_使用的 key。→ 最少（最近）/ 经常（频繁）
+- `[D9-11]` Redis 单线程指的是\_\_命令处理在一个主线程中串行执行，但 Redis 6+ 的网络\_\_可以多线程。→ 核心数据 / I/O 读写
+- `[D9-12]` Hash 存对象比 String 存整个 JSON 更灵活，因为可以\_\_更新单个字段，不需要序列化整个对象。→ 单独（HSET 单个 field）
+
+#### 简答题
+
+- `[D9-13]` Redis 为什么用单线程处理核心命令？单线程有什么优势？
+  > 无锁竞争、没有死锁、没有上下文切换开销、单个命令天然原子。CPU 不是瓶颈，内存带宽和网络才是。单线程反而比多线程更简单高效。
+- `[D9-14]` RDB 和 AOF 的区别？生产推荐什么？
+  > RDB 是定期快照，文件小恢复快但可能丢数分钟数据。AOF 记录写命令，数据安全（everysec 最多丢 1 秒）但文件大恢复慢。生产推荐 RDB+AOF 混合持久化（Redis 4.0+），AOF 文件前半部分是 RDB 快照，后半部分是增量 AOF 命令。
+- `[D9-15]` Redis 过期删除的"惰性 + 定期"组合策略是怎么工作的？
+  > 惰性删除：访问 key 时检查是否过期，过期就删。定期删除：后台每秒执行 10 次，每次随机抽查 20 个有过期时间的 key，删掉过期的，过期比例超过 25% 继续抽查。两者配合：大部分被定期抽查删掉，漏掉的下次访问时惰性删除。
+- `[D9-16]` LRU 和 LFU 有什么区别？什么时候选 LFU？
+  > LRU 淘汰最近最少使用的（看最近有没有被访问）。LFU 淘汰最不经常使用的（看访问频率）。如果一个 key 历史上被访问了很多次但最近没被访问，LRU 可能淘汰它，但 LFU 会保留。有明显冷热数据分化的场景选 allkeys-lfu 更好。
+- `[D9-17]` Redis 五大数据结构分别适合什么场景？
+  > String：缓存、计数器、分布式锁。Hash：存对象、购物车。List：消息队列、最新列表。Set：点赞、标签、共同关注、去重。ZSet：排行榜、延迟队列。
+- `[D9-18]` 为什么 Redis 的 LRU 是"近似 LRU"而不是精确 LRU？
+  > 精确 LRU 需要维护全局链表，每次访问都要更新，开销大。Redis 用采样淘汰，每次随机抽查 5 个 key 淘汰最久没访问的，O(1) 复杂度，命中率已经足够接近精确 LRU。
+
+---
+
+### Day 10 — 缓存与分布式锁（待补充）
+
+> 今日复习完成后补充题目。
+
+---
+
+### Day 11 — Spring 与 Spring Boot
+
+#### 选择题
+
+- `[D11-01]` @SpringBootApplication 等价于以下哪三个注解的组合？
+  A. @Configuration + @ComponentScan + @EnableAutoConfiguration / B. @SpringBootConfiguration + @ComponentScan + @EnableAutoConfiguration / C. @BootConfiguration + @BeanScan + @Autowired / D. @SpringBootConfiguration + @EnableWebMvc + @ComponentScan → B
+- `[D11-02]` Spring Boot 自动配置的候选类列表存放在哪里？
+  A. application.yml / B. META-INF/spring.factories（或 AutoConfiguration.imports）/ C. pom.xml / D. @SpringBootApplication 注解属性 → B
+- `[D11-03]` 以下哪个注解的作用是"容器里没有这个 Bean 才自动创建，用户自定义优先"？
+  A. @ConditionalOnClass / B. @ConditionalOnProperty / C. @ConditionalOnMissingBean / D. @ConditionalOnWebApplication → C
+- `[D11-04]` @Transactional 默认对哪种异常回滚？
+  A. 所有 Exception / B. 所有 Throwable / C. RuntimeException 和 Error / D. IOException 和 Exception → C
+- `[D11-05]` 同一个 Service 类中，方法 A 调用方法 B，B 上有 @Transactional，B 的事务是否生效？
+  A. 生效 / B. 不生效，因为是 this 调用绕过代理 / C. 取决于 A 是否有事务 / D. 取决于传播级别 → B
+
+#### 填空题
+
+- `[D11-06]` @EnableAutoConfiguration 通过 @Import(\_\_\_\_\_) 去读取 spring.factories 中的候选自动配置类。→ AutoConfigurationImportSelector
+- `[D11-07]` 自动配置的三个核心条件判断：@ConditionalOn\_\_（classpath 有类吗）、@ConditionalOn\_\_（配置属性匹配吗）、@ConditionalOn\_\_\_\_（容器里还没人创建吧）。→ Class / Property / MissingBean
+- `[D11-08]` Spring Boot 启动时读取 spring.factories 拿到 130+ 个候选自动配置类，经过 @Conditional 过滤后通常只有 \_\_～\_\_ 个真正生效。→ 30 / 40
+- `[D11-09]` @Transactional 底层通过 AOP 动态代理，事务拦截器叫 \_\_\_\_\_\_\_\_，方法前开启事务，正常结束 commit，异常 rollback。→ TransactionInterceptor
+- `[D11-10]` 传播级别（propagation）控制的是当前方法和已有\_\_的关系；隔离级别（isolation）控制的是事务之间\_\_读写的程度。→ 事务 / 互相
+
+#### 简答题
+
+- `[D11-11]` Spring Boot 自动配置的完整链路是什么？
+  > 启动类 @SpringBootApplication → @EnableAutoConfiguration → @Import(AutoConfigurationImportSelector) → 读取 spring.factories 获取候选自动配置类（130+）→ 逐个检查 @Conditional 条件 → 满足的注册 Bean，不满足的跳过 → @ConditionalOnMissingBean 保证用户自定义 Bean 优先
+- `[D11-12]` 自动配置负责创建的 Bean 和 @ComponentScan 扫描的 Bean 有什么区别？
+  > 自动配置负责基础设施 Bean（DataSource、DispatcherServlet、TransactionManager 等），来自框架 starter 的自动配置类。@ComponentScan 负责业务 Bean（Service、Controller、Repository），来自你自己写的代码。@MapperScan 负责 Mapper 接口。三者职责不同。
+- `[D11-13]` @Transactional 哪些情况下会失效？至少说 4 个。
+  > ① 自调用：this.methodB() 绕过代理对象；② 非 public 方法：AOP 只能拦截 public；③ 异常被 catch 吞掉：代理以为正常结束走了 commit；④ 异常类型不匹配：默认只回滚 RuntimeException，检查异常不回滚；⑤ 类没交给 Spring 管理：自己 new 的对象没有代理；⑥ 传播级别 NOT_SUPPORTED：明确不要事务
+- `[D11-14]` @SpringBootApplication(exclude = FreeMarkerAutoConfiguration.class) 这行代码的作用是什么？为什么要排除？
+  > 排除 FreeMarker 自动配置类，不让它生效。原因通常是项目不需要 FreeMarker 模板视图（如前后端分离项目），或者自动配置和项目已有配置冲突。
+- `[D11-15]` starter 是什么？它和自动配置是什么关系？
+  > starter 不是功能代码本身，而是"依赖集合 + 自动配置类的入口"。引入 starter 后，里面的自动配置类被 spring.factories 列出，启动时作为候选被加载。项目通过引 starter + 写 application.yml 配置就能获得对应能力，不需要手写 @Bean。
+
+---
+
+### Day 12.5 — AI Specs & Harness 专项（宁波震裕面试重点）
+
+#### 简答题（必须能流利回答）
+
+**D12.5-01** AI Spec 和普通需求文档有什么区别？为什么 AI 需要额外的 Spec？
+
+你的答案要点：( )
+
+> **参考答案**：AI 输出不确定，需要额外定义质量标准（准确率/召回率）、评估方式、降级策略。普通功能输入 A 输出 B 是确定的，但 AI 同一个问题可能给出不同回答，有些对有些错。
+
+---
+
+**D12.5-02** 你项目里的命中率 88% 是怎么定的？baseline 是多少？
+
+你的答案要点：( )
+
+> **参考答案**：先跑 baseline 65% → 业务底线 80% → 争取目标 88%，数据驱动不是拍脑袋。准备 200 条测试集人工标注，看模型原始表现，再结合业务可接受范围定目标。
+
+---
+
+**D12.5-03** Prompt 怎么管理版本？改了 Prompt 怎么确保不回退？
+
+你的答案要点：( )
+
+> **参考答案**：Nacos 配置中心管理 → 开发环境单元测试 → 测试环境集成测试（200条）→ 回归测试（500+条）→ 指标不下降才发布。Prompt 变更纳入发版流程，和改代码一个逻辑。
+
+---
+
+**D12.5-04** Harness 的核心组件有哪些？你的验证集规模是多少？
+
+你的答案要点：( )
+
+> **参考答案**：验证数据集（问答200+/检索100条/比对50组）+ 评测流水线 + CI/CD集成（Jenkins）+ 监控告警。每次发版前自动跑，生成报告，指标不达标阻断发布。
+
+---
+
+**D12.5-05** 怎么判断 AI 输出是对还是错？不同场景怎么区分？
+
+你的答案要点：( )
+
+> **参考答案**：问答用关键词命中+语义相似度（embedding余弦相似度，阈值0.85）；文档比对直接对比差异条数；检索看标注文档在不在Top-K；兜底人工抽样每周50条。
+
+---
+
+**D12.5-06** 什么是 LLM-as-Judge？你们怎么用的？
+
+你的答案要点：( )
+
+> **参考答案**：用大模型评估大模型输出。优点成本低可自动化，能评估语义相似性；缺点判断不完全可靠。作为初筛用过滤明显错误，关键case仍人工审，用100条数据做校准对齐人工标准。
+
+---
+
+### Day 16 — 面试实战经典题（第十六章）
+
+> 2026-07-06 新增，对应八股文题单第十六章 8 道经典题
+
+#### 选择题
+
+- `[D16-01]` MySQL UPDATE 执行时，哪个日志是"物理日志"记录"哪个数据页改了什么"？
+  A. binlog / B. redo log / C. undo log / D. slow log → B
+- `[D16-02]` BIO、NIO、AIO 中，NIO 的核心机制是什么？
+  A. 一连接一线程 / B. Selector 多路复用，一个线程管理多个连接 / C. OS 完成后回调 / D. 内核态线程直接处理 → B
+- `[D16-03]` Java 反射 `Method.invoke()` 的性能优化机制叫什么？
+  A. JIT编译 / B. Inflation机制（前15次native，之后ASM生成字节码）/ C. 内联缓存 / D. 方法句柄 → B
+- `[D16-04]` JDK 21 虚拟线程的调度方式是什么？
+  A. 1:1 映射 OS 线程 / B. N:1 映射 / C. M:N 映射，IO阻塞时自动卸载 / D. 完全由OS调度 → C
+
+#### 填空题
+
+- `[D16-05]` MySQL UPDATE 中，redo log 先写 ______ 状态，binlog 写完后再改为 ______ 状态，这就是两阶段提交。→ prepare / commit
+- `[D16-06]` BIO 是 ______ 阻塞，NIO 是 ______ 非阻塞 + IO 多路复用，AIO 是异步非阻塞。→ 同步 / 同步
+- `[D16-07]` DDD 战略设计的核心是划分 ______，战术设计核心包括实体、值对象、______、领域服务、仓储。→ 限界上下文 / 聚合
+- `[D16-08]` AI Coding 适用业务的判断三要素：需求 ______、有 ______ 手段、上下文可控。→ 明确 / 验证
+
+#### 简答题
+
+- `[D16-09]` 一条 UPDATE 在 MySQL 中的完整执行流程？（server层、引擎层、三本日志、两阶段提交）
+  > 连接器→分析器→优化器→执行器→引擎层：定位行→加锁→写undo→改Buffer Pool→写redo(prepare)→写binlog→redo(commit)。两阶段提交保证redo和binlog一致，崩溃恢复不丢数据。
+- `[D16-10]` BIO/NIO/AIO 区别？为什么 NIO 能"一个线程管万连接"？AIO 在 Linux 为什么用得少？
+  > BIO同步阻塞一连接一线程；NIO同步非阻塞+Selector多路复用，epoll监听就绪事件，一线程管万连接；AIO异步非阻塞但Linux不成熟，Java AIO底层仍用epoll模拟，所以主流用NIO（Netty）。
+- `[D16-11]` Java 反射原理？`Method.invoke()` 底层实现？如何优化？
+  > 入口是Class对象（元空间元数据）。Method.invoke先走NativeMethodAccessorImpl（前15次），第16次起JVM用ASM动态生成字节码直接调用（inflation机制）。优化：缓存Method对象、setAccessible(true)跳安全检查。
+- `[D16-12]` 虚拟线程核心机制？使用注意事项（至少3个）？
+  > M:N调度，虚拟线程跑在少量载体线程上，IO阻塞时自动卸载让载体干别的。注意事项：①不池化（用完即弃）②少用synchronized（会pin住载体）③慎用ThreadLocal（百万虚拟线程=内存爆炸）④CPU密集任务无提升。
+- `[D16-13]` Claude Code vs Codex 各自优势？你怎么选？
+  > CC强在长链路Agent+工程化生态（MCP/Skills/Hooks）；Codex强在GitHub集成+OpenAI模型。复杂任务给CC，短平快PR相关给Codex。关键是围绕工具建立AI工程工作流。
+- `[D16-14]` Skill 是什么？什么时候该写 Skill？
+  > Skill是把重复工作流封装成Agent能力包（SKILL.md+scripts），按需加载省token。和代码抽函数同理，出现两次以上的流程就值得沉淀成Skill。
+- `[D16-15]` AI Coding 适用什么业务？判断标准是什么？
+  > 适合：CRUD、重构、写测试、文档脚本、有明确规范的功能。不适合：核心业务逻辑、架构选型、安全、高性能调优。判断三要素：需求明确+有验证手段+上下文可控。
+- `[D16-16]` DDD 是什么？战略设计和战术设计分别指什么？什么时候该用？
+  > DDD是让软件结构反映业务领域复杂性的方法论。战略设计=限界上下文划分（解决系统边界）；战术设计=实体/值对象/聚合/领域服务/仓储（解决代码怎么写）。适合业务复杂+团队大+长期演进；简单CRUD别强行用。
+
+---
+
+## 练习记录
+
+| 日期 | 抽取题号 | 做对 | 部分对 | 不会 | 薄弱知识点 |
+|------|---------|------|--------|------|-----------|
+| 2026-07-01 | D3-01~03,08, D4-01~02, D5-01~02, D6-01~03, D7-01~02, D8-01~04, D3-02, D4-02, D5-02, D6-02, D7-02, D8-03, D3-03, D5-03, D6-03, D7-03, D8-04 | 8 | 5 | 5 | AQS/CAS底层、隔离级别默认值、ConcurrentHashMap、覆盖索引、线程池快捷方法 |
+| 2026-07-02 | D5-02, D6-02, D7-03, D9-01~04, D3-07, D4-05, D6-05, D8-08, D9-05~06, D5-09, D7-09, D9-07~09 | — | — | — | — |
+
+---
+
+## 更新规则
+
+1. **新增题目**：每天复习完毕后，根据当天知识点在对应 Day 的题库下新增题目
+2. **生成今日练习**：从所有已复习 Day 的题库中随机抽取 15 题左右（选择 5-7 / 填空 5-6 / 简答 3-4），尽量不重复上一轮
+3. **记录成绩**：做完后更新"练习记录"表，标记薄弱知识点
+4. **题库增长**：随着复习推进（Day 9→14），题库持续扩大，后期练习覆盖面越来越全
