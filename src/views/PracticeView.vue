@@ -28,6 +28,20 @@ onMounted(async () => {
   else if (m === 'day') qs = quiz.buildByDay(Number(route.query.day))
   else if (m === 'category') qs = quiz.buildByCategory(String(route.query.cat))
   else if (m === 'browse') qs = quiz.buildByIds(String(route.query.ids || '').split(',').filter(Boolean))
+  else if (m === 'interview') qs = quiz.buildInterview()
+  else if (m === 'cram') {
+    const wrongItems = await progress.getAllWrong()
+    const wrongIds = wrongItems.map((w) => w.questionId)
+    qs = quiz.buildCram(wrongIds)
+  }
+  else if (m === 'recommended') {
+    const ids = String(route.query.ids || '').split(',').filter(Boolean)
+    if (ids.length > 0) qs = quiz.buildByIds(ids)
+    else {
+      const analytics = await progress.getAnalytics()
+      qs = quiz.buildByIds(analytics.recommendedQuestionIds)
+    }
+  }
 
   if (!qs || qs.length === 0) {
     errorMsg.value = '该模式下暂无题目'
@@ -39,7 +53,10 @@ onMounted(async () => {
     wrong: '错题重刷',
     day: `Day ${route.query.day}`,
     category: String(route.query.cat || '分类练习'),
-    browse: '浏览模式'
+    browse: '浏览模式',
+    interview: '模拟面试',
+    cram: '考前冲刺',
+    recommended: '薄弱点专练'
   }
   quiz.startSession(m, titles[m] || '练习', qs)
   ready.value = true

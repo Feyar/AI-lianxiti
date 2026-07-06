@@ -23,12 +23,24 @@ const wrongList = computed(() => {
 })
 
 const emoji = computed(() => {
+  if (!quiz.session) return '📝'
+  if (quiz.session.mode === 'interview') {
+    if (accuracy.value >= 80) return '🎯'
+    if (accuracy.value >= 60) return '💪'
+    return '📖'
+  }
   if (answeredCount.value === 0) return '📝'
   if (accuracy.value >= 80) return '🎉'
   if (accuracy.value >= 60) return '💪'
   return '📚'
 })
 const encourage = computed(() => {
+  if (!quiz.session) return '本次没有作答记录'
+  if (quiz.session.mode === 'interview') {
+    if (accuracy.value >= 80) return '面试表现优秀，回答完成度高！'
+    if (accuracy.value >= 60) return '面试表现尚可，部分知识点需要加强'
+    return '较多知识点掌握不牢，建议针对性复习'
+  }
   if (answeredCount.value === 0) return '本次没有作答记录'
   if (accuracy.value >= 80) return '掌握得很扎实！'
   if (accuracy.value >= 60) return '不错，错题记得复盘'
@@ -47,6 +59,12 @@ function again() {
 }
 function home() {
   router.push('/')
+}
+function practiceWeak() {
+  if (!quiz.session) return
+  const wrongIds = wrongList.value.map(({ q }) => q.id)
+  quiz.endSession()
+  router.push({ name: 'practice', params: { mode: 'recommended' }, query: { ids: wrongIds.join(',') } })
 }
 </script>
 
@@ -84,6 +102,16 @@ function home() {
       </button>
       <button @click="home" class="py-3 rounded-xl bg-slate-200 text-slate-600 font-semibold active:scale-[0.98] transition">
         回首页
+      </button>
+    </div>
+
+    <!-- 面试模式：薄弱点推荐 -->
+    <div v-if="quiz.session?.mode === 'interview' && wrongList.length > 0" class="mt-4">
+      <button
+        @click="practiceWeak"
+        class="w-full py-3 rounded-xl bg-amber-50 border border-amber-300 text-amber-700 font-semibold active:scale-[0.98] transition"
+      >
+        🎯 针对薄弱点再练一轮
       </button>
     </div>
   </div>

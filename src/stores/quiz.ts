@@ -4,7 +4,7 @@ import { allQuestions } from '@/utils/quiz-loader'
 import { useProgressStore } from './progress'
 import type { Question } from '@/types'
 
-export type Mode = 'today' | 'random' | 'wrong' | 'browse' | 'day' | 'category'
+export type Mode = 'today' | 'random' | 'wrong' | 'browse' | 'day' | 'category' | 'interview' | 'cram' | 'recommended' | 'flashcard'
 
 export interface SessionResult {
   questionId: string
@@ -79,6 +79,65 @@ export const useQuizStore = defineStore('quiz', () => {
     return ids.map((id) => m.get(id)).filter(Boolean) as Question[]
   }
 
+  /** 模拟面试：优先简答 + 覆盖不同 category */
+  function buildInterview(): Question[] {
+    const shorts = questions.value.filter((q) => q.type === 'short')
+    const others = questions.value.filter((q) => q.type !== 'short')
+    // 按 category 分散抽题
+    const catSet = new Set(questions.value.map((q) => q.category))
+    const pickedShorts: Question[] = []
+    const pickedOthers: Question[] = []
+    const usedCats = new Set<string>()
+    // 先每个 category 抽一道简答
+    for (const q of shuffle(shorts)) {
+      if (pickedShorts.length >= 8) break
+      if (!usedCats.has(q.category)) {
+        pickedShorts.push(q)
+        usedCats.add(q.category)
+      }
+    }
+    // 再补到 8 道
+    for (const q of shuffle(shorts)) {
+      if (pickedShorts.length >= 8) break
+      if (!pickedShorts.find((p) => p.id === q.id)) pickedShorts.push(q)
+    }
+    // 抽 3 道非简答热身（也分散 category）
+    for (const q of shuffle(others)) {
+      if (pickedOthers.length >= 3) break
+      if (!usedCats.has(q.category)) {
+        pickedOthers.push(q)
+        usedCats.add(q.category)
+      }
+    }
+    for (const q of shuffle(others)) {
+      if (pickedOthers.length >= 3) break
+      if (!pickedOthers.find((p) => p.id === q.id)) pickedOthers.push(q)
+    }
+    return [...shuffle(pickedOthers), ...shuffle(pickedShorts)]
+  }
+
+  /** 考前冲刺：错题 + 薄弱知识点 + 未练题 */
+  function buildCram(ids?: string[]): Question[] {
+    if (ids && ids.length > 0) return buildByIds(ids)
+    const all = new Map(questions.value.map((q) => [q.id, q]))
+    const result: Question[] = []
+    const used = new Set<string>()
+    // 1. 未解决错题（优先）
+    const wrongIds = ids ?? []
+    for (const id of wrongIds) {
+      const q = all.get(id)
+      if (q && !used.has(id)) { result.push(q); used.add(id) }
+    }
+    // 2. 未练过的题补齐到 20-30
+    if (result.length < 30) {
+      for (const q of shuffle(questions.value)) {
+        if (result.length >= 25) break
+        if (!used.has(q.id)) { result.push(q); used.add(q.id) }
+      }
+    }
+    return result.length > 0 ? result : shuffle(questions.value).slice(0, 20)
+  }
+
   function getQuestionById(id: string): Question | undefined {
     return questions.value.find((q) => q.id === id)
   }
@@ -88,7 +147,8 @@ export const useQuizStore = defineStore('quiz', () => {
 
   function startSession(mode: Mode, title: string, qs: Question[]): boolean {
     if (qs.length === 0) return false
-    const ordered = mode === 'browse' || mode === 'day' ? qs : shuffle(qs)
+    const sequential = mode === 'browse' || mode === 'day'
+    const ordered = sequential ? qs : shuffle(qs)
     session.value = { mode, title, questions: ordered, index: 0, results: [] }
     return true
   }
@@ -129,7 +189,7 @@ export const useQuizStore = defineStore('quiz', () => {
 
   return {
     questions, byDay, days, categories,
-    buildToday, buildRandom, buildByDay, buildByCategory, buildByIds, getQuestionById,
+    buildToday, buildRandom, buildByDay, buildByCategory, buildByIds, buildInterview, buildCram, getQuestionById,
     session, startSession, endSession, next, prev, goto, recordResult, resultOf
   }
 })

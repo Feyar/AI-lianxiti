@@ -40,7 +40,7 @@ export interface Attempt {
   correct: boolean       // choice/fill 自动判；short: ok→true, partial/no→false
   selfRating?: 'ok' | 'partial' | 'no' // 简答题自评
   at: number             // 时间戳 ms
-  mode: string           // 'today' | 'random' | 'wrong' | 'browse'
+  mode: string           // 'today' | 'random' | 'wrong' | 'browse' | 'day' | 'category' | 'interview' | 'cram' | 'recommended' | 'flashcard'
   syncedAt?: number       // 上次推送到云端的时间（null=未同步）
 }
 

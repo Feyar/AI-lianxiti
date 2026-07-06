@@ -33,7 +33,7 @@
 | `correct` | bool | 对错 | `Attempt.correct` |
 | `self_rating` | text | `ok`/`partial`/`no`（简答自评，可空） | `Attempt.selfRating` |
 | `at` | bigint | 答题时间戳 ms | `Attempt.at` |
-| `mode` | text | `today`/`random`/`wrong`/`browse` | `Attempt.mode` |
+| `mode` | text | `today`/`random`/`wrong`/`browse`/`day`/`category`/`interview`/`cram`/`recommended`/`flashcard` | `Attempt.mode` |
 | `created_at` | timestamptz | 行插入时间 | — |
 
 **设计要点**

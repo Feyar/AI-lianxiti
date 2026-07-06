@@ -8,7 +8,9 @@ const routes = [
   { path: '/wrong', name: 'wrong', component: () => import('@/views/WrongBookView.vue') },
   { path: '/stats', name: 'stats', component: () => import('@/views/StatsView.vue') },
   { path: '/browse', name: 'browse', component: () => import('@/views/BrowseView.vue') },
-  { path: '/settings', name: 'settings', component: () => import('@/views/SettingsView.vue') }
+  { path: '/settings', name: 'settings', component: () => import('@/views/SettingsView.vue') },
+  { path: '/flashcards', name: 'flashcards', component: () => import('@/views/FlashcardsView.vue') },
+  { path: '/map', name: 'map', component: () => import('@/views/KnowledgeMapView.vue') }
 ]
 
 const router = createRouter({

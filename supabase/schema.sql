@@ -1,6 +1,6 @@
 -- ============================================================================
 -- quiz-app（在线题库）— Supabase 表结构
--- 严格对齐 apps/quiz-app/src/utils/sync.ts 的 .from() 与 upsert() 调用
+-- 严格对齐 04_AI_Apps【个人AI应用】/quiz-app/src/utils/sync.ts 的 .from() 与 upsert() 调用
 -- 在 Supabase → SQL Editor 整段粘贴运行；幂等，可重复执行
 -- ============================================================================
 
@@ -22,7 +22,7 @@ create table if not exists public.attempts (
   correct      boolean not null default false,
   self_rating  text check (self_rating in ('ok','partial','no')),  -- 简答自评，可空
   at           bigint not null,                      -- 答题时间戳（ms，JS Date.now()）
-  mode         text not null check (mode in ('today','random','wrong','browse')),
+  mode         text not null check (mode in ('today','random','wrong','browse','day','category','interview','cram','recommended','flashcard')),
   created_at   timestamptz not null default now(),   -- 行插入时间（append-only，无 updated_at）
   constraint attempts_user_client_unique unique (user_id, client_id)
 );

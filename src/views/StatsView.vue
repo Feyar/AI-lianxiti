@@ -1,20 +1,35 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useProgressStore } from '@/stores/progress'
+import type { Analytics } from '@/utils/analytics'
 
+const router = useRouter()
 const progress = useProgressStore()
 const stats = ref<Awaited<ReturnType<typeof progress.getStats>> | null>(null)
+const analytics = ref<Analytics | null>(null)
 
 onMounted(async () => {
   stats.value = await progress.getStats()
+  analytics.value = await progress.getAnalytics()
 })
 
 function refresh() {
-  onMounted(() => {})
   progress.getStats().then((s) => (stats.value = s))
+  progress.getAnalytics().then((a) => (analytics.value = a))
 }
 
 const recentMax = () => Math.max(1, ...(stats.value?.recent7.map((r) => r.total) || [1]))
+
+function goRecommended(catName?: string) {
+  if (!analytics.value) return
+  if (catName) {
+    router.push({ name: 'practice', params: { mode: 'category' }, query: { cat: catName } })
+  } else {
+    const ids = analytics.value.recommendedQuestionIds.join(',')
+    if (ids) router.push({ name: 'practice', params: { mode: 'recommended' }, query: { ids } })
+  }
+}
 </script>
 
 <template>
@@ -58,23 +73,44 @@ const recentMax = () => Math.max(1, ...(stats.value?.recent7.map((r) => r.total)
         </div>
       </section>
 
-      <!-- 薄弱知识点（按正确率升序） -->
+      <!-- 知识点掌握度（按掌握度升序） -->
       <section class="rounded-2xl bg-white border border-slate-200 p-4 mb-4">
-        <h2 class="text-sm font-semibold text-slate-600 mb-1">知识点正确率</h2>
+        <div class="flex items-center justify-between mb-1">
+          <h2 class="text-sm font-semibold text-slate-600">知识点掌握度</h2>
+          <button
+            v-if="analytics && analytics.recommendedQuestionIds.length > 0"
+            @click="goRecommended()"
+            class="text-xs text-brand-600 font-medium"
+          >练薄弱点</button>
+        </div>
         <p class="text-xs text-slate-400 mb-3">从弱到强，优先攻克上面的</p>
-        <div v-if="stats.byCategory.length === 0" class="text-sm text-slate-400 py-4 text-center">暂无数据</div>
+        <div v-if="!analytics || analytics.categoryMastery.length === 0" class="text-sm text-slate-400 py-4 text-center">暂无数据</div>
         <div v-else class="space-y-2.5">
-          <div v-for="c in stats.byCategory" :key="c.name">
+          <div v-for="c in analytics.categoryMastery" :key="c.name">
             <div class="flex items-center justify-between text-xs mb-1">
               <span class="text-slate-700 truncate flex-1">{{ c.name }}</span>
-              <span class="text-slate-500 flex-none ml-2">{{ c.correct }}/{{ c.total }} · {{ (c.accuracy * 100).toFixed(0) }}%</span>
+              <span class="text-slate-500 flex-none ml-2">
+                {{ c.correct }}/{{ c.practiced }}/{{ c.total }}
+                <span v-if="c.wrongCount > 0" class="text-red-500"> · {{ c.wrongCount }}错</span>
+                · {{ Math.round(c.score) }}分
+              </span>
             </div>
             <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
               <div
                 class="h-full rounded-full transition-all"
-                :class="c.accuracy >= 0.8 ? 'bg-green-500' : c.accuracy >= 0.6 ? 'bg-amber-500' : 'bg-red-500'"
-                :style="{ width: c.accuracy * 100 + '%' }"
+                :class="c.score >= 70 ? 'bg-green-500' : c.score >= 40 ? 'bg-amber-500' : 'bg-red-500'"
+                :style="{ width: c.score + '%' }"
               />
+            </div>
+            <div class="flex items-center justify-between mt-0.5">
+              <span class="text-[10px] text-slate-400">
+                覆盖 {{ (c.coverage * 100).toFixed(0) }}% · 正确率 {{ (c.accuracy * 100).toFixed(0) }}%
+              </span>
+              <button
+                v-if="c.wrongCount > 0 || c.coverage < 0.5"
+                @click="goRecommended(c.name)"
+                class="text-[10px] text-brand-600 font-medium"
+              >练这个知识点</button>
             </div>
           </div>
         </div>

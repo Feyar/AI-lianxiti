@@ -18,6 +18,9 @@
 - **三端同步**：已通；`auth.ts` 的 signIn/signUp 后自动 `triggerSync()`，无需手动点按钮
 - **PWA 更新**：`SettingsView.vue` 有"检查更新 · 清缓存刷新"按钮，解决移动端 SW 缓存卡旧版
 - **应用名**：首页 H1 和页脚已改"个人刷题宝"；manifest / `<title>` / README 仍是"面试刷题宝"，待统一（见"待办"）
+- **功能扩展**（2026-07-06）：新增模拟面试、考前冲刺、闪卡速记、知识地图、薄弱点分析+推荐练习
+  - `attempts.mode` 支持全部模式：`today/random/wrong/browse/day/category/interview/cram/recommended/flashcard`
+  - 新文件：`src/utils/analytics.ts`（掌握度计算）、`src/views/FlashcardsView.vue`、`src/views/KnowledgeMapView.vue`
 
 ## 数据库（Supabase）
 
@@ -35,8 +38,12 @@
 | `src/utils/db.ts` | Dexie 本地数据库 schema（v2） |
 | `src/utils/sync.ts` | Supabase 云同步（attempts push/pull、wrong_items 双向） |
 | `src/utils/srs.ts` | 艾宾浩斯间隔重复算法（间隔 1/2/4/7/15/30 天） |
+| `src/utils/analytics.ts` | 知识点掌握度计算 + 薄弱点分析 + 推荐题目 |
 | `src/utils/supabase.ts` | Supabase 客户端（env 控制 `supabaseEnabled`） |
-| `src/stores/progress.ts` | 答题 + 错题本业务逻辑 |
+| `src/stores/quiz.ts` | 题库 + 会话管理（支持全部 mode） |
+| `src/stores/progress.ts` | 答题 + 错题本 + 统计 + 分析 |
+| `src/views/FlashcardsView.vue` | 闪卡速记（独立页面，不走 PracticeView） |
+| `src/views/KnowledgeMapView.vue` | 知识地图（Day/Category 掌握度可视化） |
 | `supabase/schema.sql` | 云端建表 SQL（严格对齐 sync.ts） |
 
 ## 开发命令
@@ -90,7 +97,7 @@ VITE_SUPABASE_ANON_KEY=sb_publishable_xxx   # 用 publishable 公开密钥，别
 
 ## 自动推送
 
-`apps/` 目录配了 Stop hook（脚本 `.claude/scripts/apps-auto-push.sh`，vault 根级）：Claude 改完项目文件会自动遍历 `apps/*/` 的 git 仓库，对有改动的执行 add → commit → push（走 7897 代理）。
+`04_AI_Apps【个人AI应用】/` 目录配了 Stop hook（脚本 `.claude/scripts/apps-auto-push.sh`，vault 根级）：Claude 改完项目文件会自动遍历 `04_AI_Apps【个人AI应用】/*/` 的 git 仓库，对有改动的执行 add → commit → push（走 7897 代理）。
 所以让我改完代码不用手动推（除非你自己已经在改同一份文件，怕冲突时喊我停）。
 
 > hook 首次启用需在 Claude Code 里打开一次 `/hooks`（或重启会话）让配置生效；之后每回合结束自动跑。

@@ -28,10 +28,25 @@ function go(mode: string, query?: Record<string, string | number>) {
       <p class="text-sm text-slate-500 mt-1">题库 {{ quiz.questions.length }} 题 · 关联 Obsidian 每日练习</p>
     </div>
 
-    <!-- 今日练习主卡 -->
+    <!-- 模拟面试主卡 -->
+    <button
+      @click="go('interview')"
+      class="w-full text-left rounded-2xl p-5 bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg active:scale-[0.99] transition"
+    >
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-xs opacity-80">模拟面试</p>
+          <p class="text-xl font-bold mt-1">真实面试风格</p>
+          <p class="text-xs opacity-80 mt-1.5">以简答追问为主 · 11 题覆盖多知识点</p>
+        </div>
+        <div class="text-4xl">🎯</div>
+      </div>
+    </button>
+
+    <!-- 今日练习 -->
     <button
       @click="go('today')"
-      class="w-full text-left rounded-2xl p-5 bg-gradient-to-br from-brand-500 to-purple-600 text-white shadow-lg active:scale-[0.99] transition"
+      class="w-full text-left rounded-2xl p-5 bg-gradient-to-br from-brand-500 to-purple-600 text-white shadow-lg active:scale-[0.99] transition mt-3"
     >
       <div class="flex items-center justify-between">
         <div>
@@ -54,6 +69,26 @@ function go(mode: string, query?: Record<string, string | number>) {
         <p class="font-semibold text-sm">错题重刷</p>
         <p class="text-xs text-slate-500">到期 {{ dueCount }} 题</p>
         <span v-if="dueCount > 0" class="absolute top-2 right-2 min-w-5 h-5 px-1 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold">{{ dueCount }}</span>
+      </button>
+      <button @click="go('cram')" class="rounded-2xl p-4 bg-white border border-slate-200 active:scale-[0.98] transition text-left">
+        <div class="text-2xl mb-1">⚡</div>
+        <p class="font-semibold text-sm">考前冲刺</p>
+        <p class="text-xs text-slate-500">错题+薄弱+未练</p>
+      </button>
+      <button @click="router.push('/flashcards')" class="rounded-2xl p-4 bg-white border border-slate-200 active:scale-[0.98] transition text-left">
+        <div class="text-2xl mb-1">🃏</div>
+        <p class="font-semibold text-sm">闪卡速记</p>
+        <p class="text-xs text-slate-500">碎片时间翻卡</p>
+      </button>
+      <button @click="router.push('/map')" class="col-span-2 rounded-2xl p-4 bg-white border border-slate-200 active:scale-[0.98] transition text-left flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="text-2xl">🗺️</div>
+          <div>
+            <p class="font-semibold text-sm">知识地图</p>
+            <p class="text-xs text-slate-500">查看各知识点掌握情况</p>
+          </div>
+        </div>
+        <span class="text-slate-300">→</span>
       </button>
     </div>
 

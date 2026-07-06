@@ -3,6 +3,7 @@ import { db } from '@/utils/db'
 import { pushAttempts } from '@/utils/sync'
 import { nextReviewAt } from '@/utils/srs'
 import { allQuestions } from '@/utils/quiz-loader'
+import { computeAnalytics, type Analytics } from '@/utils/analytics'
 import type { Attempt, Question, WrongItem } from '@/types'
 
 export const useProgressStore = defineStore('progress', () => {
@@ -115,7 +116,14 @@ export const useProgressStore = defineStore('progress', () => {
     }
   }
 
+  // ---------- Analytics ----------
+  async function getAnalytics(): Promise<Analytics> {
+    const attempts = await db.attempts.toArray()
+    const wrongItems = await db.wrong.toArray()
+    return computeAnalytics(allQuestions, attempts, wrongItems)
+  }
+
   return {
-    recordAttempt, forgetWrong, getDueWrong, getAllWrong, getWrongCount, wrongToQuestions, getStats
+    recordAttempt, forgetWrong, getDueWrong, getAllWrong, getWrongCount, wrongToQuestions, getStats, getAnalytics
   }
 })
