@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-05T13:18:19.933Z",
+  "generatedAt": "2026-07-06T07:44:44.155Z",
   "source": "面试复习每日练习.md (source/questions-source.md)",
-  "total": 84,
+  "total": 99,
   "byType": {
-    "choice": 31,
-    "fill": 28,
-    "short": 25
+    "choice": 36,
+    "fill": 33,
+    "short": 30
   },
   "questions": [
     {
@@ -1339,6 +1339,255 @@
       "day": 9,
       "category": "Redis 基础",
       "seq": 18
+    },
+    {
+      "id": "D11-01",
+      "type": "choice",
+      "stem": "@SpringBootApplication 等价于以下哪三个注解的组合？",
+      "options": [
+        {
+          "key": "A",
+          "text": "@Configuration + @ComponentScan + @EnableAutoConfiguration"
+        },
+        {
+          "key": "B",
+          "text": "@SpringBootConfiguration + @ComponentScan + @EnableAutoConfiguration"
+        },
+        {
+          "key": "C",
+          "text": "@BootConfiguration + @BeanScan + @Autowired"
+        },
+        {
+          "key": "D",
+          "text": "@SpringBootConfiguration + @EnableWebMvc + @ComponentScan"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 1
+    },
+    {
+      "id": "D11-02",
+      "type": "choice",
+      "stem": "Spring Boot 自动配置的候选类列表存放在哪里？",
+      "options": [
+        {
+          "key": "A",
+          "text": "application.yml"
+        },
+        {
+          "key": "B",
+          "text": "META-INF"
+        },
+        {
+          "key": "C",
+          "text": "pom.xml"
+        },
+        {
+          "key": "D",
+          "text": "@SpringBootApplication 注解属性"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 2
+    },
+    {
+      "id": "D11-03",
+      "type": "choice",
+      "stem": "以下哪个注解的作用是\"容器里没有这个 Bean 才自动创建，用户自定义优先\"？",
+      "options": [
+        {
+          "key": "A",
+          "text": "@ConditionalOnClass"
+        },
+        {
+          "key": "B",
+          "text": "@ConditionalOnProperty"
+        },
+        {
+          "key": "C",
+          "text": "@ConditionalOnMissingBean"
+        },
+        {
+          "key": "D",
+          "text": "@ConditionalOnWebApplication"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 3
+    },
+    {
+      "id": "D11-04",
+      "type": "choice",
+      "stem": "@Transactional 默认对哪种异常回滚？",
+      "options": [
+        {
+          "key": "A",
+          "text": "所有 Exception"
+        },
+        {
+          "key": "B",
+          "text": "所有 Throwable"
+        },
+        {
+          "key": "C",
+          "text": "RuntimeException 和 Error"
+        },
+        {
+          "key": "D",
+          "text": "IOException 和 Exception"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 4
+    },
+    {
+      "id": "D11-05",
+      "type": "choice",
+      "stem": "同一个 Service 类中，方法 A 调用方法 B，B 上有 @Transactional，B 的事务是否生效？",
+      "options": [
+        {
+          "key": "A",
+          "text": "生效"
+        },
+        {
+          "key": "B",
+          "text": "不生效，因为是 this 调用绕过代理"
+        },
+        {
+          "key": "C",
+          "text": "取决于 A 是否有事务"
+        },
+        {
+          "key": "D",
+          "text": "取决于传播级别"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 5
+    },
+    {
+      "id": "D11-06",
+      "type": "fill",
+      "stem": "@EnableAutoConfiguration 通过 @Import(___) 去读取 spring.factories 中的候选自动配置类。",
+      "blanks": [
+        "AutoConfigurationImportSelector"
+      ],
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 6
+    },
+    {
+      "id": "D11-07",
+      "type": "fill",
+      "stem": "自动配置的三个核心条件判断：@ConditionalOn___（classpath 有类吗）、@ConditionalOn___（配置属性匹配吗）、@ConditionalOn___（容器里还没人创建吧）。",
+      "blanks": [
+        "Class",
+        "Property",
+        "MissingBean"
+      ],
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 7
+    },
+    {
+      "id": "D11-08",
+      "type": "fill",
+      "stem": "Spring Boot 启动时读取 spring.factories 拿到 130+ 个候选自动配置类，经过 @Conditional 过滤后通常只有 ___～___ 个真正生效。",
+      "blanks": [
+        "30",
+        "40"
+      ],
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 8
+    },
+    {
+      "id": "D11-09",
+      "type": "fill",
+      "stem": "@Transactional 底层通过 AOP 动态代理，事务拦截器叫 ___，方法前开启事务，正常结束 commit，异常 rollback。",
+      "blanks": [
+        "TransactionInterceptor"
+      ],
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 9
+    },
+    {
+      "id": "D11-10",
+      "type": "fill",
+      "stem": "传播级别（propagation）控制的是当前方法和已有___的关系；隔离级别（isolation）控制的是事务之间___读写的程度。",
+      "blanks": [
+        "事务",
+        "互相"
+      ],
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 10
+    },
+    {
+      "id": "D11-11",
+      "type": "short",
+      "stem": "Spring Boot 自动配置的完整链路是什么？",
+      "answer": "启动类 @SpringBootApplication → @EnableAutoConfiguration → @Import(AutoConfigurationImportSelector) → 读取 spring.factories 获取候选自动配置类（130+）→ 逐个检查 @Conditional 条件 → 满足的注册 Bean，不满足的跳过 → @ConditionalOnMissingBean 保证用户自定义 Bean 优先",
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 11
+    },
+    {
+      "id": "D11-12",
+      "type": "short",
+      "stem": "自动配置负责创建的 Bean 和 @ComponentScan 扫描的 Bean 有什么区别？",
+      "answer": "自动配置负责基础设施 Bean（DataSource、DispatcherServlet、TransactionManager 等），来自框架 starter 的自动配置类。@ComponentScan 负责业务 Bean（Service、Controller、Repository），来自你自己写的代码。@MapperScan 负责 Mapper 接口。三者职责不同。",
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 12
+    },
+    {
+      "id": "D11-13",
+      "type": "short",
+      "stem": "@Transactional 哪些情况下会失效？至少说 4 个。",
+      "answer": "① 自调用：this.methodB() 绕过代理对象；② 非 public 方法：AOP 只能拦截 public；③ 异常被 catch 吞掉：代理以为正常结束走了 commit；④ 异常类型不匹配：默认只回滚 RuntimeException，检查异常不回滚；⑤ 类没交给 Spring 管理：自己 new 的对象没有代理；⑥ 传播级别 NOT_SUPPORTED：明确不要事务",
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 13
+    },
+    {
+      "id": "D11-14",
+      "type": "short",
+      "stem": "@SpringBootApplication(exclude = FreeMarkerAutoConfiguration.class) 这行代码的作用是什么？为什么要排除？",
+      "answer": "排除 FreeMarker 自动配置类，不让它生效。原因通常是项目不需要 FreeMarker 模板视图（如前后端分离项目），或者自动配置和项目已有配置冲突。",
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 14
+    },
+    {
+      "id": "D11-15",
+      "type": "short",
+      "stem": "starter 是什么？它和自动配置是什么关系？",
+      "answer": "starter 不是功能代码本身，而是\"依赖集合 + 自动配置类的入口\"。引入 starter 后，里面的自动配置类被 spring.factories 列出，启动时作为候选被加载。项目通过引 starter + 写 application.yml 配置就能获得对应能力，不需要手写 @Bean。",
+      "day": 11,
+      "category": "Spring 与 Spring Boot",
+      "seq": 15
     }
   ]
 }

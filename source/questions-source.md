@@ -15,6 +15,136 @@ status: ongoing
 
 ---
 
+## 今日练习（Day 11 — 2026-07-06）
+
+> 从 Day 3～11 的题库中抽取。做完后在括号里自评：✅ / ⚠️ / ❌
+
+### 一、选择题（每题只有一个正确答案）
+
+**D11-01** @SpringBootApplication 等价于以下哪三个注解的组合？
+A. @Configuration + @ComponentScan + @EnableAutoConfiguration
+B. @SpringBootConfiguration + @ComponentScan + @EnableAutoConfiguration
+C. @BootConfiguration + @BeanScan + @Autowired
+D. @SpringBootConfiguration + @EnableWebMvc + @ComponentScan
+
+你的答案：( )
+
+---
+
+**D11-05** 同一个 Service 类中，方法 A 调用方法 B，B 上有 @Transactional，B 的事务是否生效？
+A. 生效
+B. 不生效，因为是 this 调用绕过代理
+C. 取决于 A 是否有事务
+D. 取决于传播级别
+
+你的答案：( )
+
+---
+
+**D4-03** 类加载的"双亲委派"是指？
+A. 父类委托子类加载
+B. 子类先委托父类加载，父类加载不到才自己加载
+C. 每个类只能被加载一次
+D. 通过父类的 ClassLoader 加载
+
+你的答案：( )
+
+---
+
+**D7-02** 聚簇索引的叶子节点存的是什么？
+A. 主键 ID
+B. 整行数据
+C. 物理地址 ROWID
+D. 索引列值 + 主键
+
+你的答案：( )
+
+---
+
+**D8-03** next-key lock 等于？
+A. 只有记录锁
+B. 只有间隙锁
+C. 记录锁 + 间隙锁
+D. 表锁
+
+你的答案：( )
+
+---
+
+**D6-03** CAS 的 ABA 问题怎么解决？
+A. 加 synchronized
+B. 用 AtomicStampedReference 加版本号
+C. 增加自旋次数
+D. 用 volatile
+
+你的答案：( )
+
+---
+
+### 二、填空题
+
+**D11-06** @EnableAutoConfiguration 通过 @Import(\_\_\_\_\_) 去读取 spring.factories 中的候选自动配置类。
+
+你的答案：( )
+
+---
+
+**D11-09** @Transactional 底层通过 AOP 动态代理，事务拦截器叫 \_\_\_\_\_\_\_\_，方法前开启事务，正常结束 commit，异常 rollback。
+
+你的答案：( )
+
+---
+
+**D5-06** 排查死锁的命令：先用 \_\_查看 Java 进程 ID，再用 \_\_打印线程栈信息。
+
+你的答案：( )
+
+---
+
+**D7-07** 最左前缀原则：联合索引 (a, b, c)，查询条件必须从 \_\_列开始，跳过左边列则索引 \_\_。
+
+你的答案：( )
+
+---
+
+**D9-08** Redis 过期删除策略是\_\_删除（访问时检查）+\_\_删除（后台定时抽查）。
+
+你的答案：( )
+
+---
+
+**D3-06** HashMap 定位槽位的公式是 `index = (n - 1) & hash(key)`，这里用 \_\_运算代替取模，效率更高。
+
+你的答案：( )
+
+---
+
+### 三、简答题（写关键词即可，不用写完整话术）
+
+**D11-11** Spring Boot 自动配置的完整链路是什么？
+
+你的答案：( )
+
+---
+
+**D11-13** @Transactional 哪些情况下会失效？至少说 4 个。
+
+你的答案：( )
+
+---
+
+**D5-09** synchronized 和 ReentrantLock 有什么区别？生产环境怎么选？
+
+你的答案：( )
+
+---
+
+**D8-12** 慢 SQL 排查流程是什么？
+
+你的答案：( )
+
+---
+
 ## 今日练习（Day 10 — 2026-07-02）
 
 > 从 Day 3～9 的题库中抽取。做完后在括号里自评：✅ / ⚠️ / ❌
@@ -398,6 +528,44 @@ D. volatile-ttl
 ### Day 10 — 缓存与分布式锁（待补充）
 
 > 今日复习完成后补充题目。
+
+---
+
+### Day 11 — Spring 与 Spring Boot
+
+#### 选择题
+
+- `[D11-01]` @SpringBootApplication 等价于以下哪三个注解的组合？
+  A. @Configuration + @ComponentScan + @EnableAutoConfiguration / B. @SpringBootConfiguration + @ComponentScan + @EnableAutoConfiguration / C. @BootConfiguration + @BeanScan + @Autowired / D. @SpringBootConfiguration + @EnableWebMvc + @ComponentScan → B
+- `[D11-02]` Spring Boot 自动配置的候选类列表存放在哪里？
+  A. application.yml / B. META-INF/spring.factories（或 AutoConfiguration.imports）/ C. pom.xml / D. @SpringBootApplication 注解属性 → B
+- `[D11-03]` 以下哪个注解的作用是"容器里没有这个 Bean 才自动创建，用户自定义优先"？
+  A. @ConditionalOnClass / B. @ConditionalOnProperty / C. @ConditionalOnMissingBean / D. @ConditionalOnWebApplication → C
+- `[D11-04]` @Transactional 默认对哪种异常回滚？
+  A. 所有 Exception / B. 所有 Throwable / C. RuntimeException 和 Error / D. IOException 和 Exception → C
+- `[D11-05]` 同一个 Service 类中，方法 A 调用方法 B，B 上有 @Transactional，B 的事务是否生效？
+  A. 生效 / B. 不生效，因为是 this 调用绕过代理 / C. 取决于 A 是否有事务 / D. 取决于传播级别 → B
+
+#### 填空题
+
+- `[D11-06]` @EnableAutoConfiguration 通过 @Import(\_\_\_\_\_) 去读取 spring.factories 中的候选自动配置类。→ AutoConfigurationImportSelector
+- `[D11-07]` 自动配置的三个核心条件判断：@ConditionalOn\_\_（classpath 有类吗）、@ConditionalOn\_\_（配置属性匹配吗）、@ConditionalOn\_\_\_\_（容器里还没人创建吧）。→ Class / Property / MissingBean
+- `[D11-08]` Spring Boot 启动时读取 spring.factories 拿到 130+ 个候选自动配置类，经过 @Conditional 过滤后通常只有 \_\_～\_\_ 个真正生效。→ 30 / 40
+- `[D11-09]` @Transactional 底层通过 AOP 动态代理，事务拦截器叫 \_\_\_\_\_\_\_\_，方法前开启事务，正常结束 commit，异常 rollback。→ TransactionInterceptor
+- `[D11-10]` 传播级别（propagation）控制的是当前方法和已有\_\_的关系；隔离级别（isolation）控制的是事务之间\_\_读写的程度。→ 事务 / 互相
+
+#### 简答题
+
+- `[D11-11]` Spring Boot 自动配置的完整链路是什么？
+  > 启动类 @SpringBootApplication → @EnableAutoConfiguration → @Import(AutoConfigurationImportSelector) → 读取 spring.factories 获取候选自动配置类（130+）→ 逐个检查 @Conditional 条件 → 满足的注册 Bean，不满足的跳过 → @ConditionalOnMissingBean 保证用户自定义 Bean 优先
+- `[D11-12]` 自动配置负责创建的 Bean 和 @ComponentScan 扫描的 Bean 有什么区别？
+  > 自动配置负责基础设施 Bean（DataSource、DispatcherServlet、TransactionManager 等），来自框架 starter 的自动配置类。@ComponentScan 负责业务 Bean（Service、Controller、Repository），来自你自己写的代码。@MapperScan 负责 Mapper 接口。三者职责不同。
+- `[D11-13]` @Transactional 哪些情况下会失效？至少说 4 个。
+  > ① 自调用：this.methodB() 绕过代理对象；② 非 public 方法：AOP 只能拦截 public；③ 异常被 catch 吞掉：代理以为正常结束走了 commit；④ 异常类型不匹配：默认只回滚 RuntimeException，检查异常不回滚；⑤ 类没交给 Spring 管理：自己 new 的对象没有代理；⑥ 传播级别 NOT_SUPPORTED：明确不要事务
+- `[D11-14]` @SpringBootApplication(exclude = FreeMarkerAutoConfiguration.class) 这行代码的作用是什么？为什么要排除？
+  > 排除 FreeMarker 自动配置类，不让它生效。原因通常是项目不需要 FreeMarker 模板视图（如前后端分离项目），或者自动配置和项目已有配置冲突。
+- `[D11-15]` starter 是什么？它和自动配置是什么关系？
+  > starter 不是功能代码本身，而是"依赖集合 + 自动配置类的入口"。引入 starter 后，里面的自动配置类被 spring.factories 列出，启动时作为候选被加载。项目通过引 starter + 写 application.yml 配置就能获得对应能力，不需要手写 @Bean。
 
 ---
 
