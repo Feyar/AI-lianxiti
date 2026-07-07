@@ -667,6 +667,43 @@ D. volatile-ttl
 
 ---
 
+### Day 12 — 分布式 MQ 与系统设计
+
+#### 选择题
+
+- `[D12-01]` RocketMQ 同步发送中，生产端判断 Broker 已确认接收消息，主要看什么？
+  A. 消费者是否已经消费 / B. `SendResult` 且状态为 `SEND_OK` / C. offset 是否提交 / D. 死信队列是否为空 → B
+- `[D12-02]` RocketMQ 中 `SYNC_FLUSH` 主要解决哪类风险？
+  A. 消费者重复消费 / B. Master 写入 PageCache 后未刷盘就宕机 / C. 生产者重复发送 / D. 消息全局顺序 → B
+- `[D12-03]` RocketMQ 中 `SYNC_MASTER` 主要表示什么？
+  A. Master 本机同步刷盘 / B. Consumer 同步提交 offset / C. Slave 同步完成后再返回发送成功 / D. 所有 Topic 全局有序 → C
+- `[D12-04]` 消费端避免“看起来丢消息”的正确做法是？
+  A. 收到消息立刻返回 `CONSUME_SUCCESS` / B. 业务处理成功后再返回 `CONSUME_SUCCESS` / C. 关闭重试机制 / D. 所有消息都用单向发送 → B
+- `[D12-05]` RocketMQ 事务消息的 Half Message 在 commit 前对消费者是什么状态？
+  A. 可见并可消费 / B. 只对部分消费者可见 / C. 不可见 / D. 已进入死信队列 → C
+- `[D12-06]` AGV/RCS 中同一个任务的创建、派发、完成事件要保证顺序，最合适的做法是？
+  A. 所有消息全局单队列 / B. 随机选择队列 / C. 按 `taskId` 选择同一个 MessageQueue / D. 只提高消费者线程数 → C
+
+#### 填空题
+
+- `[D12-07]` RocketMQ 异步发送也有确认机制，成功和失败分别通过 `SendCallback` 的 ______ 和 ______ 处理。→ onSuccess / onException
+- `[D12-08]` `SYNC_FLUSH` 保证 ______ 本机落盘；`SYNC_MASTER` 保证 ______ 也同步完成。→ Master / Slave
+- `[D12-09]` 本地消息表也叫 Outbox，主要解决可靠发送和 ______；消费端 Inbox 主要解决 ______。→ 补偿 / 重复消费或幂等
+- `[D12-10]` RocketMQ 事务消息回查由 ______ 发起，回查逻辑由 ______ 实现。→ Broker / Producer
+- `[D12-11]` 限流、熔断、降级的记忆口径：限流防 ______，熔断防 ______，降级保 ______。→ 冲垮 / 拖垮 / 核心
+- `[D12-12]` AGV/RCS 中，`taskId` 通常是系统内部 ______ ID，`externalTaskId` / `wmsTaskNo` 通常是业务 ______ ID。→ 分布式唯一 / 幂等
+
+#### 简答题
+
+- `[D12-13]` MQ 怎么保证消息不丢失？请按生产端、Broker 端、消费端三段回答。
+  > 生产端要有发送确认，RocketMQ 同步发送看 SendResult/SEND_OK，异步发送处理 onSuccess/onException，失败或未知结果重试或写本地消息表。Broker 端用 SYNC_FLUSH 保证 Master 落盘，用 SYNC_MASTER 保证 Slave 同步。消费端必须业务成功后再返回 CONSUME_SUCCESS，失败重试，多次失败进死信队列，并用补偿任务和幂等兜底。
+- `[D12-14]` 本地消息表和 RocketMQ 事务消息分别解决什么问题？二者有什么区别？
+  > 本地消息表是业务侧 Outbox 策略，把业务数据和待发送消息放在同一个本地事务里，失败后靠定时任务补发。RocketMQ 事务消息是 MQ 原生能力，先发 Half Message，执行本地事务后 commit/rollback，未知时 Broker 回查 Producer。二者都解决生产端本地事务和发消息一致性，但实现位置不同；都不能替代消费端幂等。
+- `[D12-15]` 设计一个 AGV/RCS 任务调度系统时，如何处理任务幂等、并发抢占和执行中异常？
+  > 任务创建用 externalTaskId/wmsTaskNo 加唯一索引防重，内部用 taskId 做分布式唯一 ID。多实例调度时用状态机 + update where 抢占任务和车辆，根据影响行数判断是否成功。MQ 事件按 taskId 分队列保证同一任务顺序。DISPATCHING 中间态超时补偿，EXECUTING 阶段结合车辆心跳、位置上报、任务进度和告警处理，不能简单回滚。
+
+---
+
 ### Day 12.5 — AI Specs & Harness 专项（宁波震裕面试重点）
 
 #### 简答题（必须能流利回答）
@@ -759,6 +796,55 @@ D. volatile-ttl
   > 适合：CRUD、重构、写测试、文档脚本、有明确规范的功能。不适合：核心业务逻辑、架构选型、安全、高性能调优。判断三要素：需求明确+有验证手段+上下文可控。
 - `[D16-16]` DDD 是什么？战略设计和战术设计分别指什么？什么时候该用？
   > DDD是让软件结构反映业务领域复杂性的方法论。战略设计=限界上下文划分（解决系统边界）；战术设计=实体/值对象/聚合/领域服务/仓储（解决代码怎么写）。适合业务复杂+团队大+长期演进；简单CRUD别强行用。
+
+---
+
+### Day 17 — 面试实战新题收集（2026-07-07）
+
+> 实际面试中遇到的新题 & 高频 AI/Agent 专项题，持续补充
+
+#### 选择题
+
+- `[D17-01]` JDK 8 引入的以下哪个特性可以让接口中编写带有方法体的方法？
+  A. Lambda 表达式 / B. 默认方法（default method）/ C. Stream API / D. Optional 类 → B
+- `[D17-02]` ArrayList 在迭代过程中调用 `list.add()` 会触发什么？
+  A. 正常追加 / B. 覆盖当前元素 / C. 抛 ConcurrentModificationException / D. 死循环 → C
+- `[D17-03]` 以下哪个不属于 JDK 8 的新特性？
+  A. Lambda 表达式 / B. Stream API / C. 虚拟线程 / D. 元空间（Metaspace）→ C
+- `[D17-04]` 在 RAG 系统中，Chunk 之间设置重叠（Overlap）的主要目的是什么？
+  A. 减少向量库存储量 / B. 避免分块断裂导致上下文丢失 / C. 提升检索速度 / D. 降低 Embedding 调用次数 → B
+- `[D17-05]` MCP（Model Context Protocol）主要解决什么问题？
+  A. 让模型输出更准确 / B. 工具的标准化发现、描述、调用和返回 / C. 降低 API 调用成本 / D. 管理 Prompt 版本 → B
+- `[D17-06]` Agent 中"防死循环三件套"不包括以下哪项？
+  A. 最大步数限制 / B. 重复动作检测 / C. 温度参数调低 / D. 超时控制 → C
+- `[D17-07]` Context Engineering 和 Prompt Engineering 的核心区别是什么？
+  A. 没区别，同一个概念 / B. Prompt Engineering 关注指令，Context Engineering 关注什么信息在什么时机进模型窗口 / C. Context Engineering 是 Prompt Engineering 的子集 / D. Context Engineering 只处理多轮对话 → B
+
+#### 填空题
+
+- `[D17-08]` ArrayList 的 fail-fast 机制通过一个叫 \_\_\_\_ 的字段实现：每次结构性修改 +1，迭代器创建时快照这个值，每次 next() 时检查是否被修改过。→ modCount
+- `[D17-09]` JDK 8 的 Stream 操作分为 \_\_\_\_ 操作（如 filter/map）和 \_\_\_\_ 操作（如 collect/forEach），中间操作是惰性的。→ 中间 / 终端
+- `[D17-10]` JDK 8 的 \_\_\_\_ 类用来优雅地避免 NullPointerException，常用方法有 orElse/orElseGet/orElseThrow。→ Optional
+- `[D17-11]` RAG 的检索评估指标中 Recall@K 表示 \_\_\_\_，Precision@K 表示 \_\_\_\_。→ 正确答案在前 K 个中的比例 / 前 K 个结果中相关文档的比例
+- `[D17-12]` Agent 架构中 MCP 解决 Agent 到 \_\_\_\_ 的通信标准，A2A 协议解决 Agent 到 \_\_\_\_ 的通信标准。→ 工具 / Agent
+- `[D17-13]` Context Engineering 要解决上下文污染，三种手段是 \_\_\_\_、\_\_\_\_ 和 \_\_\_\_。→ Sub-agent 分离 / 结构化笔记压缩 / 上下文滑动窗口
+
+#### 简答题
+
+- `[D17-14]` JDK 8 的主要新特性有哪些？挑 3-4 个展开讲。
+  > JDK8 最重要的新特性：① Lambda 表达式——把函数当参数传，配合函数式接口 @FunctionalInterface，让代码从"怎么做"变成"做什么"；② Stream API——filter/map/reduce 链式操作集合，惰性求值 + 流水线，代码简洁且易并行；③ Optional 类——orElse/orElseThrow 优雅防 NPE，比 if-null 检查更安全；④ 新日期 API——LocalDate/LocalDateTime/Instant 不可变线程安全，替代老的 Date/Calendar。另外还有接口默认方法、元空间取代永久代等。
+- `[D17-15]` ArrayList 的 fail-fast 机制是什么？底层怎么实现的？怎么避免？
+  > fail-fast 是 ArrayList 在遍历过程中检测到结构性修改（add/remove/clear）时立即抛 ConcurrentModificationException 的机制。底层通过 modCount 字段实现：每次 add/remove modCount+1，创建迭代器时记录 expectedModCount=modCount，每次 next()/remove() 时检查两者是否相等，不等就抛异常。单线程解决用 iterator.remove()（它会同步 modCount），多线程用 CopyOnWriteArrayList（写时复制，读不加锁）。
+- `[D17-16]` 什么是 Agent Harness？它和普通的 while(true) 循环有什么区别？
+  > Agent Harness 是 Agent 的执行骨架/运行时系统，包含循环控制、工具注册与调度、上下文管理、状态维护、错误处理、超时控制、并发管理。和普通 while(true) 的区别：生产级 Harness 需支持可配置的循环策略（最大步数、单步超时、Token 预算）、优雅终止（接近上限时提示"请尽快收尾"而非强杀）、状态快照与恢复（长任务中断可恢复）。一句话：Agent = Model + Harness，模型负责推理，Harness 负责把任务、上下文、工具和反馈组织成可控的运行时。
+- `[D17-17]` MCP 协议的三层架构是什么？MCP 和 Function Calling 有什么区别？
+  > MCP（Model Context Protocol）三层架构：Host（Agent 宿主，如 Claude Code）、Client（协议客户端，连接 Server）、Server（暴露工具如文件/数据库/API）。和 Function Calling 的区别：FC 是模型如何输出结构化的工具调用意图（表达层），MCP 是工具如何被标准化的发现、描述、调用和返回（协议层），Skills 是 Agent 做某类任务时应按什么流程执行（任务层）。三者不是替代关系，是不同层次的组合。MCP 解决 N×M 集成爆炸问题——不需要为每个工具写自定义集成代码。
+- `[D17-18]` RAG 中 Chunk 策略有哪些？怎么判断 Chunk Size 合不合适？
+  > 常见 Chunk 策略：① 语义分块——按标题层级/段落切分，不是纯按字符数，用文档结构（Markdown 标题、PDF 章节）做边界；② 固定大小 + 重叠——如 512 tokens + 50 字 overlap，防止边界信息丢失；③ Layout-Aware——识别表格/图片/代码块特殊处理。判断 Chunk Size 是否合适看 Recall@K：块太大 → 噪声多（包含无关内容），块太小 → 上下文不够模型理解。从 256 tokens 开始试，逐步调大到 1024，看检索指标变化。
+- `[D17-19]` 什么是 Context Engineering？和 Prompt Engineering 什么关系？
+  > Prompt Engineering 关注指令怎么写清楚（System Prompt 的角色/约束/格式）。Context Engineering 关注什么信息在什么时机进入模型窗口（Context Window 的内容管理）。后者比前者更高阶：静态规则放 System Prompt、动态检索结果放 User Message、工具结果单独放 Tool Response、长对话要窗口滑动。上下文污染治理：Sub-agent 分离（探索性任务给子 agent）、结构化笔记压缩、上下文滑动窗口、任务状态持久化。2026 年面试高频题，体现你对 AI 工程化的深度理解。
+- `[D17-20]` Agent Loop 的几种模式？ReAct、Plan-and-Execute、Reflection 有什么区别？
+  > 三种主要模式：① ReAct——Thought→Action→Observation 三步循环，透明可审计，但 Token 消耗大，可能死循环；② Plan-and-Execute——先一次性生成完整计划再逐步执行，Token 消耗约 ReAct 的 20%，但计划不合理需重新规划；③ Reflection——生成 + 审查双 Agent 循环迭代，质量高但 Token 翻倍。防死循环三件套：最大步数限制（通常 15 步）、重复动作检测（连续 3 次相同则退出）、超时控制。项目里 Java+AI 落地主要用 ReAct 模式，清晰可控。
 
 ---
 

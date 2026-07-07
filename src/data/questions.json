@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-06T07:44:44.155Z",
+  "generatedAt": "2026-07-07T15:32:09.280Z",
   "source": "面试复习每日练习.md (source/questions-source.md)",
-  "total": 99,
+  "total": 156,
   "byType": {
-    "choice": 36,
-    "fill": 33,
-    "short": 30
+    "choice": 53,
+    "fill": 49,
+    "short": 54
   },
   "questions": [
     {
@@ -1588,6 +1588,907 @@
       "day": 11,
       "category": "Spring 与 Spring Boot",
       "seq": 15
+    },
+    {
+      "id": "D12-01",
+      "type": "choice",
+      "stem": "RocketMQ 同步发送中，生产端判断 Broker 已确认接收消息，主要看什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "消费者是否已经消费"
+        },
+        {
+          "key": "B",
+          "text": "`SendResult` 且状态为 `SEND_OK`"
+        },
+        {
+          "key": "C",
+          "text": "offset 是否提交"
+        },
+        {
+          "key": "D",
+          "text": "死信队列是否为空"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 1
+    },
+    {
+      "id": "D12-02",
+      "type": "choice",
+      "stem": "RocketMQ 中 `SYNC_FLUSH` 主要解决哪类风险？",
+      "options": [
+        {
+          "key": "A",
+          "text": "消费者重复消费"
+        },
+        {
+          "key": "B",
+          "text": "Master 写入 PageCache 后未刷盘就宕机"
+        },
+        {
+          "key": "C",
+          "text": "生产者重复发送"
+        },
+        {
+          "key": "D",
+          "text": "消息全局顺序"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 2
+    },
+    {
+      "id": "D12-03",
+      "type": "choice",
+      "stem": "RocketMQ 中 `SYNC_MASTER` 主要表示什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "Master 本机同步刷盘"
+        },
+        {
+          "key": "B",
+          "text": "Consumer 同步提交 offset"
+        },
+        {
+          "key": "C",
+          "text": "Slave 同步完成后再返回发送成功"
+        },
+        {
+          "key": "D",
+          "text": "所有 Topic 全局有序"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 3
+    },
+    {
+      "id": "D12-04",
+      "type": "choice",
+      "stem": "消费端避免“看起来丢消息”的正确做法是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "收到消息立刻返回 `CONSUME_SUCCESS`"
+        },
+        {
+          "key": "B",
+          "text": "业务处理成功后再返回 `CONSUME_SUCCESS`"
+        },
+        {
+          "key": "C",
+          "text": "关闭重试机制"
+        },
+        {
+          "key": "D",
+          "text": "所有消息都用单向发送"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 4
+    },
+    {
+      "id": "D12-05",
+      "type": "choice",
+      "stem": "RocketMQ 事务消息的 Half Message 在 commit 前对消费者是什么状态？",
+      "options": [
+        {
+          "key": "A",
+          "text": "可见并可消费"
+        },
+        {
+          "key": "B",
+          "text": "只对部分消费者可见"
+        },
+        {
+          "key": "C",
+          "text": "不可见"
+        },
+        {
+          "key": "D",
+          "text": "已进入死信队列"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 5
+    },
+    {
+      "id": "D12-06",
+      "type": "choice",
+      "stem": "AGV/RCS 中同一个任务的创建、派发、完成事件要保证顺序，最合适的做法是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "所有消息全局单队列"
+        },
+        {
+          "key": "B",
+          "text": "随机选择队列"
+        },
+        {
+          "key": "C",
+          "text": "按 `taskId` 选择同一个 MessageQueue"
+        },
+        {
+          "key": "D",
+          "text": "只提高消费者线程数"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 6
+    },
+    {
+      "id": "D12-07",
+      "type": "fill",
+      "stem": "RocketMQ 异步发送也有确认机制，成功和失败分别通过 `SendCallback` 的 ___ 和 ___ 处理。",
+      "blanks": [
+        "onSuccess",
+        "onException"
+      ],
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 7
+    },
+    {
+      "id": "D12-08",
+      "type": "fill",
+      "stem": "`SYNC_FLUSH` 保证 ___ 本机落盘；`SYNC_MASTER` 保证 ___ 也同步完成。",
+      "blanks": [
+        "Master",
+        "Slave"
+      ],
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 8
+    },
+    {
+      "id": "D12-09",
+      "type": "fill",
+      "stem": "本地消息表也叫 Outbox，主要解决可靠发送和 ___；消费端 Inbox 主要解决 ___。",
+      "blanks": [
+        "补偿",
+        "重复消费或幂等"
+      ],
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 9
+    },
+    {
+      "id": "D12-10",
+      "type": "fill",
+      "stem": "RocketMQ 事务消息回查由 ___ 发起，回查逻辑由 ___ 实现。",
+      "blanks": [
+        "Broker",
+        "Producer"
+      ],
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 10
+    },
+    {
+      "id": "D12-11",
+      "type": "fill",
+      "stem": "限流、熔断、降级的记忆口径：限流防 ___，熔断防 ___，降级保 ___。",
+      "blanks": [
+        "冲垮",
+        "拖垮",
+        "核心"
+      ],
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 11
+    },
+    {
+      "id": "D12-12",
+      "type": "fill",
+      "stem": "AGV/RCS 中，`taskId` 通常是系统内部 ___ ID，`externalTaskId` / `wmsTaskNo` 通常是业务 ___ ID。",
+      "blanks": [
+        "分布式唯一",
+        "幂等"
+      ],
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 12
+    },
+    {
+      "id": "D12-13",
+      "type": "short",
+      "stem": "MQ 怎么保证消息不丢失？请按生产端、Broker 端、消费端三段回答。",
+      "answer": "生产端要有发送确认，RocketMQ 同步发送看 SendResult/SEND_OK，异步发送处理 onSuccess/onException，失败或未知结果重试或写本地消息表。Broker 端用 SYNC_FLUSH 保证 Master 落盘，用 SYNC_MASTER 保证 Slave 同步。消费端必须业务成功后再返回 CONSUME_SUCCESS，失败重试，多次失败进死信队列，并用补偿任务和幂等兜底。",
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 13
+    },
+    {
+      "id": "D12-14",
+      "type": "short",
+      "stem": "本地消息表和 RocketMQ 事务消息分别解决什么问题？二者有什么区别？",
+      "answer": "本地消息表是业务侧 Outbox 策略，把业务数据和待发送消息放在同一个本地事务里，失败后靠定时任务补发。RocketMQ 事务消息是 MQ 原生能力，先发 Half Message，执行本地事务后 commit/rollback，未知时 Broker 回查 Producer。二者都解决生产端本地事务和发消息一致性，但实现位置不同；都不能替代消费端幂等。",
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 14
+    },
+    {
+      "id": "D12-15",
+      "type": "short",
+      "stem": "设计一个 AGV/RCS 任务调度系统时，如何处理任务幂等、并发抢占和执行中异常？",
+      "answer": "任务创建用 externalTaskId/wmsTaskNo 加唯一索引防重，内部用 taskId 做分布式唯一 ID。多实例调度时用状态机 + update where 抢占任务和车辆，根据影响行数判断是否成功。MQ 事件按 taskId 分队列保证同一任务顺序。DISPATCHING 中间态超时补偿，EXECUTING 阶段结合车辆心跳、位置上报、任务进度和告警处理，不能简单回滚。",
+      "day": 12,
+      "category": "分布式 MQ 与系统设计",
+      "seq": 15
+    },
+    {
+      "id": "D12.5-01",
+      "type": "short",
+      "stem": "AI Spec 和普通需求文档有什么区别？为什么 AI 需要额外的 Spec？ 你的答案要点：( )",
+      "answer": "**参考答案**：AI 输出不确定，需要额外定义质量标准（准确率/召回率）、评估方式、降级策略。普通功能输入 A 输出 B 是确定的，但 AI 同一个问题可能给出不同回答，有些对有些错。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 1
+    },
+    {
+      "id": "D12.5-02",
+      "type": "short",
+      "stem": "你项目里的命中率 88% 是怎么定的？baseline 是多少？ 你的答案要点：( )",
+      "answer": "**参考答案**：先跑 baseline 65% → 业务底线 80% → 争取目标 88%，数据驱动不是拍脑袋。准备 200 条测试集人工标注，看模型原始表现，再结合业务可接受范围定目标。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 2
+    },
+    {
+      "id": "D12.5-03",
+      "type": "short",
+      "stem": "Prompt 怎么管理版本？改了 Prompt 怎么确保不回退？ 你的答案要点：( )",
+      "answer": "**参考答案**：Nacos 配置中心管理 → 开发环境单元测试 → 测试环境集成测试（200条）→ 回归测试（500+条）→ 指标不下降才发布。Prompt 变更纳入发版流程，和改代码一个逻辑。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 3
+    },
+    {
+      "id": "D12.5-04",
+      "type": "short",
+      "stem": "Harness 的核心组件有哪些？你的验证集规模是多少？ 你的答案要点：( )",
+      "answer": "**参考答案**：验证数据集（问答200+/检索100条/比对50组）+ 评测流水线 + CI/CD集成（Jenkins）+ 监控告警。每次发版前自动跑，生成报告，指标不达标阻断发布。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 4
+    },
+    {
+      "id": "D12.5-05",
+      "type": "short",
+      "stem": "怎么判断 AI 输出是对还是错？不同场景怎么区分？ 你的答案要点：( )",
+      "answer": "**参考答案**：问答用关键词命中+语义相似度（embedding余弦相似度，阈值0.85）；文档比对直接对比差异条数；检索看标注文档在不在Top-K；兜底人工抽样每周50条。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 5
+    },
+    {
+      "id": "D12.5-06",
+      "type": "short",
+      "stem": "什么是 LLM-as-Judge？你们怎么用的？ 你的答案要点：( )",
+      "answer": "**参考答案**：用大模型评估大模型输出。优点成本低可自动化，能评估语义相似性；缺点判断不完全可靠。作为初筛用过滤明显错误，关键case仍人工审，用100条数据做校准对齐人工标准。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 6
+    },
+    {
+      "id": "D16-01",
+      "type": "choice",
+      "stem": "MySQL UPDATE 执行时，哪个日志是\"物理日志\"记录\"哪个数据页改了什么\"？",
+      "options": [
+        {
+          "key": "A",
+          "text": "binlog"
+        },
+        {
+          "key": "B",
+          "text": "redo log"
+        },
+        {
+          "key": "C",
+          "text": "undo log"
+        },
+        {
+          "key": "D",
+          "text": "slow log"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 1
+    },
+    {
+      "id": "D16-02",
+      "type": "choice",
+      "stem": "BIO、NIO、AIO 中，NIO 的核心机制是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "一连接一线程"
+        },
+        {
+          "key": "B",
+          "text": "Selector 多路复用，一个线程管理多个连接"
+        },
+        {
+          "key": "C",
+          "text": "OS 完成后回调"
+        },
+        {
+          "key": "D",
+          "text": "内核态线程直接处理"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 2
+    },
+    {
+      "id": "D16-03",
+      "type": "choice",
+      "stem": "Java 反射 `Method.invoke()` 的性能优化机制叫什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "JIT编译"
+        },
+        {
+          "key": "B",
+          "text": "Inflation机制（前15次native，之后ASM生成字节码）"
+        },
+        {
+          "key": "C",
+          "text": "内联缓存"
+        },
+        {
+          "key": "D",
+          "text": "方法句柄"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 3
+    },
+    {
+      "id": "D16-04",
+      "type": "choice",
+      "stem": "JDK 21 虚拟线程的调度方式是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "1:1 映射 OS 线程"
+        },
+        {
+          "key": "B",
+          "text": "N:1 映射"
+        },
+        {
+          "key": "C",
+          "text": "M:N 映射，IO阻塞时自动卸载"
+        },
+        {
+          "key": "D",
+          "text": "完全由OS调度"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 4
+    },
+    {
+      "id": "D16-05",
+      "type": "fill",
+      "stem": "MySQL UPDATE 中，redo log 先写 ___ 状态，binlog 写完后再改为 ___ 状态，这就是两阶段提交。",
+      "blanks": [
+        "prepare",
+        "commit"
+      ],
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 5
+    },
+    {
+      "id": "D16-06",
+      "type": "fill",
+      "stem": "BIO 是 ___ 阻塞，NIO 是 ___ 非阻塞 + IO 多路复用，AIO 是异步非阻塞。",
+      "blanks": [
+        "同步",
+        "同步"
+      ],
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 6
+    },
+    {
+      "id": "D16-07",
+      "type": "fill",
+      "stem": "DDD 战略设计的核心是划分 ___，战术设计核心包括实体、值对象、___、领域服务、仓储。",
+      "blanks": [
+        "限界上下文",
+        "聚合"
+      ],
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 7
+    },
+    {
+      "id": "D16-08",
+      "type": "fill",
+      "stem": "AI Coding 适用业务的判断三要素：需求 ___、有 ___ 手段、上下文可控。",
+      "blanks": [
+        "明确",
+        "验证"
+      ],
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 8
+    },
+    {
+      "id": "D16-09",
+      "type": "short",
+      "stem": "一条 UPDATE 在 MySQL 中的完整执行流程？（server层、引擎层、三本日志、两阶段提交）",
+      "answer": "连接器→分析器→优化器→执行器→引擎层：定位行→加锁→写undo→改Buffer Pool→写redo(prepare)→写binlog→redo(commit)。两阶段提交保证redo和binlog一致，崩溃恢复不丢数据。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 9
+    },
+    {
+      "id": "D16-10",
+      "type": "short",
+      "stem": "BIO/NIO/AIO 区别？为什么 NIO 能\"一个线程管万连接\"？AIO 在 Linux 为什么用得少？",
+      "answer": "BIO同步阻塞一连接一线程；NIO同步非阻塞+Selector多路复用，epoll监听就绪事件，一线程管万连接；AIO异步非阻塞但Linux不成熟，Java AIO底层仍用epoll模拟，所以主流用NIO（Netty）。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 10
+    },
+    {
+      "id": "D16-11",
+      "type": "short",
+      "stem": "Java 反射原理？`Method.invoke()` 底层实现？如何优化？",
+      "answer": "入口是Class对象（元空间元数据）。Method.invoke先走NativeMethodAccessorImpl（前15次），第16次起JVM用ASM动态生成字节码直接调用（inflation机制）。优化：缓存Method对象、setAccessible(true)跳安全检查。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 11
+    },
+    {
+      "id": "D16-12",
+      "type": "short",
+      "stem": "虚拟线程核心机制？使用注意事项（至少3个）？",
+      "answer": "M:N调度，虚拟线程跑在少量载体线程上，IO阻塞时自动卸载让载体干别的。注意事项：①不池化（用完即弃）②少用synchronized（会pin住载体）③慎用ThreadLocal（百万虚拟线程=内存爆炸）④CPU密集任务无提升。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 12
+    },
+    {
+      "id": "D16-13",
+      "type": "short",
+      "stem": "Claude Code vs Codex 各自优势？你怎么选？",
+      "answer": "CC强在长链路Agent+工程化生态（MCP/Skills/Hooks）；Codex强在GitHub集成+OpenAI模型。复杂任务给CC，短平快PR相关给Codex。关键是围绕工具建立AI工程工作流。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 13
+    },
+    {
+      "id": "D16-14",
+      "type": "short",
+      "stem": "Skill 是什么？什么时候该写 Skill？",
+      "answer": "Skill是把重复工作流封装成Agent能力包（SKILL.md+scripts），按需加载省token。和代码抽函数同理，出现两次以上的流程就值得沉淀成Skill。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 14
+    },
+    {
+      "id": "D16-15",
+      "type": "short",
+      "stem": "AI Coding 适用什么业务？判断标准是什么？",
+      "answer": "适合：CRUD、重构、写测试、文档脚本、有明确规范的功能。不适合：核心业务逻辑、架构选型、安全、高性能调优。判断三要素：需求明确+有验证手段+上下文可控。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 15
+    },
+    {
+      "id": "D16-16",
+      "type": "short",
+      "stem": "DDD 是什么？战略设计和战术设计分别指什么？什么时候该用？",
+      "answer": "DDD是让软件结构反映业务领域复杂性的方法论。战略设计=限界上下文划分（解决系统边界）；战术设计=实体/值对象/聚合/领域服务/仓储（解决代码怎么写）。适合业务复杂+团队大+长期演进；简单CRUD别强行用。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 16
+    },
+    {
+      "id": "D17-01",
+      "type": "choice",
+      "stem": "JDK 8 引入的以下哪个特性可以让接口中编写带有方法体的方法？",
+      "options": [
+        {
+          "key": "A",
+          "text": "Lambda 表达式"
+        },
+        {
+          "key": "B",
+          "text": "默认方法（default method）"
+        },
+        {
+          "key": "C",
+          "text": "Stream API"
+        },
+        {
+          "key": "D",
+          "text": "Optional 类"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 1
+    },
+    {
+      "id": "D17-02",
+      "type": "choice",
+      "stem": "ArrayList 在迭代过程中调用 `list.add()` 会触发什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "正常追加"
+        },
+        {
+          "key": "B",
+          "text": "覆盖当前元素"
+        },
+        {
+          "key": "C",
+          "text": "抛 ConcurrentModificationException"
+        },
+        {
+          "key": "D",
+          "text": "死循环"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 2
+    },
+    {
+      "id": "D17-03",
+      "type": "choice",
+      "stem": "以下哪个不属于 JDK 8 的新特性？",
+      "options": [
+        {
+          "key": "A",
+          "text": "Lambda 表达式"
+        },
+        {
+          "key": "B",
+          "text": "Stream API"
+        },
+        {
+          "key": "C",
+          "text": "虚拟线程"
+        },
+        {
+          "key": "D",
+          "text": "元空间（Metaspace）"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 3
+    },
+    {
+      "id": "D17-04",
+      "type": "choice",
+      "stem": "在 RAG 系统中，Chunk 之间设置重叠（Overlap）的主要目的是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "减少向量库存储量"
+        },
+        {
+          "key": "B",
+          "text": "避免分块断裂导致上下文丢失"
+        },
+        {
+          "key": "C",
+          "text": "提升检索速度"
+        },
+        {
+          "key": "D",
+          "text": "降低 Embedding 调用次数"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 4
+    },
+    {
+      "id": "D17-05",
+      "type": "choice",
+      "stem": "MCP（Model Context Protocol）主要解决什么问题？",
+      "options": [
+        {
+          "key": "A",
+          "text": "让模型输出更准确"
+        },
+        {
+          "key": "B",
+          "text": "工具的标准化发现、描述、调用和返回"
+        },
+        {
+          "key": "C",
+          "text": "降低 API 调用成本"
+        },
+        {
+          "key": "D",
+          "text": "管理 Prompt 版本"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 5
+    },
+    {
+      "id": "D17-06",
+      "type": "choice",
+      "stem": "Agent 中\"防死循环三件套\"不包括以下哪项？",
+      "options": [
+        {
+          "key": "A",
+          "text": "最大步数限制"
+        },
+        {
+          "key": "B",
+          "text": "重复动作检测"
+        },
+        {
+          "key": "C",
+          "text": "温度参数调低"
+        },
+        {
+          "key": "D",
+          "text": "超时控制"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 6
+    },
+    {
+      "id": "D17-07",
+      "type": "choice",
+      "stem": "Context Engineering 和 Prompt Engineering 的核心区别是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "没区别，同一个概念"
+        },
+        {
+          "key": "B",
+          "text": "Prompt Engineering 关注指令，Context Engineering 关注什么信息在什么时机进模型窗口"
+        },
+        {
+          "key": "C",
+          "text": "Context Engineering 是 Prompt Engineering 的子集"
+        },
+        {
+          "key": "D",
+          "text": "Context Engineering 只处理多轮对话"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 7
+    },
+    {
+      "id": "D17-08",
+      "type": "fill",
+      "stem": "ArrayList 的 fail-fast 机制通过一个叫 ___ 的字段实现：每次结构性修改 +1，迭代器创建时快照这个值，每次 next() 时检查是否被修改过。",
+      "blanks": [
+        "modCount"
+      ],
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 8
+    },
+    {
+      "id": "D17-09",
+      "type": "fill",
+      "stem": "JDK 8 的 Stream 操作分为 ___ 操作（如 filter/map）和 ___ 操作（如 collect/forEach），中间操作是惰性的。",
+      "blanks": [
+        "中间",
+        "终端"
+      ],
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 9
+    },
+    {
+      "id": "D17-10",
+      "type": "fill",
+      "stem": "JDK 8 的 ___ 类用来优雅地避免 NullPointerException，常用方法有 orElse/orElseGet/orElseThrow。",
+      "blanks": [
+        "Optional"
+      ],
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 10
+    },
+    {
+      "id": "D17-11",
+      "type": "fill",
+      "stem": "RAG 的检索评估指标中 Recall@K 表示 ___，Precision@K 表示 ___。",
+      "blanks": [
+        "正确答案在前 K 个中的比例",
+        "前 K 个结果中相关文档的比例"
+      ],
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 11
+    },
+    {
+      "id": "D17-12",
+      "type": "fill",
+      "stem": "Agent 架构中 MCP 解决 Agent 到 ___ 的通信标准，A2A 协议解决 Agent 到 ___ 的通信标准。",
+      "blanks": [
+        "工具",
+        "Agent"
+      ],
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 12
+    },
+    {
+      "id": "D17-13",
+      "type": "fill",
+      "stem": "Context Engineering 要解决上下文污染，三种手段是 ___、___ 和 ___。",
+      "blanks": [
+        "Sub-agent 分离",
+        "结构化笔记压缩",
+        "上下文滑动窗口"
+      ],
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 13
+    },
+    {
+      "id": "D17-14",
+      "type": "short",
+      "stem": "JDK 8 的主要新特性有哪些？挑 3-4 个展开讲。",
+      "answer": "JDK8 最重要的新特性：① Lambda 表达式——把函数当参数传，配合函数式接口 @FunctionalInterface，让代码从\"怎么做\"变成\"做什么\"；② Stream API——filter/map/reduce 链式操作集合，惰性求值 + 流水线，代码简洁且易并行；③ Optional 类——orElse/orElseThrow 优雅防 NPE，比 if-null 检查更安全；④ 新日期 API——LocalDate/LocalDateTime/Instant 不可变线程安全，替代老的 Date/Calendar。另外还有接口默认方法、元空间取代永久代等。",
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 14
+    },
+    {
+      "id": "D17-15",
+      "type": "short",
+      "stem": "ArrayList 的 fail-fast 机制是什么？底层怎么实现的？怎么避免？",
+      "answer": "fail-fast 是 ArrayList 在遍历过程中检测到结构性修改（add/remove/clear）时立即抛 ConcurrentModificationException 的机制。底层通过 modCount 字段实现：每次 add/remove modCount+1，创建迭代器时记录 expectedModCount=modCount，每次 next()/remove() 时检查两者是否相等，不等就抛异常。单线程解决用 iterator.remove()（它会同步 modCount），多线程用 CopyOnWriteArrayList（写时复制，读不加锁）。",
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 15
+    },
+    {
+      "id": "D17-16",
+      "type": "short",
+      "stem": "什么是 Agent Harness？它和普通的 while(true) 循环有什么区别？",
+      "answer": "Agent Harness 是 Agent 的执行骨架/运行时系统，包含循环控制、工具注册与调度、上下文管理、状态维护、错误处理、超时控制、并发管理。和普通 while(true) 的区别：生产级 Harness 需支持可配置的循环策略（最大步数、单步超时、Token 预算）、优雅终止（接近上限时提示\"请尽快收尾\"而非强杀）、状态快照与恢复（长任务中断可恢复）。一句话：Agent = Model + Harness，模型负责推理，Harness 负责把任务、上下文、工具和反馈组织成可控的运行时。",
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 16
+    },
+    {
+      "id": "D17-17",
+      "type": "short",
+      "stem": "MCP 协议的三层架构是什么？MCP 和 Function Calling 有什么区别？",
+      "answer": "MCP（Model Context Protocol）三层架构：Host（Agent 宿主，如 Claude Code）、Client（协议客户端，连接 Server）、Server（暴露工具如文件/数据库/API）。和 Function Calling 的区别：FC 是模型如何输出结构化的工具调用意图（表达层），MCP 是工具如何被标准化的发现、描述、调用和返回（协议层），Skills 是 Agent 做某类任务时应按什么流程执行（任务层）。三者不是替代关系，是不同层次的组合。MCP 解决 N×M 集成爆炸问题——不需要为每个工具写自定义集成代码。",
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 17
+    },
+    {
+      "id": "D17-18",
+      "type": "short",
+      "stem": "RAG 中 Chunk 策略有哪些？怎么判断 Chunk Size 合不合适？",
+      "answer": "常见 Chunk 策略：① 语义分块——按标题层级/段落切分，不是纯按字符数，用文档结构（Markdown 标题、PDF 章节）做边界；② 固定大小 + 重叠——如 512 tokens + 50 字 overlap，防止边界信息丢失；③ Layout-Aware——识别表格/图片/代码块特殊处理。判断 Chunk Size 是否合适看 Recall@K：块太大 → 噪声多（包含无关内容），块太小 → 上下文不够模型理解。从 256 tokens 开始试，逐步调大到 1024，看检索指标变化。",
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 18
+    },
+    {
+      "id": "D17-19",
+      "type": "short",
+      "stem": "什么是 Context Engineering？和 Prompt Engineering 什么关系？",
+      "answer": "Prompt Engineering 关注指令怎么写清楚（System Prompt 的角色/约束/格式）。Context Engineering 关注什么信息在什么时机进入模型窗口（Context Window 的内容管理）。后者比前者更高阶：静态规则放 System Prompt、动态检索结果放 User Message、工具结果单独放 Tool Response、长对话要窗口滑动。上下文污染治理：Sub-agent 分离（探索性任务给子 agent）、结构化笔记压缩、上下文滑动窗口、任务状态持久化。2026 年面试高频题，体现你对 AI 工程化的深度理解。",
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 19
+    },
+    {
+      "id": "D17-20",
+      "type": "short",
+      "stem": "Agent Loop 的几种模式？ReAct、Plan-and-Execute、Reflection 有什么区别？",
+      "answer": "三种主要模式：① ReAct——Thought→Action→Observation 三步循环，透明可审计，但 Token 消耗大，可能死循环；② Plan-and-Execute——先一次性生成完整计划再逐步执行，Token 消耗约 ReAct 的 20%，但计划不合理需重新规划；③ Reflection——生成 + 审查双 Agent 循环迭代，质量高但 Token 翻倍。防死循环三件套：最大步数限制（通常 15 步）、重复动作检测（连续 3 次相同则退出）、超时控制。项目里 Java+AI 落地主要用 ReAct 模式，清晰可控。",
+      "day": 17,
+      "category": "面试实战新题收集（2026-07-07）",
+      "seq": 20
     }
   ]
 }
