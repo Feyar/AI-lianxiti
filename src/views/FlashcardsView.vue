@@ -104,6 +104,13 @@ function exit() {
 
     <!-- Card -->
     <div class="flex-1 flex flex-col items-center justify-center px-4 py-6">
+      <button
+        v-if="index > 0"
+        @click.stop="goPrev"
+        class="w-full max-w-md mb-3 py-2 rounded-xl bg-slate-100 text-slate-500 text-xs active:scale-95 transition"
+      >
+        ← 上一张
+      </button>
       <div
         @click="!rated && flip()"
         class="w-full max-w-md aspect-[3/4] rounded-2xl shadow-lg cursor-pointer transition-all duration-300 overflow-hidden"
@@ -153,9 +160,6 @@ function exit() {
                 记住了
               </button>
             </div>
-            <button v-if="index > 0" @click.stop="goPrev" class="w-full py-2 rounded-xl bg-slate-100 text-slate-500 text-xs active:scale-95 transition">
-              ← 上一张
-            </button>
           </div>
           <div v-else class="mt-4 text-center text-xs text-slate-400">已记录，下一张...</div>
         </div>

@@ -25,7 +25,7 @@ function splitDayBlocks(md) {
   const blocks = [];
   let cur = null;
   for (const line of lines) {
-    const m = line.match(/^### +Day\s*(\d+)\s*[—\-–]\s*(.+?)\s*$/);
+    const m = line.match(/^### +Day\s*(\d+(?:\.\d+)?)\s*[—\-–]\s*(.+?)\s*$/);
     if (m) {
       cur = { day: Number(m[1]), title: m[2].trim(), body: [] };
       blocks.push(cur);
@@ -56,11 +56,11 @@ function splitByType(dayBody) {
 
 // ---------- 切题 ----------
 function splitItems(text) {
-  const re = /-\s+`\[(D\d+-\d+)\]`\s*([\s\S]*?)(?=\n-\s+`\[D\d+-\d+\]`\s|\n####\s|\n###\s|\n##\s|$)/g;
+  const re = /(?:-\s+`\[(D\d+(?:\.\d+)?-\d+)\]`\s*|\*\*(D\d+(?:\.\d+)?-\d+)\*\*\s*)([\s\S]*?)(?=\n(?:-\s+`\[D\d+(?:\.\d+)?-\d+\]`\s|\*\*D\d+(?:\.\d+)?-\d+\*\*)|\n####\s|\n###\s|\n##\s|$)/g;
   const items = [];
   let m;
   while ((m = re.exec(text)) !== null) {
-    items.push({ id: m[1], content: m[2].trim() });
+    items.push({ id: m[1] ?? m[2], content: m[3].trim() });
   }
   return items;
 }
@@ -156,6 +156,10 @@ function parseShort(id, content) {
   };
 }
 
+function parseSeq(id) {
+  return Number(id.split('-')[1]);
+}
+
 // ---------- 主流程 ----------
 function parse(md) {
   const libMd = extractLibrarySection(md);
@@ -176,7 +180,7 @@ function parse(md) {
           else q = parseShort(it.id, it.content);
           q.day = blk.day;
           q.category = blk.title;
-          q.seq = Number(it.id.split('-')[1]);
+          q.seq = parseSeq(it.id);
           questions.push(q);
         } catch (e) {
           failures.push({ id: it.id, error: e.message, content: it.content });

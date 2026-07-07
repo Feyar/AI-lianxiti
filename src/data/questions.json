@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-06T07:44:44.155Z",
+  "generatedAt": "2026-07-07T01:07:07.884Z",
   "source": "面试复习每日练习.md (source/questions-source.md)",
-  "total": 99,
+  "total": 121,
   "byType": {
-    "choice": 36,
-    "fill": 33,
-    "short": 30
+    "choice": 40,
+    "fill": 37,
+    "short": 44
   },
   "questions": [
     {
@@ -1588,6 +1588,296 @@
       "day": 11,
       "category": "Spring 与 Spring Boot",
       "seq": 15
+    },
+    {
+      "id": "D12.5-01",
+      "type": "short",
+      "stem": "AI Spec 和普通需求文档有什么区别？为什么 AI 需要额外的 Spec？ 你的答案要点：( )",
+      "answer": "**参考答案**：AI 输出不确定，需要额外定义质量标准（准确率/召回率）、评估方式、降级策略。普通功能输入 A 输出 B 是确定的，但 AI 同一个问题可能给出不同回答，有些对有些错。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 1
+    },
+    {
+      "id": "D12.5-02",
+      "type": "short",
+      "stem": "你项目里的命中率 88% 是怎么定的？baseline 是多少？ 你的答案要点：( )",
+      "answer": "**参考答案**：先跑 baseline 65% → 业务底线 80% → 争取目标 88%，数据驱动不是拍脑袋。准备 200 条测试集人工标注，看模型原始表现，再结合业务可接受范围定目标。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 2
+    },
+    {
+      "id": "D12.5-03",
+      "type": "short",
+      "stem": "Prompt 怎么管理版本？改了 Prompt 怎么确保不回退？ 你的答案要点：( )",
+      "answer": "**参考答案**：Nacos 配置中心管理 → 开发环境单元测试 → 测试环境集成测试（200条）→ 回归测试（500+条）→ 指标不下降才发布。Prompt 变更纳入发版流程，和改代码一个逻辑。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 3
+    },
+    {
+      "id": "D12.5-04",
+      "type": "short",
+      "stem": "Harness 的核心组件有哪些？你的验证集规模是多少？ 你的答案要点：( )",
+      "answer": "**参考答案**：验证数据集（问答200+/检索100条/比对50组）+ 评测流水线 + CI/CD集成（Jenkins）+ 监控告警。每次发版前自动跑，生成报告，指标不达标阻断发布。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 4
+    },
+    {
+      "id": "D12.5-05",
+      "type": "short",
+      "stem": "怎么判断 AI 输出是对还是错？不同场景怎么区分？ 你的答案要点：( )",
+      "answer": "**参考答案**：问答用关键词命中+语义相似度（embedding余弦相似度，阈值0.85）；文档比对直接对比差异条数；检索看标注文档在不在Top-K；兜底人工抽样每周50条。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 5
+    },
+    {
+      "id": "D12.5-06",
+      "type": "short",
+      "stem": "什么是 LLM-as-Judge？你们怎么用的？ 你的答案要点：( )",
+      "answer": "**参考答案**：用大模型评估大模型输出。优点成本低可自动化，能评估语义相似性；缺点判断不完全可靠。作为初筛用过滤明显错误，关键case仍人工审，用100条数据做校准对齐人工标准。",
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 6
+    },
+    {
+      "id": "D16-01",
+      "type": "choice",
+      "stem": "MySQL UPDATE 执行时，哪个日志是\"物理日志\"记录\"哪个数据页改了什么\"？",
+      "options": [
+        {
+          "key": "A",
+          "text": "binlog"
+        },
+        {
+          "key": "B",
+          "text": "redo log"
+        },
+        {
+          "key": "C",
+          "text": "undo log"
+        },
+        {
+          "key": "D",
+          "text": "slow log"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 1
+    },
+    {
+      "id": "D16-02",
+      "type": "choice",
+      "stem": "BIO、NIO、AIO 中，NIO 的核心机制是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "一连接一线程"
+        },
+        {
+          "key": "B",
+          "text": "Selector 多路复用，一个线程管理多个连接"
+        },
+        {
+          "key": "C",
+          "text": "OS 完成后回调"
+        },
+        {
+          "key": "D",
+          "text": "内核态线程直接处理"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 2
+    },
+    {
+      "id": "D16-03",
+      "type": "choice",
+      "stem": "Java 反射 `Method.invoke()` 的性能优化机制叫什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "JIT编译"
+        },
+        {
+          "key": "B",
+          "text": "Inflation机制（前15次native，之后ASM生成字节码）"
+        },
+        {
+          "key": "C",
+          "text": "内联缓存"
+        },
+        {
+          "key": "D",
+          "text": "方法句柄"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 3
+    },
+    {
+      "id": "D16-04",
+      "type": "choice",
+      "stem": "JDK 21 虚拟线程的调度方式是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "1:1 映射 OS 线程"
+        },
+        {
+          "key": "B",
+          "text": "N:1 映射"
+        },
+        {
+          "key": "C",
+          "text": "M:N 映射，IO阻塞时自动卸载"
+        },
+        {
+          "key": "D",
+          "text": "完全由OS调度"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 4
+    },
+    {
+      "id": "D16-05",
+      "type": "fill",
+      "stem": "MySQL UPDATE 中，redo log 先写 ___ 状态，binlog 写完后再改为 ___ 状态，这就是两阶段提交。",
+      "blanks": [
+        "prepare",
+        "commit"
+      ],
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 5
+    },
+    {
+      "id": "D16-06",
+      "type": "fill",
+      "stem": "BIO 是 ___ 阻塞，NIO 是 ___ 非阻塞 + IO 多路复用，AIO 是异步非阻塞。",
+      "blanks": [
+        "同步",
+        "同步"
+      ],
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 6
+    },
+    {
+      "id": "D16-07",
+      "type": "fill",
+      "stem": "DDD 战略设计的核心是划分 ___，战术设计核心包括实体、值对象、___、领域服务、仓储。",
+      "blanks": [
+        "限界上下文",
+        "聚合"
+      ],
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 7
+    },
+    {
+      "id": "D16-08",
+      "type": "fill",
+      "stem": "AI Coding 适用业务的判断三要素：需求 ___、有 ___ 手段、上下文可控。",
+      "blanks": [
+        "明确",
+        "验证"
+      ],
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 8
+    },
+    {
+      "id": "D16-09",
+      "type": "short",
+      "stem": "一条 UPDATE 在 MySQL 中的完整执行流程？（server层、引擎层、三本日志、两阶段提交）",
+      "answer": "连接器→分析器→优化器→执行器→引擎层：定位行→加锁→写undo→改Buffer Pool→写redo(prepare)→写binlog→redo(commit)。两阶段提交保证redo和binlog一致，崩溃恢复不丢数据。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 9
+    },
+    {
+      "id": "D16-10",
+      "type": "short",
+      "stem": "BIO/NIO/AIO 区别？为什么 NIO 能\"一个线程管万连接\"？AIO 在 Linux 为什么用得少？",
+      "answer": "BIO同步阻塞一连接一线程；NIO同步非阻塞+Selector多路复用，epoll监听就绪事件，一线程管万连接；AIO异步非阻塞但Linux不成熟，Java AIO底层仍用epoll模拟，所以主流用NIO（Netty）。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 10
+    },
+    {
+      "id": "D16-11",
+      "type": "short",
+      "stem": "Java 反射原理？`Method.invoke()` 底层实现？如何优化？",
+      "answer": "入口是Class对象（元空间元数据）。Method.invoke先走NativeMethodAccessorImpl（前15次），第16次起JVM用ASM动态生成字节码直接调用（inflation机制）。优化：缓存Method对象、setAccessible(true)跳安全检查。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 11
+    },
+    {
+      "id": "D16-12",
+      "type": "short",
+      "stem": "虚拟线程核心机制？使用注意事项（至少3个）？",
+      "answer": "M:N调度，虚拟线程跑在少量载体线程上，IO阻塞时自动卸载让载体干别的。注意事项：①不池化（用完即弃）②少用synchronized（会pin住载体）③慎用ThreadLocal（百万虚拟线程=内存爆炸）④CPU密集任务无提升。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 12
+    },
+    {
+      "id": "D16-13",
+      "type": "short",
+      "stem": "Claude Code vs Codex 各自优势？你怎么选？",
+      "answer": "CC强在长链路Agent+工程化生态（MCP/Skills/Hooks）；Codex强在GitHub集成+OpenAI模型。复杂任务给CC，短平快PR相关给Codex。关键是围绕工具建立AI工程工作流。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 13
+    },
+    {
+      "id": "D16-14",
+      "type": "short",
+      "stem": "Skill 是什么？什么时候该写 Skill？",
+      "answer": "Skill是把重复工作流封装成Agent能力包（SKILL.md+scripts），按需加载省token。和代码抽函数同理，出现两次以上的流程就值得沉淀成Skill。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 14
+    },
+    {
+      "id": "D16-15",
+      "type": "short",
+      "stem": "AI Coding 适用什么业务？判断标准是什么？",
+      "answer": "适合：CRUD、重构、写测试、文档脚本、有明确规范的功能。不适合：核心业务逻辑、架构选型、安全、高性能调优。判断三要素：需求明确+有验证手段+上下文可控。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 15
+    },
+    {
+      "id": "D16-16",
+      "type": "short",
+      "stem": "DDD 是什么？战略设计和战术设计分别指什么？什么时候该用？",
+      "answer": "DDD是让软件结构反映业务领域复杂性的方法论。战略设计=限界上下文划分（解决系统边界）；战术设计=实体/值对象/聚合/领域服务/仓储（解决代码怎么写）。适合业务复杂+团队大+长期演进；简单CRUD别强行用。",
+      "day": 16,
+      "category": "面试实战经典题（第十六章）",
+      "seq": 16
     }
   ]
 }
