@@ -54,7 +54,12 @@ async function rate(rating: 'ok' | 'partial' | 'no') {
 }
 
 function getAnswerText(q: Question): string {
-  if (q.type === 'choice') return q.answer || ''
+  if (q.type === 'choice') {
+    const option = q.options?.find(o => o.key === q.answer)
+    if (option) return `${q.answer}. ${option.text}`
+    // incomplete choice: no options, show answer letter + explanation
+    return q.answer ? `${q.answer}. ${q.explanation || ''}` : q.explanation || ''
+  }
   if (q.type === 'short') return q.answer || ''
   if (q.type === 'fill') return q.blanks?.join('、') || ''
   return ''
@@ -62,6 +67,14 @@ function getAnswerText(q: Question): string {
 
 function finish() {
   router.push('/')
+}
+
+function goPrev() {
+  if (index.value > 0) {
+    index.value--
+    flipped.value = false
+    rated.value = false
+  }
 }
 
 function exit() {
@@ -109,26 +122,39 @@ function exit() {
         <!-- Back -->
         <div v-else class="h-full flex flex-col p-6">
           <div class="text-xs text-slate-400 mb-2">{{ current.id }} · {{ current.category }}</div>
-          <div class="text-[10px] px-2 py-0.5 rounded-full bg-brand-100 text-brand-700 mb-3 self-start">
+
+          <!-- Question (repeated on back for context) -->
+          <div class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 mb-3 self-start">
+            题目
+          </div>
+          <p class="text-sm text-slate-700 leading-relaxed mb-3" v-html="current.stem"></p>
+
+          <!-- Answer -->
+          <div class="text-[10px] px-2 py-0.5 rounded-full bg-brand-100 text-brand-700 mb-2 self-start">
             答案
           </div>
           <div class="flex-1 overflow-y-auto">
             <p class="text-base text-slate-800 leading-relaxed mb-3">{{ getAnswerText(current) }}</p>
-            <p v-if="current.explanation" class="text-sm text-slate-600 leading-relaxed bg-slate-50 rounded-xl p-3">
+            <p v-if="current.explanation && current.type !== 'choice'" class="text-sm text-slate-600 leading-relaxed bg-slate-50 rounded-xl p-3">
               {{ current.explanation }}
             </p>
           </div>
 
           <!-- Rating buttons -->
-          <div v-if="!rated" class="mt-4 grid grid-cols-3 gap-2">
-            <button @click.stop="rate('no')" class="py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 font-semibold text-sm active:scale-95 transition">
-              不会
-            </button>
-            <button @click.stop="rate('partial')" class="py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 font-semibold text-sm active:scale-95 transition">
-              模糊
-            </button>
-            <button @click.stop="rate('ok')" class="py-3 rounded-xl bg-green-50 border border-green-200 text-green-600 font-semibold text-sm active:scale-95 transition">
-              记住了
+          <div v-if="!rated" class="mt-4 space-y-2">
+            <div class="grid grid-cols-3 gap-2">
+              <button @click.stop="rate('no')" class="py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 font-semibold text-sm active:scale-95 transition">
+                不会
+              </button>
+              <button @click.stop="rate('partial')" class="py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 font-semibold text-sm active:scale-95 transition">
+                模糊
+              </button>
+              <button @click.stop="rate('ok')" class="py-3 rounded-xl bg-green-50 border border-green-200 text-green-600 font-semibold text-sm active:scale-95 transition">
+                记住了
+              </button>
+            </div>
+            <button v-if="index > 0" @click.stop="goPrev" class="w-full py-2 rounded-xl bg-slate-100 text-slate-500 text-xs active:scale-95 transition">
+              ← 上一张
             </button>
           </div>
           <div v-else class="mt-4 text-center text-xs text-slate-400">已记录，下一张...</div>
