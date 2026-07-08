@@ -56,6 +56,22 @@ npm run parse      # 重新解析 source/questions-source.md 为题库数据
 npm run sync       # 同步题目源
 ```
 
+## 功能规格
+
+新功能、表结构改动或跨多个文件的较大改动，先使用 `specs/<feature>/` 记录轻量规格；小修小补不用建 spec，避免流程负担。
+
+推荐结构：
+
+```text
+specs/<feature>/
+├── spec.md          # 用户故事、功能范围、非范围
+├── plan.md          # 技术方案、影响文件、数据结构影响
+├── tasks.md         # 任务拆分、依赖顺序、验证命令
+└── acceptance.md    # 验收标准
+```
+
+规格只服务于项目开发，不写入知识库 `index.md` / `log.md`。
+
 ## 环境变量（`.env.local`，已 gitignore）
 
 ```

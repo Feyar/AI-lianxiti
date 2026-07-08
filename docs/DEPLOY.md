@@ -13,7 +13,7 @@
 **推荐：单独建一个仓库**（不暴露 vault 其他内容）
 
 ```bash
-cd apps/quiz-app
+cd "04_AI_Apps【个人AI应用】/quiz-app"
 git init
 git add .
 git commit -m "init: 面试刷题宝"
@@ -32,7 +32,7 @@ git push -u origin main
    - **Framework Preset**: Vite
    - **Build Command**: `npm run parse && npm run build`
    - **Output Directory**: `dist`
-   - 如果是单独仓库 → Root Directory 留空；如果 push 了整个 vault → Root 设 `apps/quiz-app`
+   - 如果是单独仓库 → Root Directory 留空；如果 push 了整个 vault → Root 设 `04_AI_Apps【个人AI应用】/quiz-app`
 4. 「Deploy」→ 等 1-2 分钟 → 拿到 `https://interview-quiz-xxx.vercel.app`
 
 ### 第 3 步：三端安装
@@ -56,7 +56,7 @@ Vercel 自动重建部署（约 1 分钟）
 三端 App 打开 → PWA 自动检测新版 → 拉到新题库 ✅
 ```
 
-> 💡 想更省事：可以让 Claudian 直接改 `apps/quiz-app/source/questions-source.md`，省掉 `npm run update`，commit 就完事。
+> 💡 想更省事：可以让 Claudian 直接改 `04_AI_Apps【个人AI应用】/quiz-app/source/questions-source.md`，省掉 `npm run update`，commit 就完事。
 
 ---
 

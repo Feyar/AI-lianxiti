@@ -19,7 +19,7 @@
 
 ### 4. 配置本地环境变量
 ```bash
-cd apps/quiz-app
+cd "04_AI_Apps【个人AI应用】/quiz-app"
 cp .env.example .env.local
 # 编辑 .env.local，填入第 2 步的 URL 和 anon key
 ```

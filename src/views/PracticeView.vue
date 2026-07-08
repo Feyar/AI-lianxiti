@@ -15,10 +15,14 @@ const ready = ref(false)
 const errorMsg = ref('')
 
 onMounted(async () => {
-  // 已有同模式会话 → 继续
+  // 已有同模式会话 → 继续；浏览模式需要确认题目列表一致，避免从知识地图点新节点时沿用旧会话
   if (quiz.session && quiz.session.mode === props.mode) {
-    ready.value = true
-    return
+    const routeIds = String(route.query.ids || '').split(',').filter(Boolean).join(',')
+    const sessionIds = quiz.session.questions.map((q) => q.id).join(',')
+    if (props.mode !== 'browse' || routeIds === sessionIds) {
+      ready.value = true
+      return
+    }
   }
   let qs
   const m = props.mode
