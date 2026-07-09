@@ -18,7 +18,7 @@ function isActive(to: string) {
 <template>
   <nav
     class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/95 backdrop-blur border-t border-slate-200"
-    style="padding-bottom: var(--safe-bottom);"
+    style="padding-bottom: env(safe-area-inset-bottom, 0px);"
   >
     <div class="grid grid-cols-4">
       <RouterLink
