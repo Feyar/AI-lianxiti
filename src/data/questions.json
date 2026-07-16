@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-07T15:32:09.280Z",
+  "generatedAt": "2026-07-16T03:13:04.051Z",
   "source": "面试复习每日练习.md (source/questions-source.md)",
-  "total": 156,
+  "total": 207,
   "byType": {
-    "choice": 53,
-    "fill": 49,
-    "short": 54
+    "choice": 75,
+    "fill": 69,
+    "short": 63
   },
   "questions": [
     {
@@ -1865,12 +1865,70 @@
     },
     {
       "id": "D12.5-01",
+      "type": "choice",
+      "stem": "AI Spec 和普通需求文档的核心区别是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "AI Spec 更详细"
+        },
+        {
+          "key": "B",
+          "text": "AI 输出不确定，需要额外定义质量标准"
+        },
+        {
+          "key": "C",
+          "text": "AI Spec 只有技术人员需要看"
+        },
+        {
+          "key": "D",
+          "text": "没有本质区别"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 1
+    },
+    {
+      "id": "D12.5-01",
       "type": "short",
       "stem": "AI Spec 和普通需求文档有什么区别？为什么 AI 需要额外的 Spec？ 你的答案要点：( )",
       "answer": "**参考答案**：AI 输出不确定，需要额外定义质量标准（准确率/召回率）、评估方式、降级策略。普通功能输入 A 输出 B 是确定的，但 AI 同一个问题可能给出不同回答，有些对有些错。",
       "day": 12.5,
       "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
       "seq": 1
+    },
+    {
+      "id": "D12.5-02",
+      "type": "choice",
+      "stem": "AI Spec 的三层结构中，\"响应时间 ≤ 3s，超时返回原文\"属于哪一层？",
+      "options": [
+        {
+          "key": "A",
+          "text": "功能规格"
+        },
+        {
+          "key": "B",
+          "text": "Prompt 规格"
+        },
+        {
+          "key": "C",
+          "text": "评估规格"
+        },
+        {
+          "key": "D",
+          "text": "接口规格"
+        }
+      ],
+      "answer": "A",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 2
     },
     {
       "id": "D12.5-02",
@@ -1883,12 +1941,70 @@
     },
     {
       "id": "D12.5-03",
+      "type": "choice",
+      "stem": "以下哪个选项属于 Prompt 规格的定义？",
+      "options": [
+        {
+          "key": "A",
+          "text": "命中率 ≥ 88%"
+        },
+        {
+          "key": "B",
+          "text": "响应时间 ≤ 3s"
+        },
+        {
+          "key": "C",
+          "text": "\"不确定时回答'根据现有资料无法确定'\""
+        },
+        {
+          "key": "D",
+          "text": "服务可用性 ≥ 99.9%"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 3
+    },
+    {
+      "id": "D12.5-03",
       "type": "short",
       "stem": "Prompt 怎么管理版本？改了 Prompt 怎么确保不回退？ 你的答案要点：( )",
       "answer": "**参考答案**：Nacos 配置中心管理 → 开发环境单元测试 → 测试环境集成测试（200条）→ 回归测试（500+条）→ 指标不下降才发布。Prompt 变更纳入发版流程，和改代码一个逻辑。",
       "day": 12.5,
       "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
       "seq": 3
+    },
+    {
+      "id": "D12.5-04",
+      "type": "choice",
+      "stem": "检索场景中，衡量\"正确答案在不在返回的 Top-K 里\"的指标是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "准确率"
+        },
+        {
+          "key": "B",
+          "text": "精确率"
+        },
+        {
+          "key": "C",
+          "text": "Recall@K"
+        },
+        {
+          "key": "D",
+          "text": "F1 Score"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 4
     },
     {
       "id": "D12.5-04",
@@ -1901,6 +2017,35 @@
     },
     {
       "id": "D12.5-05",
+      "type": "choice",
+      "stem": "Harness 的核心组件不包括以下哪个？",
+      "options": [
+        {
+          "key": "A",
+          "text": "验证数据集"
+        },
+        {
+          "key": "B",
+          "text": "评测流水线"
+        },
+        {
+          "key": "C",
+          "text": "模型训练"
+        },
+        {
+          "key": "D",
+          "text": "回归测试"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 5
+    },
+    {
+      "id": "D12.5-05",
       "type": "short",
       "stem": "怎么判断 AI 输出是对还是错？不同场景怎么区分？ 你的答案要点：( )",
       "answer": "**参考答案**：问答用关键词命中+语义相似度（embedding余弦相似度，阈值0.85）；文档比对直接对比差异条数；检索看标注文档在不在Top-K；兜底人工抽样每周50条。",
@@ -1910,12 +2055,118 @@
     },
     {
       "id": "D12.5-06",
+      "type": "choice",
+      "stem": "判断 AI 输出对错时，问答场景用什么方法？",
+      "options": [
+        {
+          "key": "A",
+          "text": "只看关键词命中"
+        },
+        {
+          "key": "B",
+          "text": "关键词命中 + 语义相似度"
+        },
+        {
+          "key": "C",
+          "text": "只看人工审核"
+        },
+        {
+          "key": "D",
+          "text": "LLM-as-Judge 自动判"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 6
+    },
+    {
+      "id": "D12.5-06",
       "type": "short",
       "stem": "什么是 LLM-as-Judge？你们怎么用的？ 你的答案要点：( )",
       "answer": "**参考答案**：用大模型评估大模型输出。优点成本低可自动化，能评估语义相似性；缺点判断不完全可靠。作为初筛用过滤明显错误，关键case仍人工审，用100条数据做校准对齐人工标准。",
       "day": 12.5,
       "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
       "seq": 6
+    },
+    {
+      "id": "D12.5-07",
+      "type": "fill",
+      "stem": "Spec 和 Harness 的关系：Spec 是 ___，Harness 是 ___。",
+      "blanks": [
+        "菜谱（定义标准）",
+        "验菜员（验证达标）"
+      ],
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 7
+    },
+    {
+      "id": "D12.5-08",
+      "type": "fill",
+      "stem": "判断 AI 输出对错时，问答场景用 ___ + ___；检索场景用 ___；兜底方案每周 ___ 条人工审核。",
+      "blanks": [
+        "关键词命中",
+        "语义相似度（embedding 余弦相似度）",
+        "Recall@K",
+        "50"
+      ],
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 8
+    },
+    {
+      "id": "D12.5-09",
+      "type": "fill",
+      "stem": "你的项目命中率 baseline ___% → 目标 ___%，测试集 ___ 条真实问题。",
+      "blanks": [
+        "65",
+        "88",
+        "200"
+      ],
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 9
+    },
+    {
+      "id": "D12.5-10",
+      "type": "fill",
+      "stem": "LLM-as-Judge 是用大模型评估大模型输出，优点是 ___，缺点是 ___。",
+      "blanks": [
+        "成本低可自动化",
+        "判断不完全可靠"
+      ],
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 10
+    },
+    {
+      "id": "D12.5-11",
+      "type": "fill",
+      "stem": "Spec 三层结构：① ___ 规格（边界/输入输出/降级）② ___ 规格（角色/约束/格式）③ ___ 规格（指标/阈值）。",
+      "blanks": [
+        "功能",
+        "Prompt",
+        "评估"
+      ],
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 11
+    },
+    {
+      "id": "D12.5-12",
+      "type": "fill",
+      "stem": "你的 Harness 验证集分层：开发自测 ___ 条，回归测试 ___+ 条，对抗测试 ___+ 条。",
+      "blanks": [
+        "20-50",
+        "500",
+        "50"
+      ],
+      "day": 12.5,
+      "category": "AI Specs & Harness 专项（宁波震裕面试重点）",
+      "seq": 12
     },
     {
       "id": "D16-01",
@@ -2489,6 +2740,729 @@
       "day": 17,
       "category": "面试实战新题收集（2026-07-07）",
       "seq": 20
+    },
+    {
+      "id": "D18-01",
+      "type": "choice",
+      "stem": "JDK8 中执行 `new ArrayList()` 后，内部数组的状态是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "立即创建容量 10 的数组"
+        },
+        {
+          "key": "B",
+          "text": "创建空数组 {}，首次 add 才扩容到 10"
+        },
+        {
+          "key": "C",
+          "text": "创建容量 16 的数组"
+        },
+        {
+          "key": "D",
+          "text": "创建默认容量 0 且永不扩容"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 1
+    },
+    {
+      "id": "D18-02",
+      "type": "choice",
+      "stem": "ArrayList 每次扩容为原来的多少倍？",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 倍"
+        },
+        {
+          "key": "B",
+          "text": "1.5 倍"
+        },
+        {
+          "key": "C",
+          "text": "1.25 倍"
+        },
+        {
+          "key": "D",
+          "text": "固定 +10"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 2
+    },
+    {
+      "id": "D18-03",
+      "type": "choice",
+      "stem": "JVM 虚拟机栈的栈帧中，以下哪个**不属于**其组成部分？",
+      "options": [
+        {
+          "key": "A",
+          "text": "局部变量表"
+        },
+        {
+          "key": "B",
+          "text": "操作数栈"
+        },
+        {
+          "key": "C",
+          "text": "程序计数器"
+        },
+        {
+          "key": "D",
+          "text": "动态链接"
+        }
+      ],
+      "answer": "C",
+      "explanation": "程序计数器是独立的线程私有区域，不在栈帧内",
+      "incomplete": false,
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 3
+    },
+    {
+      "id": "D18-04",
+      "type": "choice",
+      "stem": "JDK8 的方法区实现是元空间（Metaspace），它使用的是哪种内存？",
+      "options": [
+        {
+          "key": "A",
+          "text": "JVM 堆内存"
+        },
+        {
+          "key": "B",
+          "text": "JVM 虚拟机栈"
+        },
+        {
+          "key": "C",
+          "text": "本地内存（直接内存）"
+        },
+        {
+          "key": "D",
+          "text": "程序计数器"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 4
+    },
+    {
+      "id": "D18-05",
+      "type": "choice",
+      "stem": "以下哪种 GC 算法**不会**产生内存碎片？",
+      "options": [
+        {
+          "key": "A",
+          "text": "标记-清除"
+        },
+        {
+          "key": "B",
+          "text": "复制算法"
+        },
+        {
+          "key": "C",
+          "text": "标记-清除和复制都会"
+        },
+        {
+          "key": "D",
+          "text": "三种都会"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 5
+    },
+    {
+      "id": "D18-06",
+      "type": "choice",
+      "stem": "G1 收集器「Garbage First」的含义是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "优先回收新生代"
+        },
+        {
+          "key": "B",
+          "text": "优先回收垃圾最多的 Region（收益最大）"
+        },
+        {
+          "key": "C",
+          "text": "优先触发 Full GC"
+        },
+        {
+          "key": "D",
+          "text": "优先回收老年代"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 6
+    },
+    {
+      "id": "D18-07",
+      "type": "choice",
+      "stem": "MySQL 中 `SELECT * FROM t LIMIT 100000, 10` 越往后越慢的根本原因是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "没有主键"
+        },
+        {
+          "key": "B",
+          "text": "要先扫描 100010 行再丢弃前 10 万行"
+        },
+        {
+          "key": "C",
+          "text": "limit 语法本身有 bug"
+        },
+        {
+          "key": "D",
+          "text": "索引失效"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 7
+    },
+    {
+      "id": "D18-08",
+      "type": "choice",
+      "stem": "联合索引 (a,b,c)，查询 `WHERE a=1 AND b>2 AND c=3` 中 c 能否用到索引？",
+      "options": [
+        {
+          "key": "A",
+          "text": "能完全用到"
+        },
+        {
+          "key": "B",
+          "text": "不能，b 是范围查询，c 之后无法用索引（范围之后全失效）"
+        },
+        {
+          "key": "C",
+          "text": "只有 c 能用"
+        },
+        {
+          "key": "D",
+          "text": "a、b、c 都能用"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 8
+    },
+    {
+      "id": "D18-09",
+      "type": "fill",
+      "stem": "ArrayList 扩容公式是 newCapacity = oldCapacity + (oldCapacity ___ 1)，即扩为原来的 ___ 倍。",
+      "blanks": [
+        ">>（右移）",
+        "1.5"
+      ],
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 9
+    },
+    {
+      "id": "D18-10",
+      "type": "fill",
+      "stem": "JVM 虚拟机栈栈帧四部分：局部变量表、___、动态链接、___。递归太深会抛 ___Error。",
+      "blanks": [
+        "操作数栈",
+        "方法出口",
+        "StackOverflow"
+      ],
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 10
+    },
+    {
+      "id": "D18-11",
+      "type": "fill",
+      "stem": "JDK8 用 ___ 替代了永久代，它使用 ___ 内存，可动态扩展，原因是永久代大小固定容易 OOM。",
+      "blanks": [
+        "元空间（Metaspace）",
+        "本地（直接）"
+      ],
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 11
+    },
+    {
+      "id": "D18-12",
+      "type": "fill",
+      "stem": "四种 GC 算法：标记-清除、___、标记-整理、___。新生代用复制算法是因为 98% 对象朝生夕死、存活少，复制代价 ___。",
+      "blanks": [
+        "复制",
+        "分代收集",
+        "小（低）"
+      ],
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 12
+    },
+    {
+      "id": "D18-13",
+      "type": "fill",
+      "stem": "CMS 四阶段中需要 STW 的是初始标记和 ___ 标记；它的三个缺点是内存碎片、___ 垃圾、占 CPU；从 JDK ___ 起被废弃。",
+      "blanks": [
+        "重新",
+        "浮动",
+        "9"
+      ],
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 13
+    },
+    {
+      "id": "D18-14",
+      "type": "fill",
+      "stem": "G1 把堆划分成多个 ___（逻辑分代），支持 ___ 停顿时间（MaxGCPauseMillis），用整理+复制无碎片，从 JDK ___ 起为默认收集器。",
+      "blanks": [
+        "Region",
+        "可预测",
+        "9"
+      ],
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 14
+    },
+    {
+      "id": "D18-15",
+      "type": "fill",
+      "stem": "MySQL 深分页优化两种方案：___ 分页（where id > 上次最大 id）、___ 关联（先覆盖索引查 id 再 join 回表）。",
+      "blanks": [
+        "游标",
+        "延迟"
+      ],
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 15
+    },
+    {
+      "id": "D18-16",
+      "type": "fill",
+      "stem": "explain 的 type 从好到差：const > eq_ref > ___ > range > index > ___，其中 ___ 最差代表全表扫描。",
+      "blanks": [
+        "ref",
+        "ALL",
+        "ALL"
+      ],
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 16
+    },
+    {
+      "id": "D18-17",
+      "type": "short",
+      "stem": "ArrayList 的扩容机制？JDK7 和 JDK8 有什么区别？为什么不建议用 LinkedList？",
+      "answer": "触发：add 时 size+1 > 数组长度则扩容；公式 newCapacity = oldCapacity + (oldCapacity>>1) 即 1.5 倍，靠 System.arraycopy 搬数据。区别：JDK7 new 出来就是容量 10（饿汉）；JDK8 懒加载，new 出来是空数组 {}，首次 add 才到 10，省内存。能预估大小时 new ArrayList<>(capacity) 指定初始容量避免频繁扩容。实际项目几乎都用 ArrayList：尾部追加 O(1) 均摊、内存连续对 CPU 缓存友好；LinkedList 只在频繁头尾增删才有意义，且中间插入定位要 O(n)。",
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 17
+    },
+    {
+      "id": "D18-18",
+      "type": "short",
+      "stem": "JVM 运行时数据区怎么划分？虚拟机栈的栈帧包含什么？元空间为什么替代永久代？",
+      "answer": "线程私有：程序计数器（记录执行位置，唯一不会 OOM）、虚拟机栈、本地方法栈。线程共享：堆（对象和数组，分新生代老年代）、方法区。栈帧四部分：局部变量表（参数和局部变量）、操作数栈（运算中间结果）、动态链接（指向常量池的方法引用）、方法出口（返回地址）。元空间替代永久代是因为永久代大小固定（-XX:MaxPermSize）容易 OOM，元空间用本地内存、可动态扩展，还省 JVM 堆空间。",
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 18
+    },
+    {
+      "id": "D18-19",
+      "type": "short",
+      "stem": "CMS 和 G1 的区别？各自适用什么场景？",
+      "answer": "CMS：老年代收集器，目标最低停顿，标记-清除算法（有碎片），四阶段中初始标记和重新标记 STW、并发标记和并发清除与用户线程并发。缺点：内存碎片、浮动垃圾、占 CPU，JDK9 起废弃。G1：管整个堆，划分成多个 Region 逻辑分代，名字 Garbage First 指优先回收垃圾最多的 Region，用标记-整理+复制无碎片，支持可预测停顿（MaxGCPauseMillis），JDK9 起默认。大堆（6G+）用 G1，中小堆可用 CMS。",
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 19
+    },
+    {
+      "id": "D18-20",
+      "type": "short",
+      "stem": "MySQL 深分页为什么慢？怎么优化？explain 的 type 和 Extra 怎么看？",
+      "answer": "深分页 `LIMIT 100000,10` 慢在要先扫描 100010 行再丢弃前 10 万行。优化：① 游标分页 `where id > 上次最大id order by id limit 10`（主键有序，直接跳过）；② 延迟关联——先走覆盖索引查出 10 个 id，再 join 回表，减少回表次数。explain：type 从好到差 const>eq_ref>ref>range>index>ALL，目标 ref/range 以上，ALL=全表扫描必须优化；Extra 中 Using index=覆盖索引（好）、Using filesort=额外排序（警惕）、Using temporary=临时表（差）。",
+      "day": 18,
+      "category": "汇川面试冲刺补充（2026-07-16）",
+      "seq": 20
+    },
+    {
+      "id": "D19-01",
+      "type": "choice",
+      "stem": "线程池任务提交后，扩容触发条件是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "队列中等待任务数超过核心线程数"
+        },
+        {
+          "key": "B",
+          "text": "等待队列已满"
+        },
+        {
+          "key": "C",
+          "text": "当前线程数超过最大线程数"
+        },
+        {
+          "key": "D",
+          "text": "有任务被拒绝"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 1
+    },
+    {
+      "id": "D19-02",
+      "type": "choice",
+      "stem": "以下哪种拒绝策略会让提交任务的线程自己执行该任务？",
+      "options": [
+        {
+          "key": "A",
+          "text": "AbortPolicy"
+        },
+        {
+          "key": "B",
+          "text": "CallerRunsPolicy"
+        },
+        {
+          "key": "C",
+          "text": "DiscardPolicy"
+        },
+        {
+          "key": "D",
+          "text": "DiscardOldestPolicy"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 2
+    },
+    {
+      "id": "D19-03",
+      "type": "choice",
+      "stem": "乐观锁和悲观锁的分类维度是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "排队顺序"
+        },
+        {
+          "key": "B",
+          "text": "对冲突的态度（是否预期冲突）"
+        },
+        {
+          "key": "C",
+          "text": "锁的粒度"
+        },
+        {
+          "key": "D",
+          "text": "是否可重入"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 3
+    },
+    {
+      "id": "D19-04",
+      "type": "choice",
+      "stem": "CAS 是一种什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "锁"
+        },
+        {
+          "key": "B",
+          "text": "思想"
+        },
+        {
+          "key": "C",
+          "text": "原子操作（CPU 指令保证）"
+        },
+        {
+          "key": "D",
+          "text": "框架"
+        }
+      ],
+      "answer": "C",
+      "explanation": null,
+      "incomplete": false,
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 4
+    },
+    {
+      "id": "D19-05",
+      "type": "choice",
+      "stem": "AQS 和 CAS 的关系是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "AQS 是 CAS 的升级版"
+        },
+        {
+          "key": "B",
+          "text": "CAS 是 AQS 的底层手段之一，AQS = CAS + CLH 队列"
+        },
+        {
+          "key": "C",
+          "text": "两者无关"
+        },
+        {
+          "key": "D",
+          "text": "CAS 是 AQS 的子类"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 5
+    },
+    {
+      "id": "D19-06",
+      "type": "choice",
+      "stem": "volatile 能保证以下哪个？",
+      "options": [
+        {
+          "key": "A",
+          "text": "原子性"
+        },
+        {
+          "key": "B",
+          "text": "可见性和禁止指令重排序"
+        },
+        {
+          "key": "C",
+          "text": "有序性和原子性"
+        },
+        {
+          "key": "D",
+          "text": "只保证可见性"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 6
+    },
+    {
+      "id": "D19-07",
+      "type": "choice",
+      "stem": "Spring Boot 2.x 默认使用哪种动态代理？",
+      "options": [
+        {
+          "key": "A",
+          "text": "JDK 动态代理（基于接口）"
+        },
+        {
+          "key": "B",
+          "text": "CGLIB（基于继承）"
+        },
+        {
+          "key": "C",
+          "text": "不使用代理"
+        },
+        {
+          "key": "D",
+          "text": "随机选择"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 7
+    },
+    {
+      "id": "D19-08",
+      "type": "choice",
+      "stem": "Spring 三级缓存中，二级缓存存的是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "完成品 Bean"
+        },
+        {
+          "key": "B",
+          "text": "提前暴露的半成品 Bean（已实例化未初始化）"
+        },
+        {
+          "key": "C",
+          "text": "ObjectFactory 工厂"
+        },
+        {
+          "key": "D",
+          "text": "代理对象"
+        }
+      ],
+      "answer": "B",
+      "explanation": null,
+      "incomplete": false,
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 8
+    },
+    {
+      "id": "D19-09",
+      "type": "fill",
+      "stem": "线程池执行流程口诀：___ → ___ → ___ → ___。→ 核心 → 队列 → 最大",
+      "blanks": [
+        "拒绝"
+      ],
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 9
+    },
+    {
+      "id": "D19-10",
+      "type": "fill",
+      "stem": "四种拒绝策略：直接报错(___)、退回提交线程(___)、静默丢弃(___)、丢弃最老(___)。",
+      "blanks": [
+        "AbortPolicy",
+        "CallerRunsPolicy",
+        "DiscardPolicy",
+        "DiscardOldestPolicy"
+      ],
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 10
+    },
+    {
+      "id": "D19-11",
+      "type": "fill",
+      "stem": "锁按态度维度分：___锁（先锁再说）和___锁（冲突了再处理）；按排队维度分：___锁（严格排队）和___锁（可以插队）。",
+      "blanks": [
+        "悲观",
+        "乐观",
+        "公平",
+        "非公平"
+      ],
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 11
+    },
+    {
+      "id": "D19-12",
+      "type": "fill",
+      "stem": "volatile 只保证可见性和禁止指令重排序，不保证___性，所以 volatile int count 的 count++ 仍然不安全，要用___或加锁。",
+      "blanks": [
+        "原子",
+        "AtomicInteger"
+      ],
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 12
+    },
+    {
+      "id": "D19-13",
+      "type": "fill",
+      "stem": "死锁四个条件：互斥、持有并等待、___、循环等待。最常破坏的是___条件——统一加锁顺序。",
+      "blanks": [
+        "不可剥夺",
+        "循环等待"
+      ],
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 13
+    },
+    {
+      "id": "D19-14",
+      "type": "fill",
+      "stem": "Spring 三级缓存：一级成品 Bean、二级___ Bean、三级___（给 AOP 用）。普通循环依赖___级就够了，AOP 循环依赖需要___级。",
+      "blanks": [
+        "半成品",
+        "ObjectFactory",
+        "二",
+        "三"
+      ],
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 14
+    },
+    {
+      "id": "D19-15",
+      "type": "short",
+      "stem": "线程池任务提交的完整执行流程是什么？什么条件下触发扩容？什么条件下触发拒绝？",
+      "answer": "任务提交 → 当前线程数 < corePoolSize 则创建核心线程 → 核心满了放队列 → 队列满了创建非核心线程扩到 maxPoolSize → maxPoolSize 也满了走拒绝策略。扩容触发条件是队列满了（不是队列多了）；拒绝触发条件是最大线程数也满了。空闲超过 keepAliveTime 非核心线程被回收，核心线程不回收。",
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 15
+    },
+    {
+      "id": "D19-16",
+      "type": "short",
+      "stem": "synchronized 和 ReentrantLock 的区别？什么时候用哪个？",
+      "answer": "synchronized 是 JVM 内置锁（关键字），自动释放，JDK6+有锁升级；ReentrantLock 是 API 显式锁（类），底层 AQS，需手动 lock/unlock（finally），支持公平锁、tryLock 超时、可中断、多 Condition。日常 synchronized 够用就用 synchronized，需要公平锁/超时/中断才上 ReentrantLock。",
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 16
+    },
+    {
+      "id": "D19-17",
+      "type": "short",
+      "stem": "乐观锁、悲观锁、公平锁、非公平锁分别是什么？它们是同一个维度的分类吗？",
+      "answer": "不是同一维度。乐观/悲观是\"态度维度\"——悲观锁一定冲突先加锁排他（synchronized），乐观锁赌不冲突提交时校验（CAS/version）。公平/非公平是\"排队维度\"——公平锁按先来后到严格排队，非公平锁允许插队（synchronized 只能非公平，ReentrantLock 可选）。",
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 17
+    },
+    {
+      "id": "D19-18",
+      "type": "short",
+      "stem": "Spring 三级缓存分别存什么？为什么需要三级？二级不够吗？",
+      "answer": "一级存成品 Bean，二级存提前暴露的半成品 Bean（已实例化未初始化），三级存 ObjectFactory 工厂。普通循环依赖二级就够了——A 实例化后放半成品到二级，B 创建时从二级拿到 A 引用。三级是为了 AOP——如果 A 需要代理，提前暴露的应该是代理对象，三级缓存的工厂调用时才决定返回原始对象还是代理，保证拿到同一个代理实例。",
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 18
+    },
+    {
+      "id": "D19-19",
+      "type": "short",
+      "stem": "Spring 事务失效的场景有哪些？",
+      "answer": "① 同类自调用（this 绕过代理，B 加 @Transactional 被同类 A 调用则失效）；② 非 public 方法（AOP 只拦截 public）；③ 异常被 try-catch 吞掉（Spring 以为正常走了 commit）；④ 异常类型不对（默认只回滚 RuntimeException，checked exception 不回滚，需配 rollbackFor）；⑤ 数据库引擎不支持（MyISAM 不支持事务，需 InnoDB）。",
+      "day": 19,
+      "category": "并发锁分类与Spring三级缓存（2026-07-16 上午）",
+      "seq": 19
     }
   ]
 }
