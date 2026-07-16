@@ -964,6 +964,62 @@ D. volatile-ttl
 - `[D19-19]` Spring 事务失效的场景有哪些？
   > ① 同类自调用（this 绕过代理，B 加 @Transactional 被同类 A 调用则失效）；② 非 public 方法（AOP 只拦截 public）；③ 异常被 try-catch 吞掉（Spring 以为正常走了 commit）；④ 异常类型不对（默认只回滚 RuntimeException，checked exception 不回滚，需配 rollbackFor）；⑤ 数据库引擎不支持（MyISAM 不支持事务，需 InnoDB）。
 
+### Day 20 — 汇川面试冲刺全量（2026-07-16 下午）
+
+> 汇川技术 Java 一面完整面经整合，覆盖 D5/D6/D11/D18/D19 未涉及的考点：面向对象、IO流、线程状态、反射设计模式、SpringCloud组件、MyBatis-Plus、Redis持久化与分布式锁、MQ全链路、SRM业务口述、灰度发布等。共 30 题。
+
+#### 选择题
+
+- `[D20-01]` 以下哪个是抽象类和接口的正确区别？
+  A. 抽象类只能有抽象方法 / B. 接口可以有构造方法 / C. 一个类只能继承一个抽象类但可以实现多个接口 / D. 接口表示 is-a 关系 → C
+- `[D20-02]` final 修饰一个引用类型变量后，以下哪个说法正确？
+  A. 对象的内容不能修改 / B. 变量的引用地址不能变 / C. 变量不能在方法内修改 / D. 必须在声明时赋值 → B
+- `[D20-03]` finally 块中的 return 语句会怎样？
+  A. 覆盖 try/catch 中的 return 值 / B. 被编译器忽略 / C. 抛出异常 / D. 只有 try 块有 return 才生效 → A
+- `[D20-04]` HashMap 和 Hashtable 的主要区别，以下哪个说法错误？
+  A. Hashtable 线程安全，HashMap 不安全 / B. Hashtable 不允许 null key，HashMap 允许 / C. Hashtable 并发性能优于 ConcurrentHashMap / D. HashMap 是 JDK1.2 引入的 → C
+- `[D20-05]` NIO 的核心机制是什么？
+  A. 一连接一线程 / B. Selector 多路复用，一个线程管理多个连接 / C. 操作系统完成 IO 后回调 / D. 内核态线程直接处理 → B
+- `[D20-06]` 线程从 RUNNABLE 状态进入 BLOCKED 状态的原因是？
+  A. 调用了 sleep() / B. 调用了 Object.wait() / C. 等待获取 synchronized 锁 / D. 调用了 Thread.join() → C
+- `[D20-07]` sleep() 和 wait() 的区别，以下哪个说法错误？
+  A. sleep 不释放锁，wait 释放锁 / B. sleep 任何地方能调用，wait 只能在同步块中 / C. sleep 到时间自动醒，wait 需要 notify 唤醒 / D. sleep 和 wait 都是 Thread 类的方法 → D
+- `[D20-08]` AQS 使用了什么设计模式？
+  A. 单例模式 / B. 观察者模式 / C. 模板方法模式 / D. 工厂模式 → C
+- `[D20-09]` Spring Boot 2.x 默认使用哪种动态代理？为什么？
+  A. JDK 动态代理，因为性能好 / B. CGLIB，因为不要求目标类实现接口使用更方便 / C. 不使用代理 / D. 随机选择 → B
+- `[D20-10]` SpringBoot 自动配置的完整链路中，AutoConfigurationImportSelector 的作用是？
+  A. 创建 Bean 实例 / B. 读取 spring.factories 获取候选自动配置类 / C. 执行 BeanPostProcessor / D. 启动内嵌 Tomcat → B
+- `[D20-11]` SpringCloud Alibaba 中，Gateway 和 Nginx 的正确分工是？
+  A. 只用 Gateway 不用 Nginx / B. 客户端 → Nginx（反向代理+负载均衡+SSL）→ Gateway（路由+鉴权+限流）→ 微服务 / C. Nginx 和 Gateway 功能一样选一个就行 / D. Gateway 替代 Nginx 的所有功能 → B
+- `[D20-12]` @Transactional 在以下哪种情况不会失效？
+  A. 同一个类中方法 A 调用加了 @Transactional 的方法 B / B. 方法是 public 的 / C. 异常类型是 RuntimeException / D. 数据库引擎是 InnoDB → C
+- `[D20-13]` Redis RDB 和 AOF 的区别，以下哪个说法正确？
+  A. RDB 恢复慢但数据安全 / B. AOF 记录每个写命令，文件大但数据安全 / C. RDB 是定时快照可能丢数据 / D. 两者不能同时使用 → C
+
+#### 填空题
+
+- `[D20-14]` Java 不支持多继承，但支持多____。重写是同名____不同实现体，重载是同名不同____。→ 实现 / 同参 / 参数
+- `[D20-15]` 多态分两种：编译期多态是____（方法名相同参数不同），运行期多态是____（子类对象赋给父类引用）。→ 重载 / 重写
+- `[D20-16]` 线程 6 种状态：NEW、____、BLOCKED、WAITING、TIMED_WAITING、TERMINATED。→ RUNNABLE
+- `[D20-17]` 反射的核心类有：Class、Method、Field、____。反射在 Spring 中用于 IOC 实例化 Bean 和注解处理器。→ Constructor
+- `[D20-18]` SpringBoot 自动配置的三个核心条件注解：@ConditionalOn____、@ConditionalOn____、@ConditionalOn______。→ Class / Property / MissingBean
+- `[D20-19]` SRM 采购全流程口诀：PR → ____ → PO → ____ → 收货 → 质检 → ____ → 结算。→ RFQ / ASN / 三单匹配
+- `[D20-20]` 三单匹配是指 ____ + 收货单 + 发票，三单____一致才付款。→ PO / 金额
+
+#### 简答题
+
+- `[D20-21]` ConcurrentHashMap JDK7 和 JDK8 保证线程安全的方式有什么区别？
+  > JDK7 = 分段锁 Segment（默认16段，每段一把锁）；JDK8 = CAS + synchronized（空桶 CAS 直接插入，非空桶 synchronized 锁头节点）。JDK8 取消分段锁，并发度更高。Hashtable 也线程安全但方法级 synchronized 整表一把锁，性能差，生产不用。
+- `[D20-22]` 灰度发布和金丝雀发布是什么？实际项目怎么实现？
+  > 都是先小范围验证再全量发布。灰度发布：新版本先给 5% 流量用，没问题再扩大。实现：Nacos + Gateway 配置路由规则，按用户 ID 或 IP 灰度分流。金丝雀发布：同一个概念，名字来自矿井放金丝雀检测有毒气体。先少量请求走新版本观察异常，无异常再全量。
+- `[D20-23]` SRM 在制造业信息化链路中的位置？MES 经验怎么往 SRM 桥接？
+  > 链路：供应商 ←→ SRM（采购协同）←→ ERP（计划/账务）←→ MES/WMS（生产/仓储）。SRM 管采购，ERP 管计划和结算，MES 管生产。桥接话术：没直接做过 SRM 但做过全链路集成。ERP 下发采购订单、物料到货后入库批次追溯、供应商质量问题追溯到具体批次——MES 侧都做过，思路完全一致。
+- `[D20-24]` MQ 消息丢失怎么全链路保障？重复消费怎么处理？消息积压怎么排查？
+  > 消息丢失三环节：生产者 confirm 模式确认到达；Broker 队列+消息持久化；消费者手动 ACK 业务处理完再确认。重复消费做幂等：数据库唯一索引、Redis SETNX（消息 ID 做 key）、业务状态判断。消息积压：先排查原因（消费慢/消费者挂/生产>消费），轻度加消费者，重度消息落库再慢慢处理。
+- `[D20-25]` 分布式链路排查用什么工具？Seata 分布式事务中 undo_log 的作用？
+  > 链路追踪用 SkyWalking（每个请求生成 TraceId，跨服务可追踪）。Seata 的 undo_log 用于 AT 模式回滚——每个分支事务修改前记录原始值到 undo_log，全局事务回滚时根据 undo_log 恢复数据。
+
 ---
 
 ## 练习记录
