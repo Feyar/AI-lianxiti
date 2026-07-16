@@ -964,9 +964,9 @@ D. volatile-ttl
 - `[D19-19]` Spring 事务失效的场景有哪些？
   > ① 同类自调用（this 绕过代理，B 加 @Transactional 被同类 A 调用则失效）；② 非 public 方法（AOP 只拦截 public）；③ 异常被 try-catch 吞掉（Spring 以为正常走了 commit）；④ 异常类型不对（默认只回滚 RuntimeException，checked exception 不回滚，需配 rollbackFor）；⑤ 数据库引擎不支持（MyISAM 不支持事务，需 InnoDB）。
 
-### Day 20 — 汇川面试冲刺全量（2026-07-16 下午）
+### Day 20 — 汇川面试冲刺全量84题（2026-07-16 下午）
 
-> 汇川技术 Java 一面完整面经整合，覆盖 D5/D6/D11/D18/D19 未涉及的考点：面向对象、IO流、线程状态、反射设计模式、SpringCloud组件、MyBatis-Plus、Redis持久化与分布式锁、MQ全链路、SRM业务口述、灰度发布等。共 30 题。
+> 汇川技术 Java 一面完整面经 84 道题全覆盖。从基础认知到项目深挖，面试前用"按Day练习"模式刷一遍，重点看 ❌ 的题。
 
 #### 选择题
 
@@ -974,51 +974,149 @@ D. volatile-ttl
   A. 抽象类只能有抽象方法 / B. 接口可以有构造方法 / C. 一个类只能继承一个抽象类但可以实现多个接口 / D. 接口表示 is-a 关系 → C
 - `[D20-02]` final 修饰一个引用类型变量后，以下哪个说法正确？
   A. 对象的内容不能修改 / B. 变量的引用地址不能变 / C. 变量不能在方法内修改 / D. 必须在声明时赋值 → B
-- `[D20-03]` finally 块中的 return 语句会怎样？
-  A. 覆盖 try/catch 中的 return 值 / B. 被编译器忽略 / C. 抛出异常 / D. 只有 try 块有 return 才生效 → A
-- `[D20-04]` HashMap 和 Hashtable 的主要区别，以下哪个说法错误？
-  A. Hashtable 线程安全，HashMap 不安全 / B. Hashtable 不允许 null key，HashMap 允许 / C. Hashtable 并发性能优于 ConcurrentHashMap / D. HashMap 是 JDK1.2 引入的 → C
-- `[D20-05]` NIO 的核心机制是什么？
-  A. 一连接一线程 / B. Selector 多路复用，一个线程管理多个连接 / C. 操作系统完成 IO 后回调 / D. 内核态线程直接处理 → B
-- `[D20-06]` 线程从 RUNNABLE 状态进入 BLOCKED 状态的原因是？
-  A. 调用了 sleep() / B. 调用了 Object.wait() / C. 等待获取 synchronized 锁 / D. 调用了 Thread.join() → C
-- `[D20-07]` sleep() 和 wait() 的区别，以下哪个说法错误？
+- `[D20-03]` ArrayList 查询和 LinkedList 查询的时间复杂度分别是？
+  A. ArrayList O(n), LinkedList O(1) / B. ArrayList O(1), LinkedList O(n) / C. 都是 O(1) / D. 都是 O(n) → B
+- `[D20-04]` HashMap 扩容条件是 size 超过哪个值？
+  A. capacity / B. capacity × 0.75 / C. capacity × 0.5 / D. capacity × 1.0 → B
+- `[D20-05]` JDK8 ConcurrentHashMap 保证线程安全的方式是？
+  A. 方法级 synchronized / B. CAS + synchronized 锁头节点 / C. 分段锁 Segment / D. CopyOnWrite → B
+- `[D20-06]` sleep() 和 wait() 的区别，以下哪个说法错误？
   A. sleep 不释放锁，wait 释放锁 / B. sleep 任何地方能调用，wait 只能在同步块中 / C. sleep 到时间自动醒，wait 需要 notify 唤醒 / D. sleep 和 wait 都是 Thread 类的方法 → D
-- `[D20-08]` AQS 使用了什么设计模式？
+- `[D20-07]` 线程从 RUNNABLE 状态进入 BLOCKED 状态的原因是？
+  A. 调用了 sleep() / B. 调用了 Object.wait() / C. 等待获取 synchronized 锁 / D. 调用了 Thread.join() → C
+- `[D20-08]` synchronized 可以修饰的位置，以下哪个说法正确？
+  A. 只能修饰方法 / B. 实例方法、静态方法、代码块都可以 / C. 只能修饰代码块 / D. 只能修饰静态方法 → B
+- `[D20-09]` AQS 使用了什么设计模式？
   A. 单例模式 / B. 观察者模式 / C. 模板方法模式 / D. 工厂模式 → C
-- `[D20-09]` Spring Boot 2.x 默认使用哪种动态代理？为什么？
-  A. JDK 动态代理，因为性能好 / B. CGLIB，因为不要求目标类实现接口使用更方便 / C. 不使用代理 / D. 随机选择 → B
-- `[D20-10]` SpringBoot 自动配置的完整链路中，AutoConfigurationImportSelector 的作用是？
-  A. 创建 Bean 实例 / B. 读取 spring.factories 获取候选自动配置类 / C. 执行 BeanPostProcessor / D. 启动内嵌 Tomcat → B
-- `[D20-11]` SpringCloud Alibaba 中，Gateway 和 Nginx 的正确分工是？
+- `[D20-10]` MySQL InnoDB 默认的事务隔离级别是？
+  A. 读未提交 / B. 读已提交 / C. 可重复读（RR）/ D. 串行化 → C
+- `[D20-11]` 以下哪个日志是 MySQL 的"物理日志"，记录"哪个数据页改了什么"？
+  A. binlog / B. redo log / C. undo log / D. slow log → B
+- `[D20-12]` B+ 树和 B 树的核心区别是？
+  A. B+ 树只有叶子节点存数据且有双向链表 / B. B 树更矮 / C. B+ 树不支持范围查询 / D. 两者没有区别 → A
+- `[D20-13]` 以下哪种情况会触发回表？
+  A. 通过主键查整行 / B. 通过普通索引查 SELECT * / C. 查询字段全部在索引中 / D. 通过主键查部分字段 → B
+- `[D20-14]` Redis 缓存穿透的解决方案是？
+  A. 增加缓存过期时间 / B. 布隆过滤器 + 缓存空值 / C. 使用分布式锁 / D. 增加副本 → B
+- `[D20-15]` Redis 缓存雪崩的解决方案是？
+  A. 增加缓存容量 / B. 过期时间加随机值打散 / C. 只用 RDB 持久化 / D. 增加节点 → B
+- `[D20-16]` Spring Boot 2.x 默认使用哪种动态代理？
+  A. JDK 动态代理（基于接口）/ B. CGLIB（基于继承）/ C. 不使用代理 / D. 随机选择 → B
+- `[D20-17]` @SpringBootApplication 等价于以下哪三个注解的组合？
+  A. @Configuration + @ComponentScan + @EnableAutoConfiguration / B. @SpringBootConfiguration + @ComponentScan + @EnableAutoConfiguration / C. @BootConfiguration + @BeanScan + @Autowired / D. @SpringBootConfiguration + @EnableWebMvc + @ComponentScan → B
+- `[D20-18]` 同一个 Service 类中，方法 A 调用加了 @Transactional 的方法 B，B 的事务是否生效？
+  A. 生效 / B. 不生效，因为是 this 调用绕过代理 / C. 取决于 A 是否有事务 / D. 取决于传播级别 → B
+- `[D20-19]` SpringCloud Alibaba 中，Gateway 和 Nginx 的正确分工是？
   A. 只用 Gateway 不用 Nginx / B. 客户端 → Nginx（反向代理+负载均衡+SSL）→ Gateway（路由+鉴权+限流）→ 微服务 / C. Nginx 和 Gateway 功能一样选一个就行 / D. Gateway 替代 Nginx 的所有功能 → B
-- `[D20-12]` @Transactional 在以下哪种情况不会失效？
-  A. 同一个类中方法 A 调用加了 @Transactional 的方法 B / B. 方法是 public 的 / C. 异常类型是 RuntimeException / D. 数据库引擎是 InnoDB → C
-- `[D20-13]` Redis RDB 和 AOF 的区别，以下哪个说法正确？
-  A. RDB 恢复慢但数据安全 / B. AOF 记录每个写命令，文件大但数据安全 / C. RDB 是定时快照可能丢数据 / D. 两者不能同时使用 → C
+- `[D20-20]` @Transactional 默认对哪种异常回滚？
+  A. 所有 Exception / B. 所有 Throwable / C. RuntimeException 和 Error / D. IOException 和 Exception → C
 
 #### 填空题
 
-- `[D20-14]` Java 不支持多继承，但支持多____。重写是同名____不同实现体，重载是同名不同____。→ 实现 / 同参 / 参数
-- `[D20-15]` 多态分两种：编译期多态是____（方法名相同参数不同），运行期多态是____（子类对象赋给父类引用）。→ 重载 / 重写
-- `[D20-16]` 线程 6 种状态：NEW、____、BLOCKED、WAITING、TIMED_WAITING、TERMINATED。→ RUNNABLE
-- `[D20-17]` 反射的核心类有：Class、Method、Field、____。反射在 Spring 中用于 IOC 实例化 Bean 和注解处理器。→ Constructor
-- `[D20-18]` SpringBoot 自动配置的三个核心条件注解：@ConditionalOn____、@ConditionalOn____、@ConditionalOn______。→ Class / Property / MissingBean
-- `[D20-19]` SRM 采购全流程口诀：PR → ____ → PO → ____ → 收货 → 质检 → ____ → 结算。→ RFQ / ASN / 三单匹配
-- `[D20-20]` 三单匹配是指 ____ + 收货单 + 发票，三单____一致才付款。→ PO / 金额
+- `[D20-21]` Java 不支持多继承但支持多____，重写是同名同参不同实现体，重载是同名不同____。 → 实现 / 参数列表
+- `[D20-22]` 多态分两种：编译期多态是____（方法名相同参数不同），运行期多态是____（子类对象赋给父类引用）。 → 重载 / 重写
+- `[D20-23]` HashMap 底层结构是数组+链表+____，链表长度≥8且数组≥64时转为____树。 → 红黑 / 红黑
+- `[D20-24]` HashMap 扩容时，阈值 = 数组容量 × ____（负载因子）。 → 0.75
+- `[D20-25]` 数组→List 用 Arrays.asList() 或 new ArrayList<>(Arrays.asList())；List→数组用 ____。 → list.toArray()
+- `[D20-26]` 线程 6 种状态：NEW、____、BLOCKED、WAITING、TIMED_WAITING、TERMINATED。 → RUNNABLE
+- `[D20-27]` 创建线程的 4 种方式：继承Thread、实现Runnable、实现____（有返回值）、线程池。 → Callable
+- `[D20-28]` sleep 是 Thread 的____方法，不释放锁；wait 是 Object 方法，释放锁，需要____/notifyAll 唤醒。 → 静态 / notify
+- `[D20-29]` volatile 两个作用：保证____性和禁止指令____。不保证原子性。 → 可见 / 重排序
+- `[D20-30]` synchronized 修饰实例方法锁____对象，修饰静态方法锁 Class 对象，修饰代码块锁____对象。 → 当前实例 / 指定
+- `[D20-31]` 保证原子性的三种方式：加锁、____类（CAS）、LongAdder。 → 原子（AtomicInteger/AtomicLong）
+- `[D20-32]` AQS 的核心公式：AQS = ____ + CLH 队列。ReentrantLock、CountDownLatch、Semaphore 底层都是 AQS。 → CAS
+- `[D20-33]` 反射的核心类有：Class、Method、Field、____。反射在 Spring 中用于 IOC 实例化 Bean 和注解处理器。 → Constructor
+- `[D20-34]` 设计模式中，AQS 用的是____模式，Spring AOP 用的是____模式，Spring Bean 默认是____模式。 → 模板方法 / 代理 / 单例
+- `[D20-35]` Spring IOC 的实现方式是 DI（____注入），通过 @Autowired/@Resource/构造器注入。 → 依赖
+- `[D20-36]` SpringBoot 自动配置的三个核心条件注解：@ConditionalOn____、@ConditionalOn____、@ConditionalOn______。 → Class / Property / MissingBean
+- `[D20-37]` SpringBoot 相比 Spring 的优势：自动配置、内嵌____、Starter 依赖集合、yml 统一配置。 → Tomcat
+- `[D20-38]` @EnableAutoConfiguration 通过 @Import(____) 读取 spring.factories 候选自动配置类。 → AutoConfigurationImportSelector
+- `[D20-39]` SpringCloud Alibaba 核心组件：Nacos（注册+配置中心）、Feign（声明式HTTP客户端）、Gateway（网关）、Sentinel（____）、Seata（分布式事务）。 → 限流熔断
+- `[D20-40]` RESTful 接口规范：URL 用名词不用动词，用 HTTP 方法表语义，返回语义状态码，统一____格式。 → 响应
+- `[D20-41]` InnoDB 引擎的聚簇索引叶子节点存____行数据，非聚簇索引叶子节点存____ ID（需回表）。 → 完整 / 主键
+- `[D20-42]` 事务 ACID 四大特性：原子性（____log保证）、一致性、隔离性（MVCC+锁）、持久性（____log保证）。 → undo / redo
+- `[D20-43]` MySQL 默认隔离级别可重复读通过 MVCC（快照读）+ ____ lock（当前读）基本消除幻读。 → next-key
+- `[D20-44]` MySQL 锁分类：表锁（粒度大并发低）、行锁（锁单行）、____锁（锁间隙防插入）。next-key lock = 行锁 + 间隙锁。 → 间隙
+- `[D20-45]` 查询重复数据：SELECT 字段, COUNT(*) FROM 表 GROUP BY 字段 HAVING COUNT(*) __ ____。 → > 1
+- `[D20-46]` Redis 五种基本数据结构：String（缓存/计数器/分布式锁）、Hash（对象存储）、List（消息队列）、Set（去重/共同好友）、____（排行榜）。 → ZSet
+- `[D20-47]` 缓存穿透是查不存在的数据直接打到数据库；缓存____是热点 key 过期瞬间大量请求打到数据库。 → 击穿
 
 #### 简答题
 
-- `[D20-21]` ConcurrentHashMap JDK7 和 JDK8 保证线程安全的方式有什么区别？
-  > JDK7 = 分段锁 Segment（默认16段，每段一把锁）；JDK8 = CAS + synchronized（空桶 CAS 直接插入，非空桶 synchronized 锁头节点）。JDK8 取消分段锁，并发度更高。Hashtable 也线程安全但方法级 synchronized 整表一把锁，性能差，生产不用。
-- `[D20-22]` 灰度发布和金丝雀发布是什么？实际项目怎么实现？
+- `[D20-48]` 请做一个简短的自我介绍，结合过往项目。
+  > 面试官您好，我叫姜飞扬，6 年 Java 后端开发经验。我最核心的经验在制造业数字化——参与过裕同智能制造项目，涉及 ERP、MES、WMS、AGV 调度等制造业信息化系统群的集成开发，熟悉从采购计划到生产执行到仓储的全链路业务。后续还做过政企信创项目，涉及国产数据库、中间件适配和低代码平台落地。技术栈 Spring Boot/Cloud、MyBatis、MySQL、Redis、RabbitMQ 都熟悉。汇川在工业自动化方面是行业标杆，我之前的制造业全链路经验跟咱们供应链采购系统的需求比较匹配。
+- `[D20-49]` 了解汇川技术吗？
+  > 汇川技术是工业自动化龙头上市公司，主要做变频器、伺服、PLC、新能源电驱这些。汇川在制造业信息化方面有大量需求，SRM 供应链采购系统是支撑采购业务的核心系统。
+- `[D20-50]` 怎么看待加班、出差？
+  > 加班和出差是项目需要，我能接受。之前做 MES 项目上线期间也经常加班，理解项目紧急时期需要投入。
+- `[D20-51]` 制造业软件和互联网开发的区别？你更倾向哪个？
+  > 我更倾向制造业，因为我有制造业全链路经验这是我的核心优势。区别上：互联网追求高并发、快速迭代、AB 测试；制造业更注重业务流程严谨性、系统集成稳定性、数据追溯完整性。制造业的业务复杂度在流程和集成上，不是流量上。
+- `[D20-52]` 面试最后反问环节你会问什么？
+  > 1. 咱们供应链采购团队目前的系统架构是什么样的？自研还是基于某个 SRM 产品？2. 入职后最先接触哪个业务模块？3. 团队技术栈和开发模式？
+- `[D20-53]` 抽象类和接口的区别？各自表达什么关系？
+  > 抽象类可以有构造方法、成员变量、已实现方法；接口只能有常量和抽象方法（JDK8 前）。一个类只能继承一个抽象类，但可以实现多个接口。抽象类表达"is-a"关系，接口表达"has-a"能力。
+- `[D20-54]` HashMap put 方法的完整流程是什么？
+  > hash 取模定位桶 → 桶为空直接放 → 有元素链表追加（8 个转红黑树）→ size > capacity × 0.75 扩容为 2 倍。JDK8 尾插法（JDK7 头插法多线程会死链）。线程安全用 ConcurrentHashMap。
+- `[D20-55]` ArrayList 和 LinkedList 的底层原理和区别？
+  > ArrayList 底层 Object 数组，默认 JDK8 懒加载首次 add 才初始化容量 10，扩容 1.5 倍，尾部追加 O(1) 均摊，中间插入 O(n)。LinkedList 底层双向链表，头尾增删 O(1)，中间插入先遍历定位 O(n)，内存不连续对 CPU 缓存不友好。实际项目基本都用 ArrayList。
+- `[D20-56]` IO 流了解多少？BIO 和 NIO 的区别？
+  > 字节流（InputStream/OutputStream）处理二进制，字符流（Reader/Writer）处理文本。NIO 核心 Selector 多路复用，一个线程管多个连接。BIO 一连接一线程，NIO 适合高并发。
+- `[D20-57]` 多线程创建的几种方式？
+  > 4 种：① 继承 Thread 重写 run()；② 实现 Runnable 接口传给 Thread；③ 实现 Callable（有返回值，配合 FutureTask）；④ 线程池（生产推荐）。
+- `[D20-58]` 多线程存在什么问题？怎么解决？
+  > 线程安全问题（竞态条件）、死锁、活锁、线程饥饿。解决：加锁（synchronized/ReentrantLock）、原子类（AtomicInteger/CAS）、线程安全的集合（ConcurrentHashMap）、线程池管理。
+- `[D20-59]` 死锁产生的必要条件？如何防止和排查？
+  > 四个必要条件：互斥、持有并等待、不可剥夺、循环等待。防止：① 固定加锁顺序破坏循环等待；② tryLock 超时放弃破坏不可剥夺；③ 一次性获取所有锁破坏持有并等待。排查：jps 找进程 → jstack 打印线程栈 → 看 "Found one Java-level deadlock"。
+- `[D20-60]` synchronized 和 ReentrantLock 对比？项目里用过什么锁？
+  > synchronized 简单好用自动释放，95% 场景够用；ReentrantLock 手动 lock/unlock（必须 finally），支持公平锁、tryLock 超时、可中断、多 Condition。项目里多产线并发用了 ReentrantLock。日常优先 synchronized，需要公平/超时才上 ReentrantLock。
+- `[D20-61]` volatile 关键字的作用？
+  > 两个作用：① 保证可见性（一个线程修改对其他线程立即可见）；② 禁止指令重排序。不保证原子性——volatile int count 的 count++ 仍然不安全。
+- `[D20-62]` 什么能保证操作原子性？
+  > ① 加锁（synchronized/ReentrantLock）；② 原子类（AtomicInteger/AtomicLong，底层 CAS）；③ LongAdder（分段累加，高并发性能更好）。
+- `[D20-63]` AQS 的原理？AQS 用到的设计模式？
+  > AQS = CAS（修改 state 变量）+ CLH 双向队列（排队的线程）。模板方法设计模式——AQS 定义 acquire/release 模板，子类实现 tryAcquire/tryRelease。ReentrantLock、CountDownLatch、Semaphore 底层都是 AQS。
+- `[D20-64]` 反射机制了解吗？
+  > 运行时获取类的信息（字段、方法、注解）并动态调用。核心类：Class、Method、Field、Constructor。应用场景：Spring IOC 实例化 Bean、MyBatis 映射参数、注解处理器。缺点：破坏封装性、性能差（JDK 有 Inflation 优化：前 15 次 native 反射，之后 ASM 生成字节码）。
+- `[D20-65]` 熟悉哪些设计模式？举例说明。
+  > ① 单例模式：Spring Bean 默认单例；② 工厂模式：BeanFactory 创建 Bean；③ 代理模式：AOP 动态代理（JDK/CGLIB）；④ 模板方法：AQS；⑤ 策略模式：线程池拒绝策略。这 5 个足够面试。
+- `[D20-66]` Spring IOC 是什么？底层原理？
+  > IOC 控制反转是一种思想，DI（依赖注入）是实现方式。把对象的创建和依赖关系交给 Spring 容器管理。底层：BeanDefinition 注册 → BeanFactory/ApplicationContext 创建 Bean → 实例化 → 属性赋值 → 初始化（@PostConstruct/InitializingBean）→ 使用 → 销毁。
+- `[D20-67]` AOP 是什么？项目中哪些场景用过？
+  > 面向切面编程，在不修改业务代码的前提下对方法进行增强。项目中：① 日志记录（记录接口调用参数和耗时）；② 声明式事务（@Transactional 底层就是 AOP）；③ 权限校验。底层：JDK 动态代理或 CGLIB，SpringBoot 2.x 默认 CGLIB。
+- `[D20-68]` SpringBoot 启动流程和先后顺序？
+  > ① SpringApplication.run() → ② 创建 ApplicationContext → ③ 注册 Banner/Initializer/Listener → ④ 加载自动配置类（@EnableAutoConfiguration → AutoConfigurationImportSelector → 读取 spring.factories → @Conditional 过滤）→ ⑤ 刷新容器（实例化 Bean）→ ⑥ 启动内嵌 Tomcat → ⑦ 发布 ApplicationReadyEvent。
+- `[D20-69]` yml 和 properties 配置文件区别？
+  > yml 支持层级结构，更易读；properties 是扁平键值对。yml 注意缩进严格，空格不能混用 tab。SpringBoot 两者都支持，优先级 properties > yml（同目录）。
+- `[D20-70]` SpringBoot 如何整合 MyBatis、MyBatis-Plus？
+  > ① 引入 starter；② 配置 yml（mapper-locations、datasource）；③ @MapperScan 扫描 Mapper 接口；④ Mapper 接口写 SQL（注解或 XML）；⑤ MyBatis-Plus 提供 BaseMapper CRUD 不用写 SQL，Wrapper 构建条件查询。
+- `[D20-71]` MySQL 索引是什么？B+ 树原理？B 树和 B+ 树区别？
+  > 索引是加速查询的数据结构。B+ 树特点：只有叶子节点存数据，内部节点只存 key；叶子节点双向链表连接，支持范围查询。B 树所有节点都存数据，没有链表连接。B+ 树层级低（3 层约 2000 万条），查询磁盘 I/O 次数固定。
+- `[D20-72]` 索引失效常见场景？
+  > ① 在索引列上用函数运算；② 隐式类型转换；③ 前导 % 模糊匹配（LIKE '%abc'）；④ 违反最左前缀原则；⑤ OR 条件中有一个列没索引；⑥ 不等于（!=、<>）；⑦ IS NOT NULL（某些情况）。
+- `[D20-73]` MySQL 可重复读隔离级别如何解决幻读？
+  > RR 本职解决不可重复读。MySQL 的 RR 配合 MVCC（快照读）+ next-key lock（当前读）基本消除幻读。MVCC：每次 select 读 undo log 版本链上的历史版本。当前读通过 next-key lock（记录锁+间隙锁）锁住范围防止插入。
+- `[D20-74]` Redis 缓存穿透、击穿、雪崩的解决方案？
+  > 穿透：查不存在的数据，用布隆过滤器或缓存空值。击穿：热点 key 过期瞬间，用互斥锁（只让一个线程查库重建）或热点 key 不过期（逻辑过期）。雪崩：大量 key 同时过期，用过期时间加随机值打散、多级缓存、熔断降级。
+- `[D20-75]` MQ 消息丢失、重复消费、积压处理思路？
+  > 消息丢失三环节：① 生产者 confirm 模式确认到达 Broker；② Broker 持久化（队列+消息）；③ 消费者手动 ACK，处理完业务再确认。重复消费做幂等：数据库唯一索引、Redis SETNX、业务状态判断。消息积压：临时扩容消费者，重度消息落库慢慢处理，排查消费慢的原因。
+- `[D20-76]` JVM 运行时数据区怎么划分？垃圾回收怎么做的？
+  > 线程私有：程序计数器、虚拟机栈、本地方法栈。线程共享：堆、方法区/元空间。垃圾回收主要回收堆，新生代用复制算法，老年代用标记清除/标记整理。常用收集器 CMS（已废弃，有碎片）和 G1（JDK9 默认，无碎片，可预测停顿）。
+- `[D20-77]` SRM 采购全流程是什么？
+  > PR（采购申请）→ RFQ（询报价）→ PO（采购订单）→ ASN（发货通知）→ 收货 → 质检 → 三单匹配（PO+收货单+发票金额一致）→ 结算。SRM 管采购协同，供应商通过 SRM 提交报价、确认订单、查看对账。
+- `[D20-78]` 三单匹配是什么？为什么需要？
+  > 三单匹配 = 采购订单（PO）+ 收货单 + 发票，三单金额一致才付款。作用：防止超付、漏付、重复付，确保采购结算准确。制造业 ERP/SRM 的核心财务控制机制。
+- `[D20-79]` 介绍两个核心项目，技术栈、业务亮点。
+  > 裕同 MES 项目：Spring Boot + MyBatis + MySQL + Redis + RabbitMQ。负责后端业务接口和系统间数据对接，核心业务包括工单管理、物料齐套校验、质量追溯、MES 与 ERP/WMS 的数据同步。政企信创项目：Spring Cloud Alibaba + 达梦数据库 + 低代码平台。负责国产数据库适配（Oracle/MySQL→达梦迁移）、低代码平台落地、系统集成。
+- `[D20-80]` 项目中遇到的难点？如何分析并解决？
+  > MES 项目中多系统数据同步不一致的问题。排查思路：查看接口日志发现某次 ERP 推送 MES 失败但没有重试机制。解决方案：① 接口日志全量记录；② 唯一业务单号防重复；③ 增加消息补偿机制（MQ 异步重试 + 对账定时任务 + 人工兜底）。
+- `[D20-81]` 日常工作遇到问题，排查解决思路？
+  > ① 先看日志定位报错信息；② 看监控（接口 RT、错误率）；③ 复现问题；④ 定位根因；⑤ 修复并验证；⑥ 总结文档化。
+- `[D20-82]` SpringData 了解吗？
+  > Spring Data 是 Spring 对数据访问的抽象封装，简化数据库操作。Spring Data JPA 自动生成 SQL（Repository 接口不用写实现），Spring Data Redis 封装 Redis 操作。生产项目主要用 MyBatis/MyBatis-Plus，JPA 用得少。
+- `[D20-83]` SpringBoot 怎么引入 JS 静态资源？
+  > 静态资源默认放在 src/main/resources/static/ 目录下，直接通过 /js/xxx.js 访问。也可以自定义静态资源路径（spring.web.resources.static-locations）。前后端分离项目一般不用 SpringBoot 管前端资源，前端独立部署。
+- `[D20-84]` 灰度发布和金丝雀发布是什么？实际项目怎么实现？
   > 都是先小范围验证再全量发布。灰度发布：新版本先给 5% 流量用，没问题再扩大。实现：Nacos + Gateway 配置路由规则，按用户 ID 或 IP 灰度分流。金丝雀发布：同一个概念，名字来自矿井放金丝雀检测有毒气体。先少量请求走新版本观察异常，无异常再全量。
-- `[D20-23]` SRM 在制造业信息化链路中的位置？MES 经验怎么往 SRM 桥接？
-  > 链路：供应商 ←→ SRM（采购协同）←→ ERP（计划/账务）←→ MES/WMS（生产/仓储）。SRM 管采购，ERP 管计划和结算，MES 管生产。桥接话术：没直接做过 SRM 但做过全链路集成。ERP 下发采购订单、物料到货后入库批次追溯、供应商质量问题追溯到具体批次——MES 侧都做过，思路完全一致。
-- `[D20-24]` MQ 消息丢失怎么全链路保障？重复消费怎么处理？消息积压怎么排查？
-  > 消息丢失三环节：生产者 confirm 模式确认到达；Broker 队列+消息持久化；消费者手动 ACK 业务处理完再确认。重复消费做幂等：数据库唯一索引、Redis SETNX（消息 ID 做 key）、业务状态判断。消息积压：先排查原因（消费慢/消费者挂/生产>消费），轻度加消费者，重度消息落库再慢慢处理。
-- `[D20-25]` 分布式链路排查用什么工具？Seata 分布式事务中 undo_log 的作用？
-  > 链路追踪用 SkyWalking（每个请求生成 TraceId，跨服务可追踪）。Seata 的 undo_log 用于 AT 模式回滚——每个分支事务修改前记录原始值到 undo_log，全局事务回滚时根据 undo_log 恢复数据。
 
 ---
 
